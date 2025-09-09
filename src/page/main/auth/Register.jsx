@@ -1,10 +1,13 @@
 // src/pages/Register.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/register.css";
 import { FiEdit3, FiUser } from "react-icons/fi";
-
+import SuccessModal from "./SuccessModal";
 
 export default function Register() {
+    const navigate = useNavigate();
+    const [showSuccess, setShowSuccess] = useState(false);
     const [form, setForm] = useState({
         email: "",
         password: "",
@@ -20,8 +23,13 @@ export default function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("회원가입 정보:", form);
+    
         // TODO: 백엔드 전송
-    };
+        setShowSuccess(true);
+    
+        // 자동 이동 (1.5초 후)
+        setTimeout(() => navigate("/"), 1500);
+      };
 
     return (
         <div className="auth-wrapper">
@@ -92,6 +100,12 @@ export default function Register() {
 
                 <button type="submit" className="submit-btn">회원가입 완료</button>
             </form>
+
+            <SuccessModal
+                open={showSuccess}
+                name={form.name}
+                onClose={() => navigate("/main")}
+            />
         </div>
     );
 }

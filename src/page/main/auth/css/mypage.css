@@ -1,0 +1,85 @@
+/* 전체 레이아웃 */
+.mypage-container {
+    display: flex;
+    min-height: 70vh;
+    margin-top: 4.5rem;
+    max-width: 1200px;
+    /* 원하는 고정 최대 너비 */
+    margin-left: auto;
+    margin-right: auto;
+    align-items: flex-start;
+}
+
+
+.sidebar {
+    width: 240px;
+    background-color: #141414;
+    border-right: 1px solid #2a2a2a;
+    padding: 3rem 1.5rem;
+    flex-shrink: 0;
+    min-height: 600px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    font-size: 1rem;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+}
+
+.sidebar li.active {
+    color: #FFD945;
+    font-weight: bold;
+}
+
+
+/* 콘텐츠 */
+.content {
+    flex: 1;
+    background-color: #1e1e1e;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+
+}
+
+/* 프로필 카드 */
+.profile-card {
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    min-width: 900px;
+    min-height: 600px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.info-row .label {
+    color: #FFD945;
+    font-weight: bold;
+}
+
+/* 버튼 */
+.delete-btn {
+    margin-top: 1.5rem;
+    background-color: #2e2e2e;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background-color: #e53935;
+}
