@@ -1,0 +1,335 @@
+/* ===== 색/타이포 변수 ===== */
+:root {
+    --color-bg: #0b0d12;
+    --color-text: #f7f7fb;
+    --radius-card: 18px;
+    --gap-md: 24px;
+    --gap: 24px;
+    --bg-start: #0b0d12;
+    --bg-end: #171a23;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body,
+html,
+#root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(160deg, #0b0d12, #171a23);
+    color: #f7f7fb;
+}
+
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, 0));
+    border-bottom: 1px solid var(--stroke);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    opacity: .95;
+}
+
+.brand img {
+    width: 32px;
+    height: 32px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.menu a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all .2s;
+}
+
+.menu a:hover {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.mypage {
+    margin-left: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--stroke);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+    color: var(--text);
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+}
+
+.mypage:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 32px auto 80px;
+    padding: 0 20px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: .3px;
+    margin: 26px 0 22px;
+}
+
+.section-title .star {
+    color: var(--primary);
+    margin: 0 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+}
+
+
+/* ===== 카드 ===== */
+.card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .08);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, .35);
+    text-decoration: none;
+    color: inherit;
+    transition: transform .2s ease, box-shadow .25s ease, border-color .2s ease;
+}
+
+.card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 14px;
+}
+
+.card:hover {
+    transform: translateY(-4px) scale(1.01);
+    border-color: rgba(255, 255, 255, .22);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, .45);
+}
+
+.poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+}
+
+.placeholder {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2/3;
+    background: #2a2f3a;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.16) 20%, rgba(255, 255, 255, 0.06) 40%);
+    transform: translateX(-100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.ph-text {
+    position: relative;
+    z-index: 1;
+    color: #d1d5e4;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 12px 14px;
+}
+
+.title {
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cta {
+    padding: 6px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--stroke);
+    background: rgba(91, 140, 255, .14);
+    color: var(--text);
+    cursor: pointer;
+}
+
+.cta:hover {
+    background: rgba(91, 140, 255, .22);
+}
+
+.rank {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-weight: 800;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #151821;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+    border: 1px solid rgba(255, 255, 255, .25);
+    background: linear-gradient(180deg, #cfcfcf, #9aa0ad);
+
+}
+
+.rank-1 {
+    background: linear-gradient(180deg, #ffe18a, #e9b100);
+    color: #1b1400;
+}
+
+.rank-2 {
+    background: linear-gradient(180deg, #e5e8ee, #bfc7d6);
+    color: #0d111a;
+}
+
+.rank-3 {
+    background: linear-gradient(180deg, #ffd0a4, #ff8f3c);
+    color: #1b0f00;
+}
+
+.rail-overlap-wrap {
+    position: relative;
+    isolation: isolate;
+}
+
+
+
+.nav-pill {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    width: 46px;
+    height: clamp(120px, 30vh, 240px);
+    border-radius: 9999px;
+    border: 1px solid var(--stroke);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .04));
+    backdrop-filter: blur(8px);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, .35);
+    transition: transform .15s, background .15s, opacity .15s, box-shadow .15s;
+    pointer-events: auto;
+}
+
+.nav-pill:hover {
+    transform: translateY(-50%) scale(1.03);
+    background: rgba(255, 255, 255, .14);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, .45);
+}
+
+.nav-pill:disabled {
+    opacity: .35;
+    cursor: default;
+    transform: translateY(-50%);
+}
+
+.nav-pill-left {
+    left: 6px;
+}
+
+.nav-pill-right {
+    right: 6px;
+}
+
+.edge-fade {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 64px;
+    z-index: 4;
+    pointer-events: none;
+}
+
+.edge-fade.left {
+    left: 0;
+    background: linear-gradient(90deg, rgba(11, 13, 18, .9), rgba(11, 13, 18, 0));
+}
+
+.edge-fade.right {
+    right: 0;
+    background: linear-gradient(270deg, rgba(11, 13, 18, .9), rgba(11, 13, 18, 0));
+}
+
+.viewport {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 6px 8px 14px;
+
+}
+
+.track {
+    display: flex;
+    gap: var(--gap);
+    will-change: transform;
+    transition: transform .35s ease;
+}
+
+
+.track .card {
+    flex: 0 0 calc((100% - (var(--gap) * 3)) / 4);
+}
