@@ -1,0 +1,93 @@
+.reviews-section {
+    padding-top: 40px;
+}
+
+.reviews-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ffcc00;
+    margin-bottom: 20px;
+}
+/* 공통: 그리드 열을 명확히 고정 */
+.board-header, .board-row {
+    display: grid;
+    /* [포스터|영화|별점|작성일|내용|액션] */
+    grid-template-columns: 90px 1.5fr 0.9fr 1.1fr minmax(280px, 3fr) 0.8fr;
+    align-items: center;
+    column-gap: 12px;
+  }
+  
+  /* 행 높이/넘침 제어 */
+  .board-row {
+    padding: 12px 16px;
+    border-bottom: 1px solid #2a2a2a;
+    color: #eaeaea;
+    min-height: 84px;              /* 행 높이 일정 */
+  }
+  
+  .board-row .col {
+    min-width: 0;                  /* 그리드 내부 너비 계산 허용 */
+    overflow: hidden;              /* 넘치는 내용 숨김 */
+  }
+  
+  /* 포스터 칼럼 */
+  .poster-col { justify-content: center; }
+  .poster-xs {
+    width: 60px; height: 86px; object-fit: cover; border-radius: 6px;
+  }
+  
+  /* 영화 제목: 한 줄 말줄임 */
+  .title-col {
+    font-weight: 700; color: #fff;
+    overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+  }
+  
+  /* 별점: 한 줄 유지 */
+  .rating-col { white-space: nowrap; }
+  .stars { white-space: nowrap; }
+  .stars .score { margin-left: 4px; font-size: 12px; color: #ddd; }
+  
+  /* 작성일: 내부에서 두 줄로 세워 배치(고정폭에서 넘침 방지) */
+  .date-col {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 2px;
+    white-space: nowrap;     /* 날짜/시간이 줄 안바뀌게 */
+    overflow: hidden;
+  }
+  .date-col .date { color: #bbb; font-size: 13px; }
+  .date-col .time { color: #999; font-size: 12px; }
+  
+  /* 내용: 2줄 고정 미리보기 */
+  .preview-col {
+    overflow: hidden;
+  }
+  .preview {
+    color: #ddd; font-size: 14px; line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    overflow: hidden; /* 2줄 넘치면 자르기 */
+  }
+  
+  /* 액션 버튼이 칼럼을 밀지 않게 */
+  .action-col { justify-content: flex-end; }
+  .ghost.sm {
+    padding: 6px 10px; font-size: 12px; border-radius: 8px;
+    border: 1px solid #333; background: transparent; color: #ddd;
+  }
+  
+  /* 호버 배경 */
+  .board-row:hover { background: #232323; }
+  
+  /* 반응형: 폭이 좁을 때 내용 폭을 우선 확보하고 포스터/별점 축소 */
+  @media (max-width: 900px) {
+    .board-header, .board-row {
+      grid-template-columns: 0px 1.6fr 0.7fr 0.9fr minmax(220px, 3fr) 0.8fr;
+    }
+    .poster-col { display: none; }
+  }
+  @media (max-width: 640px) {
+    .board-header, .board-row {
+      grid-template-columns: 1.2fr 0.7fr 0.9fr 2.2fr 0.8fr; /* [영화|별점|작성일|내용|액션] */
+    }
+  }
+  

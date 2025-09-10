@@ -1,0 +1,73 @@
+/* 중앙 정렬용 */
+.container {
+
+  max-width: 1200px;
+  margin: 30 auto;
+  padding: 0 24px;
+}
+
+/* ===== 마이페이지 레이아웃 ===== */
+.side-layout {
+  display: flex;
+  min-height: 600px;
+  background-color: #111;
+  color: #fff;
+}
+
+.sidebar {
+  width: 220px;
+  background: #1c1c1c;
+  padding: 25px 20px;
+  border-right: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin-bottom: 15px;
+}
+
+.sidebar button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #bbb;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar button:hover {
+  background: #ffcc00;
+  color: #000;
+}
+
+.sidebar button.active {
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+}
+
+.page-content {
+  flex: 1;
+  padding-left: 30px;
+  background: #181818;
+  border-left: 1px solid #333;
+  min-height: 600px;
+}
+
+.page-content h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #ffcc00;
+}

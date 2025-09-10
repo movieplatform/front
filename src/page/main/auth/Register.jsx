@@ -43,7 +43,7 @@ export default function Register() {
 
                 {/* 입력 필드 */}
                 <label>
-                    <span className="label">이메일</span>
+                    <span className="logintext">이메일</span>
                     <input
                         name="email"
                         type="email"
@@ -54,7 +54,7 @@ export default function Register() {
                 </label>
 
                 <label>
-                    <span className="label">비밀번호</span>
+                    <span className="logintext">비밀번호</span>
                     <input
                         name="password"
                         type="password"
@@ -66,7 +66,7 @@ export default function Register() {
 
                 <div className="row">
                     <label>
-                        <span className="label">이름</span>
+                        <span className="logintext">이름</span>
                         <input
                             name="name"
                             type="text"
@@ -77,7 +77,7 @@ export default function Register() {
                     </label>
 
                     <label>
-                        <span className="label">전화번호</span>
+                        <span className="logintext">전화번호</span>
                         <input
                             name="phone"
                             type="tel"
@@ -89,7 +89,7 @@ export default function Register() {
                 </div>
 
                 <label>
-                    <span className="label">생년월일</span>
+                    <span className="logintext">생년월일</span>
                     <input
                         name="birth"
                         type="date"

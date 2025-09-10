@@ -3,7 +3,7 @@ import Layout from "./page/commonUI/Layout";
 import Main from './page/main/Main';
 import Login from './page/main/auth/Login';
 import Register from './page/main/auth/Register';
-import MyPage from "./page/main/auth/MyPage";
+import MyPage from "./page/main/auth/MyPage/MyPage";
 import './App.css';
 
 function App() {

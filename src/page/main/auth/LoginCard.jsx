@@ -22,7 +22,7 @@ export default function LoginCard() {
             <h1 className="login-title">LOGIN</h1>
 
             <label className="field">
-                <span className="label">계정</span>
+                <span className="logintext">계정</span>
                 <div className="input-wrap">
                     <FaUser className="icon" />
                     <input
@@ -35,7 +35,7 @@ export default function LoginCard() {
             </label>
 
             <label className="field">
-                <span className="label">비밀번호</span>
+                <span className="logintext">비밀번호</span>
                 <div className="input-wrap">
                     <FaLock className="icon" />
                     <input

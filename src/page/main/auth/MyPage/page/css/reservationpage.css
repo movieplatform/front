@@ -1,0 +1,92 @@
+.reservations-section {
+  padding-top: 40px;
+}
+
+.reservations-section h2 {
+  font-size: 24px;
+  color: #ffcc00;
+  margin-bottom: 30px;
+}
+
+.reservation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.reservation-ticket {
+  display: flex;
+  background-color: #1c1c1c;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  color: #fff;
+}
+
+.ticket-left {
+  margin-top:20px;
+  margin-bottom:20px;
+  min-width: 200px;
+  min-height: 250px;
+  height: 100%;
+  background-color: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.poster {
+  width: 160px;
+  height: 220px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.ticket-right {
+  flex: 1;
+  padding: 16px 22px;
+  margin-left:30px;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 8px;
+}
+
+.ticket-id {
+  font-weight: bold;
+  color: #ff5555;
+}
+
+.price {
+  color: #00ccff;
+  font-weight: bold;
+}
+
+.movie-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 12px;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid #333;
+  font-size: 15px;
+}
+
+.ticket-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #bbb;
+  width: 100px;
+}

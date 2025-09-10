@@ -79,7 +79,7 @@ export default function CarouselRow({ movies = [], title = "평점 높은 영화
     return (
         <section className="carousel">
             <h2 className="section-title">
-                <span className="star">★</span> {title} <span className="star">★</span>
+                <span className="star"></span> {title} <span className="star"></span>
             </h2>
 
             <div ref={viewportRef} className="viewport">

@@ -17,7 +17,10 @@
     margin-bottom: 8px;
     color: #000;
 }
-
+.logintext{
+    color:#000;
+    font-weight:800;
+}
 .field {
     display: flex;
     flex-direction: column;

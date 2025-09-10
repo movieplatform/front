@@ -1,0 +1,58 @@
+.profile-section {
+
+  }
+  
+  .profile-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcc00;
+   
+  }
+  
+  .profile-card {
+    margin: 0 auto;
+    background-color: #1c1c1c;
+    border-radius: 12px;
+    padding: 24px 32px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+  }
+  
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #333;
+  }
+  
+  .info-row:last-of-type {
+    border-bottom: none;
+  }
+  
+  .label {
+    color: #ffcc00;
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .value {
+    color: #fff;
+    font-size: 16px;
+  }
+  
+  .delete-btn {
+    margin-top: 20px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .delete-btn:hover {
+    background-color: #ddd;
+  }
+  
