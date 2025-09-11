@@ -3,6 +3,9 @@ import "./main.css";
 import Header from "../commonUI/Header";
 import CarouselRow from "./CarouselRow";
 import { getMovies } from "../api/movies";
+import Faq from "./Faq";
+import Footer from "../commonUI/Footer"
+
 
 export default function Main() {
   const [movies, setMovies] = useState([]);
@@ -15,10 +18,15 @@ export default function Main() {
 
 
   return (
+
     <div className="page">
+      {/*Header는 commonUI 레이아웃에 정의해놨음*/}
       <main className="container">
         <CarouselRow title="평점 높은 영화" movies={movies} />
+        <Faq />
+
       </main>
+      <Footer />
     </div>
   );
 }

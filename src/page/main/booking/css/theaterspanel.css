@@ -1,0 +1,66 @@
+.theaters-panel {
+  background: #1a1d26;
+  color: #eee;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 헤더 줄 */
+.theaters-header {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* 좌: 지역 / 우: 극장 */
+  border-bottom: 2px solid #2c2f38;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ddd;
+}
+.theaters-header h3{
+  font-size: 14px;
+  font-weight: 600;
+  color: #ddd;
+}
+/* 2열 구조 */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  /* 왼쪽:지역 / 오른쪽:극장 */
+  gap: 16px;
+  height: 100%;
+}
+
+.col h3 {
+  font-size: 14px;
+  color: #aaa;
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #2c2f38;
+}
+
+.col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.col li {
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+
+}
+
+/* hover */
+.col li:hover {
+  background: #2a2f38;
+  color: #f7c948;
+}
+
+/* active */
+.col li.active {
+  background: #f7c948;
+  color: #111;
+  font-weight: 600;
+}

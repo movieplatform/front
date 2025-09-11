@@ -67,9 +67,9 @@ export default function InquiriesPage() {
               <div className="inquiry-card" key={it.id}>
                 <div className="inquiry-head" onClick={() => toggleOpen(it.id)}>
                   <div className="left">
-                    <span className={`badge ${isAnswered ? "answered" : "pending"}`}>
-                      {isAnswered ? "답변완료" : "대기"}
-                    </span>
+                  <span className={`status-badge ${isAnswered ? "answered" : "pending"}`}>
+      {isAnswered ? "답변완료" : "대기"}
+    </span>
                     <span className="title">{it.title}</span>
                   </div>
                   <div className="right">
@@ -111,11 +111,6 @@ export default function InquiriesPage() {
                       </div>
                     </div>
 
-
-                    {/* 필요 시: 상세 버튼/재문의 버튼 등 */}
-                    {/* <div className="actions">
-                      <button className="ghost">재문의</button>
-                    </div> */}
                   </div>
                 )}
               </div>

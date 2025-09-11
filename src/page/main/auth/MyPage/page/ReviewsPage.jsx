@@ -65,51 +65,7 @@ export default function ReviewsPage() {
     <div className="reviews-section">
       <h2>리뷰 내역</h2>
 
-      {data.length === 0 ? (
-        <div className="board empty">작성한 리뷰가 없습니다.</div>
-      ) : (
-        <div className="board">
-          <div className="board-header">
-            <div className="col poster-col">포스터</div>
-            <div className="col title-col">영화</div>
-            <div className="col rating-col">별점</div>
-            <div className="col date-col">작성일</div>
-            <div className="col preview-col">내용</div>
-            <div className="col action-col">액션</div>
-          </div>
-
-          {data.map((rv) => (
-            <div className="board-row" key={rv.id}>
-              <div className="col poster-col">
-                <img
-                  src={rv.posterUrl}
-                  alt={`${rv.movieTitle} 포스터`}
-                  className="poster-xs"
-                  onError={(e) => {
-                    e.currentTarget.src = "/asset/placeholder_poster.jpg";
-                  }}
-                />
-              </div>
-              <div className="col title-col ellipsis" title={rv.movieTitle}>
-                {rv.movieTitle}
-              </div>
-              <div className="col rating-col">
-                <Star value={rv.rating} />
-              </div>
-
-              <div className="col date-col">{rv.createdAt}</div>
-              <div className="col preview-col preview">
-                {rv.content}
-              </div>
-              <div className="col action-col">
-                <button className="ghost sm">보기</button>
-                {/* <button className="ghost sm">수정</button>
-                <button className="danger sm">삭제</button> */}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+    
     </div>
   );
 }
