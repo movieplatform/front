@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../commonUI/Header"; // 이미 만든 헤더
-
+import Header from "./Header";
 export default function Layout() {
     return (
         <>

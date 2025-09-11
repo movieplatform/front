@@ -5,7 +5,7 @@ import { FiSearch } from "react-icons/fi";
 
 export default function Header() {
     return (
-        <header className="hdr">
+        <div className="hdr">
             <div className="hdr-top">
                 <div className="container">
                     <nav className="top-auth">
@@ -24,7 +24,7 @@ export default function Header() {
                             <FiSearch size={20} />
                         </button>
                         <a className="navlink active" href="/movies">영화</a>
-                        <a className="navlink" href="#">버튼 3</a>
+                        <a className="navlink" href="/booking">영화 예매</a>
                     </div>
 
                     {/* 가운데 로고 */}
@@ -41,6 +41,6 @@ export default function Header() {
                     </div>
                 </div>
             </div>
-        </header>
+        </div>
     );
 }

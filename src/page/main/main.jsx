@@ -18,11 +18,11 @@ export default function Main() {
 
 
   return (
+
     <div className="page">
+      {/*Header는 commonUI 레이아웃에 정의해놨음*/}
       <main className="container">
         <CarouselRow title="평점 높은 영화" movies={movies} />
-
-
         <Faq />
 
       </main>

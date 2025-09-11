@@ -4,7 +4,6 @@ import "./main.css";
 export default function CarouselRow({ movies = [], title = "평점 높은 영화" }) {
     const viewportRef = useRef(null);
     const trackRef = useRef(null);
-
     const VISIBLE = 4;
     const [index, setIndex] = useState(0);
     const maxIndex = Math.max(0, movies.length - VISIBLE);

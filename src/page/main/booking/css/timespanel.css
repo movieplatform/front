@@ -1,0 +1,78 @@
+.times-panel {
+  background: #222632;
+  color: #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 헤더 줄 */
+.times-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-bottom: 2px solid #2c2f38;
+}
+
+.times-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ddd;
+}
+
+.filter-options button {
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 13px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.filter-options button:hover {
+  color: #f7c948;
+}
+
+/* 날짜 버튼 */
+.days {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.days button {
+  padding: 8px 12px;
+  border: 1px solid #444;
+  background: #1c202b;
+  color: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.days button:hover {
+  background: #2a2f38;
+  color: #f7c948;
+}
+
+/* 시간 버튼 */
+.times {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.times button {
+  padding: 8px 12px;
+  border: 1px solid #444;
+  background: #1c202b;
+  color: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.times button:hover {
+  background: #2a2f38;
+  color: #f7c948;
+}

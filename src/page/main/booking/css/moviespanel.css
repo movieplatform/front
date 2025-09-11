@@ -1,0 +1,54 @@
+.movie-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.movies-panel{
+  background: #1c202b;
+}
+.movie-list li {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.movie-list li:hover {
+  background: #f5f5f5;
+}
+/* 헤더 영역 (위쪽 줄) */
+.movies-header {
+  display: block;
+  justify-content: space-between;
+  text-align: center;
+  border-bottom: 2px solid #2c2f38;
+}
+.movies-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ddd;
+}
+
+.badge {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 26px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.badge.r12 {
+  background: #ffd88a;
+}
+
+.badge.r15 {
+  background: #ffb973;
+}
+
+.badge.r19 {
+  background: #ff7d7d;
+}
