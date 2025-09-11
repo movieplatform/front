@@ -1,5 +1,6 @@
 // src/components/LoginCard.jsx
 import React, { useState } from "react";
+import axios from "axios";
 import { FaUser, FaLock } from "react-icons/fa";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import googlelogo from "../../asset/googlelogo.jpg"
@@ -11,10 +12,31 @@ export default function LoginCard() {
     const [showPassword, setShowPassword] = useState(false);
     const [saveId, setSaveId] = useState(true);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("로그인 시도:", account, password, saveId);
         // TODO: 백엔드 API 호출
+        try {
+            const response = await axios.post(
+                "http://localhost:8080/login",
+                { username: account, password: password },
+                {
+                    withCredentials: true,
+                }
+            );
+
+            console.log("로그인 성공!", response.data);
+            alert("로그인 성공!");
+            window.location.href = "/";
+        } catch (error) {
+            console.error("로그인 실패", error.response.data);
+            alert("로그인 실패: 이메일 또는 비밀번호가 올바르지 않습니다.");
+        }
+    };
+
+    const handleGoogleLogin = () => {
+        // 백엔드 서버의 OAuth2 시작 URL로 리다이렉션
+        window.location.href = "http://localhost:8080/oauth2/authorization/google";
     };
 
     return (
@@ -27,7 +49,7 @@ export default function LoginCard() {
                     <FaUser className="icon" />
                     <input
                         type="text"
-                        placeholder="계정을 입력해주세요"
+                        placeholder="이메일 계정을 입력해주세요"
                         value={account}
                         onChange={(e) => setAccount(e.target.value)}
                     />
@@ -68,7 +90,7 @@ export default function LoginCard() {
 
             <button type="submit" className="btn primary">로그인</button>
 
-            <button type="button" className="btn google">
+            <button type="button" className="btn google" onClick={handleGoogleLogin}>
                 <img src={googlelogo} alt="Google Logo" />
                 Google 계정으로 로그인
             </button>
