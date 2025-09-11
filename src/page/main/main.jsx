@@ -3,6 +3,9 @@ import "./main.css";
 import Header from "../commonUI/Header";
 import CarouselRow from "./CarouselRow";
 import { getMovies } from "../api/movies";
+import Faq from "./Faq";
+import Footer from "../commonUI/Footer"
+
 
 export default function Main() {
   const [movies, setMovies] = useState([]);
@@ -18,7 +21,12 @@ export default function Main() {
     <div className="page">
       <main className="container">
         <CarouselRow title="평점 높은 영화" movies={movies} />
+
+
+        <Faq />
+
       </main>
+      <Footer />
     </div>
   );
 }
