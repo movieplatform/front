@@ -58,12 +58,12 @@ input {
 }
 
 /* 이름/전화번호 나란히 */
-.row {
+.name-row {
     display: flex;
     gap: 12px;
 }
 
-.row label {
+.name-row label {
     flex: 1;
     display: flex;
     flex-direction: column;

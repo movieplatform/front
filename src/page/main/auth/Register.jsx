@@ -23,13 +23,11 @@ export default function Register() {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("회원가입 정보:", form);
-    
+
         // TODO: 백엔드 전송
         setShowSuccess(true);
-    
-        // 자동 이동 (1.5초 후)
         setTimeout(() => navigate("/"), 1500);
-      };
+    };
 
     return (
         <div className="auth-wrapper">
@@ -64,7 +62,7 @@ export default function Register() {
                     />
                 </label>
 
-                <div className="row">
+                <div className="name-row">
                     <label>
                         <span className="logintext">이름</span>
                         <input

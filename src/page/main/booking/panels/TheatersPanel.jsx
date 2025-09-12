@@ -15,8 +15,9 @@ export default function TheatersPanel() {
     return (
         <div className="panel theaters-panel">
             <div className="theaters-header">
-                <h3>지역 선택</h3>
-                <h3>극장 선택</h3>
+                <h3 className="center-text">지역 선택</h3>
+                <h3 className="center-text">극장 선택</h3>
+
             </div>
             <div className="columns">
 
