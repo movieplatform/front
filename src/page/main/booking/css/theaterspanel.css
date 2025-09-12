@@ -9,17 +9,24 @@
 /* 헤더 줄 */
 .theaters-header {
   display: grid;
-  grid-template-columns: 1fr 1.2fr; /* 좌: 지역 / 우: 극장 */
+  grid-template-columns: 1fr 1.2fr;
+  /* 좌: 지역 / 우: 극장 */
   border-bottom: 2px solid #2c2f38;
   font-size: 14px;
   font-weight: 600;
   color: #ddd;
 }
-.theaters-header h3{
+
+.theaters-header h3 {
   font-size: 14px;
   font-weight: 600;
   color: #ddd;
 }
+
+.center-text {
+  text-align: center;
+}
+
 /* 2열 구조 */
 .columns {
   display: grid;
@@ -63,4 +70,70 @@
   background: #f7c948;
   color: #111;
   font-weight: 600;
+}
+
+.movie-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movie-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #2c2f38;
+  cursor: pointer;
+}
+
+.movie-row:hover {
+  background: #1a1d26;
+}
+
+.movie-row.active {
+  font-weight: bold;
+  background: #22252f;
+}
+
+.badge {
+  display: inline-block;
+  min-width: 28px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 12px;
+  color: #fff;
+}
+
+.rating-12 {
+  background: #d4a017;
+}
+
+/* 노랑 */
+.rating-15 {
+  background: #d46a17;
+}
+
+/* 주황 */
+.rating-19 {
+  background: #d41717;
+}
+
+/* 빨강 */
+.rating-ALL {
+  background: #17d447;
+}
+
+/* 초록 */
+
+.movie-title {
+  flex: 1;
+}
+
+.checkmark {
+  color: #e63946;
+  font-size: 14px;
+  margin-left: 8px;
 }

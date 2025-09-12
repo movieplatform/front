@@ -21,7 +21,7 @@ export default function LoginCard() {
                 "http://localhost:8080/api/login",
                 { username: account, password: password },
                 {
-                    withCredentials: true,
+                    withCredentials: true, //쿠키 주고 받는거 true
                 }
             );
 
