@@ -85,3 +85,9 @@ input {
 .submit-btn:hover {
     background: #e4e4e9;
 }
+
+.error-text {
+    color: #ff4d4f;
+    font-size: 13px;
+    margin-top: 4px;
+}

@@ -18,7 +18,7 @@ export default function LoginCard() {
         // TODO: 백엔드 API 호출
         try {
             const response = await axios.post(
-                "http://localhost:8080/login",
+                "http://localhost:8080/api/login",
                 { username: account, password: password },
                 {
                     withCredentials: true,
