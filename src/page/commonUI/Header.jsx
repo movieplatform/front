@@ -7,24 +7,22 @@ import axios from "axios";
 export default function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
 
-    // 로그인 상태 확인  엔드포인트는 그냥예시임 만들때 알아서
-    // useEffect(() => {
-    //     axios.get("http://localhost:8080/check-session", { withCredentials: true })
-    //         .then(() => setLoggedIn(true))
-    //         .catch(() => setLoggedIn(false));
-    // }, []);
+    useEffect(() => {
+        axios.get("http://localhost:8080/api/session", { withCredentials: true })
+            .then((res) => setLoggedIn(res.data)) // res.data가 true면 로그인, false면 미로그인
+            .catch(() => setLoggedIn(false));
+    }, []);
 
     //로그아웃하는 컨트롤러만 연결 ㄱㄱ
     const handleLogout = async () => {
         try {
-            await axios.post("http://localhost:8080/logout", {}, { withCredentials: true });
+            await axios.post("http://localhost:8080/api/logout", {}, { withCredentials: true });
             setLoggedIn(false);
             window.location.href = "/"; // 홈으로 이동
         } catch (error) {
             console.error("로그아웃 실패", error);
         }
     };
-
 
     return (
         <div className="hdr">
