@@ -1,16 +1,24 @@
 /* ===== 패널 공통 ===== */
 .panel.movies-panel {
     padding: 20px;
+    background: linear-gradient(160deg, #0b0d12, #171a23);
 }
 
 .movies-container {
     max-width: 1200px;
-    /* 중앙 영역 폭 제한 */
     margin: 0 auto;
-    /* 가운데 정렬 */
-    padding: 0 16px;
-    /* 좌우 여백 */
+    padding: 20px;
+    background: #1a1d26;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
 }
+
 
 /* ===== 장르 탭 ===== */
 .genre-tabs {

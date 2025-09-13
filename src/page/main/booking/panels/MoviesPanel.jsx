@@ -33,7 +33,7 @@ export default function MoviesPanel() {
 
 
     return (
-        <div className="panel movies-panel">
+        <div className="movies-panel">
             <div className="movies-header">
                 <h3>영화 선택</h3>
                 <div className="view-toggle">

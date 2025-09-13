@@ -1,6 +1,5 @@
 /* 중앙 정렬용 */
 .container {
-  
   max-width: 1200px;
   margin: 30 auto;
   padding: 0 24px;
@@ -65,7 +64,7 @@
 .page-content {
   flex: 1;
   padding-left: 30px;
-  
+
   background: #1a1d26;
   border-left: 1px solid #333;
   min-height: 600px;

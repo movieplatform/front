@@ -88,7 +88,7 @@ body {
 }
 
 .steps {
-    background: #111318;
+    background: #1a1d26;
     border-right: 1px solid var(--stroke);
     padding: 24px 12px;
     display: flex;
@@ -127,9 +127,7 @@ body {
 .booking-content {
     display: grid;
     grid-template-columns: 1.1fr 1.2fr 1.7fr;
-    /* 좌/중/우 비율 */
     height: 600px;
-    /* 임시 높이 */
     border-top: 1px solid #111318;
 }
 
@@ -147,7 +145,7 @@ body {
 /* 패널 공통 */
 .panel {
     border-right: 1px solid #111318;
-    background: #fff;
+
 }
 
 .panel:last-child {

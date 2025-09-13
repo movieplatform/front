@@ -4,8 +4,6 @@ import logo from "../asset/logo.png";
 import { FiSearch } from "react-icons/fi";
 import axios from "axios";
 
-
-
 export default function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
 
@@ -32,9 +30,14 @@ export default function Header() {
                 <div className="container">
                     <nav className="top-auth">
                         {loggedIn ? (
-                            <button onClick={handleLogout} className="logout-btn">
-                                로그아웃
-                            </button>
+                            <>
+                                <button onClick={handleLogout} className="logout-btn">
+                                    로그아웃
+                                </button>
+                                <a href="/mypage" className="admin-btn">
+                                    관리자 페이지
+                                </a>
+                            </>
                         ) : (
                             <>
                                 <a href="/login">로그인</a>
