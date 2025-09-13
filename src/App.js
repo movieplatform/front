@@ -6,7 +6,7 @@ import Register from './page/main/auth/Register';
 import MyPage from "./page/main/auth/MyPage/MyPage";
 import BookingPage from "./page/main/booking/Bookingpage";
 import ProtectedRoute from "./page/main/ProtectedRoute";
-
+import MoviesPage from "./page/main/movies/MoviesPage";
 
 import './App.css';
 
@@ -28,6 +28,7 @@ function App() {
             }
           />
           <Route path="/booking" element={<BookingPage />} />
+          <Route path="/movies" element={<MoviesPage />} />
         </Route>
       </Routes>
     </Router>
