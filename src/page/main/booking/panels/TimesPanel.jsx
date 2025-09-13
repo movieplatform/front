@@ -4,8 +4,8 @@ import "../css/timespanel.css";
 export default function TimesPanel() {
     const today = new Date();
     const [currentWeekStart, setCurrentWeekStart] = useState(today);
+    const [selectedDate, setSelectedDate] = useState(today);
 
-    // 한 주(7일) 생성
     const getWeekDates = (startDate) => {
         const week = [];
         for (let i = 0; i < 7; i++) {
@@ -30,7 +30,7 @@ export default function TimesPanel() {
 
     return (
         <div className="times-panel">
-            <div className="weather-header">
+            <div className="times-header">
                 <h3 className="weather-text">날짜 선택</h3>
             </div>
             <div className="header">
@@ -40,12 +40,37 @@ export default function TimesPanel() {
             </div>
 
             <div className="date-row">
-                {weekDates.map((d) => (
-                    <div key={d.num} className="date-item">
-                        <div className="date">{d.num}</div>
-                        <div className="day">{d.day}</div>
-                    </div>
-                ))}
+                {weekDates.map((d) => {
+                    const isToday = d.date.toDateString() === today.toDateString();
+                    const isSelected = d.date.toDateString() === selectedDate.toDateString();
+
+                    return (
+                        <div
+                            key={d.num}
+                            className="date-item"
+                            onClick={() => setSelectedDate(d.date)}
+                        >
+                            <div
+                                className={`date-num
+                                    ${isToday ? "today" : ""}
+                                    ${isSelected ? "selected" : ""}`}
+                            >
+                                {d.num}
+                            </div>
+                            <div
+                                className={`day ${
+                                    d.day === "일"
+                                        ? "sunday"
+                                        : d.day === "토"
+                                        ? "saturday"
+                                        : ""
+                                }`}
+                            >
+                                {d.day}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );

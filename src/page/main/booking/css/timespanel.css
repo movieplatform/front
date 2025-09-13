@@ -1,51 +1,87 @@
 .times-panel {
-  flex: 1;
-  background: #1a1d26;
-  border-left: 1px solid #2c2f38;
+  background: #1c202b;
+  border-radius: 12px;
+  color: #fff;
+}
+
+.times-header {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-}
-.weather-header{
   border-bottom: 2px solid #2c2f38;
-  flex:block;
-  
 }
+
+.times-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ddd;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
 }
 
 .header button {
   background: none;
   border: none;
   color: #fff;
-  font-size: 18px;
+  font-size: 12px;
   cursor: pointer;
 }
 
 .date-row {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr); /* 항상 7일 */
-  gap: 8px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
 }
 
 .date-item {
-  padding: 8px 0;
-  border-radius: 8px;
-  background: #2c2f38;
+  text-align: center;
   cursor: pointer;
 }
 
-.date-item .date {
-  font-size: 16px;
-  font-weight: bold;
+.date-num {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.2s ease;
 }
 
-.date-item .day {
+/* 오늘 = 검은색 동그라미 */
+.date-num.today {
+  background: #000;
+  color: #fff;
+}
+
+/* 선택한 날짜 = 빨간색 동그라미 */
+.date-num.selected {
+  background: #e63946;
+  color: #fff;
+}
+
+/* 요일 색상 */
+.day {
   font-size: 12px;
   color: #bbb;
+  margin-top: 2px;
+  background: none;
+  border: none;
+  padding: 0;
+  display: block;
+}
+
+.day.sunday {
+  color: #e63946;
+}
+
+.day.saturday {
+  color: #3a7bff;
 }

@@ -5,10 +5,8 @@ import { FaUser, FaLock } from "react-icons/fa";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import googlelogo from "../../asset/googlelogo.jpg"
 import "./css/logincard.css";
-import { useNavigate } from "react-router-dom";
 
 export default function LoginCard() {
-    const navigate = useNavigate();
     const [account, setAccount] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +15,6 @@ export default function LoginCard() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("로그인 시도:", account, password, saveId);
-        // TODO: 백엔드 API 호출
         try {
             const response = await axios.post(
                 "http://localhost:8080/api/login",
@@ -29,12 +26,14 @@ export default function LoginCard() {
 
             console.log("로그인 성공!", response.data);
             alert("로그인 성공!");
-            navigate("/");
+            window.location.href = "/";
         } catch (error) {
             console.error("로그인 실패", error.response.data);
             alert("로그인 실패: 이메일 또는 비밀번호가 올바르지 않습니다.");
         }
     };
+
+
 
     const handleGoogleLogin = () => {
         // 백엔드 서버의 OAuth2 시작 URL로 리다이렉션

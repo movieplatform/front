@@ -21,7 +21,7 @@
 
 /* 헤더 영역 (위쪽 줄) */
 .movies-header {
-  display: block;
+  display: flex;
   justify-content: space-between;
   text-align: center;
   border-bottom: 2px solid #2c2f38;
@@ -35,7 +35,7 @@
 
 .view-toggle {
   text-align: right;
-  display: block;
+  display: flex;
   gap: 8px;
 }
 
