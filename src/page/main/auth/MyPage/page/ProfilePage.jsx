@@ -10,7 +10,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
       fetch("http://localhost:8080/api/my-page/profile", {
-          credentials: "include", // 세션 쿠키 포함
+          credentials: "include" // 세션 쿠키 포함
       })
       .then((res) => {
         if (!res.ok) throw new Error("네트워크 오류");

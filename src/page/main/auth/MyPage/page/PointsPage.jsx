@@ -8,15 +8,17 @@ export default function PointsPage() {
 
   //endpoint만 수정필요
   useEffect(() => {
-    fetch("/api/my-points")
+    fetch("http://localhost:8080/api/my-page/points",{
+        credentials: "include"
+    })
       .then((res) => {
         console.log("데이터 못가져옴")
         if (!res.ok) throw new Error("오류 발생");
         return res.json();
       })
       .then((data) => {
-        setPoints(data);
-        setTotal(data.reduce((acc, item) => acc + item.amount, 0));
+          setPoints(data.points);
+          setTotal(data.total);
       })
       .catch((err) => {
         console.error("포인트 조회 실패:", err);
@@ -43,7 +45,7 @@ export default function PointsPage() {
         ) : (
           points.map((item, idx) => (
             <div className="table-row" key={idx}>
-              <div>{item.date}</div>
+              <div>{new Date(item.date).toLocaleString()}</div>
               <div>{item.type}</div>
               <div>{item.reason}</div>
               <div>{item.amount}</div>
