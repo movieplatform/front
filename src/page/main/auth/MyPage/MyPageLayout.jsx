@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import ProfilePage from "./page/user/ProfilePage";
+import PointsPage from "./page/user/PointsPage";
+import ReservationsPage from "./page/user/ReservationsPage";
+import ReviewsPage from "./page/user/ReviewsPage";
+import InquiriesPage from "./page/user/InquiriesPage";
 import "./mypagelayout.css";
-import ProfilePage from "./page/ProfilePage";
-import PointsPage from "./page/PointsPage";
-import ReservationsPage from "./page/ReservationsPage";
-import ReviewsPage from "./page/ReviewsPage";
-import InquiriesPage from "./page/InquiriesPage";
-
 
 export default function MyPageLayout() {
   const [activeTab, setActiveTab] = useState("profile");
@@ -80,15 +78,6 @@ export default function MyPageLayout() {
               문의 내역
             </button>
           </li>
-
-          {/* 관리자 메뉴 */}
-          <hr className="divider" />
-          <li><button onClick={() => setActiveTab("admin-users")}>회원관리</button></li>
-          <li><button onClick={() => setActiveTab("admin-movies")}>영화 관리</button></li>
-          <li><button onClick={() => setActiveTab("admin-screens")}>상영관 및 좌석 관리</button></li>
-          <li><button onClick={() => setActiveTab("admin-screenings")}>상영일정 관리</button></li>
-          <li><button onClick={() => setActiveTab("admin-payments")}>결제 내역</button></li>
-          <li><button onClick={() => setActiveTab("admin-setting")}>포인트/리뷰 정책</button></li>
         </ul>
       </aside>
       <section className="page-content">

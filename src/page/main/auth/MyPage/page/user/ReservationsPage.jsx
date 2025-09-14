@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./css/reservationpage.css";
-import crimeCityPoster from "../../../../asset/crimecity.jpg";
+import crimeCityPoster from "../../../../../asset/crimecity.jpg";
 export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);

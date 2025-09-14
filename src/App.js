@@ -7,6 +7,8 @@ import MyPage from "./page/main/auth/MyPage/MyPage";
 import BookingPage from "./page/main/booking/Bookingpage";
 import ProtectedRoute from "./page/main/ProtectedRoute";
 import MoviesPage from "./page/main/movies/MoviesPage";
+import AdminPageLayout from "./page/main/auth/MyPage/AdminPageLayout";
+
 
 import './App.css';
 
@@ -19,6 +21,8 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/adminpage" element={<AdminPageLayout />} />
+
           <Route
             path="/mypage"
             element={
@@ -27,6 +31,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/admin/*" element={<AdminPageLayout />} />
+
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/movies" element={<MoviesPage />} />
         </Route>

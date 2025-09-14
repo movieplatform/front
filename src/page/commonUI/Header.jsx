@@ -34,7 +34,7 @@ export default function Header() {
                                 <button onClick={handleLogout} className="logout-btn">
                                     로그아웃
                                 </button>
-                                <a href="/mypage" className="admin-btn">
+                                <a href="/adminpage" className="admin-btn">
                                     관리자 페이지
                                 </a>
                             </>
