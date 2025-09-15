@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaUser, FaLock } from "react-icons/fa";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import googlelogo from "../../asset/googlelogo.jpg"
+import ErrorModal from "./ErrorModal";
 import "./css/logincard.css";
 
 export default function LoginCard() {
@@ -11,6 +12,7 @@ export default function LoginCard() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [saveId, setSaveId] = useState(true);
+    const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,11 +31,9 @@ export default function LoginCard() {
             window.location.href = "/";
         } catch (error) {
             console.error("로그인 실패", error.response.data);
-            alert("로그인 실패: 이메일 또는 비밀번호가 올바르지 않습니다.");
+            setError("이메일 또는 비밀번호가 올바르지 않습니다.");
         }
     };
-
-
 
     const handleGoogleLogin = () => {
         // 백엔드 서버의 OAuth2 시작 URL로 리다이렉션
@@ -95,6 +95,10 @@ export default function LoginCard() {
                 <img src={googlelogo} alt="Google Logo" />
                 Google 계정으로 로그인
             </button>
+            <ErrorModal message={error} onClose={() => setError("")} />
         </form>
+
+        
     );
+    
 }

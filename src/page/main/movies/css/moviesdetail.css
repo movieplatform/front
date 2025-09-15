@@ -1,0 +1,76 @@
+.movie-detail {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #1a1d26;
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  font-family: "Noto Sans KR", sans-serif;
+
+  height: auto;
+}
+
+.detail-header {
+  display: flex;
+  gap: 24px;
+}
+
+.poster {
+  width: 30%;
+  height: 30%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.info {
+  flex: 1;
+}
+
+.info h2 {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.eng-title {
+  font-size: 16px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.info p {
+  margin: 6px 0;
+}
+
+.reserve-btn {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: #ffcc00;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.reserve-btn:hover {
+  background: #ffdb4d;
+}
+
+.synopsis {
+  margin-top: 40px;
+  display: block;
+}
+
+.synopsis h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.synopsis p {
+  line-height: 1.6;
+  color: #ddd;
+}

@@ -1,183 +1,161 @@
-
+/* ===== 패널 ===== */
 .movies-panel {
-  background: #1a1d26;     /* 어두운 배경 */
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25); /* 그림자 */
+  background: #1a1d26;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.movie-list {
-  max-height: 500px;   /* 리스트 전체의 높이를 제한 */
-  overflow-y: auto;    /* 세로 스크롤 */
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.movie-list li {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.movie-list li:hover {
-  background: #575757;
-}
-.movie-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.movie-list::-webkit-scrollbar-thumb {
-  background: #666;
-  border-radius: 4px;
-}
-
-.movie-list::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
-
-/* 헤더 영역 (위쪽 줄) */
+/* ===== 헤더 ===== */
 .movies-header {
   display: flex;
   justify-content: space-between;
-  text-align: center;
+  align-items: center;
   border-bottom: 2px solid #2c2f38;
+  padding-bottom: 6px;
 }
 
 .movies-header h3 {
   font-size: 14px;
   font-weight: 600;
   color: #ddd;
+  margin: 0;
 }
 
 .view-toggle {
-  margin-top: 10px;
   display: flex;
-  justify-content: center; /* 버튼들을 중앙 정렬 */
   gap: 8px;
 }
 
 .view-toggle button {
-  color:white;
+  color: white;
   background: none;
   border: none;
   font-size: 18px;
   cursor: pointer;
 }
 
+/* ===== 스크롤 공통 ===== */
+.movie-list,
+.movie-grid-wrapper {
+  max-height: 500px;       /* 리스트와 동일하게 높이 제한 */
+  overflow-y: auto;        /* 세로 스크롤 */
+  padding-right: 6px;      /* 스크롤바 간격 */
+  scrollbar-width: thin;
+  scrollbar-color: #555 #1a1d26;
+}
+
+.movie-list::-webkit-scrollbar,
+.movie-grid-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.movie-list::-webkit-scrollbar-thumb,
+.movie-grid-wrapper::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 4px;
+}
+
+.movie-list::-webkit-scrollbar-thumb:hover,
+.movie-grid-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+/* ===== Badge ===== */
 .badge {
   display: inline-block;
-  width: 26px;
+  min-width: 26px;
   height: 26px;
+  padding: 0 4px;
   border-radius: 4px;
   text-align: center;
   line-height: 26px;
   font-size: 12px;
   font-weight: bold;
-  margin-right: 6px;
+  flex-shrink: 0;
+  color: #fff;
 }
 
-.badge.r12 {
-  background: #ffd88a;
+.rating-12 {
+  background: #d4a017;
 }
 
-.badge.r15 {
-  background: #ffb973;
+.rating-15 {
+  background: #d46a17;
 }
-.movie-grid-wrapper {
-  max-height: 500px;     /* 원하는 높이로 조절 (예: 패널 높이) */
-  overflow-y: auto;      /* 세로 스크롤 */
-  padding-right: 6px;    /* 스크롤바와 카드 간격 */
 
-  scrollbar-width: thin;
-  scrollbar-color: #555 #1a1d26;
+.rating-19 {
+  background: #d41717;
 }
-.badge.r19 {
-  background: #ff7d7d;
+
+.rating-ALL {
+  background: #17d447;
 }
 
 /* ===== Grid 모드 ===== */
-.movie-grid {
+.movie-grid.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
-  margin-top: 16px;
 }
 
-.movie-card {
-  cursor: pointer;
+.movie-card.grid {
+  display: flex;
+  flex-direction: column;
   border-radius: 8px;
   overflow: hidden;
   background: #222;
-  text-align: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 280px; /* 카드 높이 고정 */
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
+  cursor: pointer;
 }
 
-.movie-card:hover {
+.movie-card.grid:hover {
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-.movie-card.active {
-  outline: 2px solid #e63946;
+.movie-card.grid.active {
+  border: 2px solid #ffcc00;
+  background: rgba(255, 204, 0, 0.1);
 }
 
-.poster {
+/* grid 전용 포스터 */
+.movie-card.grid .poster {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  border-radius: 8px;
+  flex-shrink: 0;
   background: #eee;
-  display: block;
 }
 
-/* 포스터 없는 경우 */
-.poster.placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ccc;
-  color: #666;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 8px;
-}
-
-
-.card-info {
+/* grid 전용 정보 */
+.movie-card.grid .card-info {
+  flex: 1;
   padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
 }
 
-.card-title {
+.movie-card.grid .card-title {
   font-size: 14px;
-  margin-top: 4px;
-  color: #fff;
+  font-weight: 600;
+  margin: 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.badge {
-  display: inline-block;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: center;
-  color: #fff;
-}
-
-.rating-12 { background: #d4a017; }
-.rating-15 { background: #d46a17; }
-.rating-19 { background: #d41717; }
-.rating-ALL { background: #17d447; }
-
-/* 기존 grid 대신 리스트 카드 형태 */
-.movie-grid {
+/* ===== List 모드 ===== */
+.movie-grid.list {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* 카드 전체 */
 .movie-card.horizontal {
   display: flex;
   align-items: center;
@@ -186,7 +164,7 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #fff;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, border 0.2s ease;
   cursor: pointer;
 }
 
@@ -195,11 +173,11 @@
 }
 
 .movie-card.horizontal.active {
-  border-color: #e63946;
+  border: 2px solid #e63946;
 }
 
-/* 왼쪽 포스터 */
-.poster-thumb {
+/* list 전용 포스터 */
+.movie-card.horizontal .poster-thumb {
   width: 80px;
   height: 110px;
   border-radius: 6px;
@@ -208,12 +186,8 @@
   flex-shrink: 0;
 }
 
-.poster-thumb.placeholder {
-  background: #ccc;
-}
-
-/* 오른쪽 텍스트 정보 */
-.card-info {
+/* list 전용 정보 */
+.movie-card.horizontal .card-info {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -223,8 +197,8 @@
 .top-line {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 6px;
+  gap: 8px;
+  overflow: hidden;
 }
 
 .bottom-line {
@@ -234,7 +208,7 @@
   color: #666;
 }
 
-/* 체크 표시 */
+/* 체크 표시 (list 모드 전용) */
 .checkmark {
   margin-left: auto;
   color: #e63946;
