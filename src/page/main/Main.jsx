@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./main.css";
-import Header from "../commonUI/Header";
 import CarouselRow from "./CarouselRow";
 import { getMovies } from "../api/movies";
 import Faq from "./Faq";
 import Footer from "../commonUI/Footer"
-
+import "./main.css";
 
 export default function Main() {
   const [movies, setMovies] = useState([]);

@@ -6,6 +6,15 @@
   flex-direction: column;
   gap: 16px;
 }
+
+.movie-list {
+  max-height: 500px;   /* 리스트 전체의 높이를 제한 */
+  overflow-y: auto;    /* 세로 스크롤 */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .movie-list li {
   cursor: pointer;
   display: flex;
@@ -14,6 +23,18 @@
 
 .movie-list li:hover {
   background: #575757;
+}
+.movie-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.movie-list::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 4px;
+}
+
+.movie-list::-webkit-scrollbar-thumb:hover {
+  background: #999;
 }
 
 /* 헤더 영역 (위쪽 줄) */

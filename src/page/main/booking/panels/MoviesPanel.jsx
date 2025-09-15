@@ -21,7 +21,15 @@ export default function MoviesPanel() {
     useEffect(() => {
         axios
             .get("http://localhost:8080/api/movies")
-            .then((res) => setMovies(res.data))
+            .then((res) => {
+                console.log("API 응답:", res.data);
+                if (Array.isArray(res.data.content)) {
+                    setMovies(res.data.content);
+                } else {
+                    console.warn("영화 데이터가 content에 없음", res.data);
+                    setMovies(mockMovies);
+                }
+            })
             .catch(() => {
                 console.warn("API 실패 → 목업 사용");
                 setMovies(mockMovies);
@@ -51,15 +59,15 @@ export default function MoviesPanel() {
                 <ul className="movie-list">
                     {movies.map((movie) => (
                         <li
-                            key={movie.doc_id}
-                            className={`movie-row ${selectedId === movie.doc_id ? "active" : ""}`}
-                            onClick={() => setSelectedId(movie.doc_id)}
+                            key={movie.docId}
+                            className={`movie-row ${selectedId === movie.docId ? "active" : ""}`}
+                            onClick={() => setSelectedId(movie.docId)}
                         >
-                            <span className={`badge rating-${movie.rating}`}>
-                                {movie.rating}
+                            <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "all"}`}>
+                                {movie.rating.replace(/[^0-9]/g, "") || "All"}
                             </span>
                             <span className="movie-title">{movie.title}</span>
-                            {selectedId === movie.doc_id && (
+                            {selectedId === movie.docId && (
                                 <span className="checkmark">✔</span>
                             )}
                         </li>

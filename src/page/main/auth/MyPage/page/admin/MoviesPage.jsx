@@ -67,10 +67,10 @@ function MovieTable({ movies }) {
       <tbody>
         {movies.length > 0 ? (
           movies.map((m) => (
-            <tr key={m.id}>
+            <tr key={m.doc_id}>
               <td>{m.title}</td>
               <td>{m.genre}</td>
-              <td>{m.releaseDate}</td>
+              <td>{m.rep_rls_date}</td>
             </tr>
           ))
         ) : (

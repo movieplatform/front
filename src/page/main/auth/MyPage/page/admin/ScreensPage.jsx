@@ -1,4 +1,3 @@
-// src/page/admin/ScreensPage.jsx
 import React, { useState } from "react";
 import "./css/screenspage.css";
 
@@ -107,9 +106,8 @@ function SeatManager({ theater }) {
 
 export default function ScreensPage() {
   const [theaters, setTheaters] = useState([
-    { name: "극장1" },
-    { name: "극장2" },
-    { name: "매우비싼극장" },
+    { id: 1, screen_name: "극장1", seat_rows: 8, seat_cols: 10 },
+    { id: 2, screen_name: "극장2", seat_rows: 6, seat_cols: 12 }
   ]);
   const [activeTheater, setActiveTheater] = useState(null);
 
