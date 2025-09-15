@@ -6,11 +6,26 @@ import axios from "axios";
 
 export default function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
+        // 로그인 여부 체크
         axios.get("http://localhost:8080/api/session", { withCredentials: true })
-            .then((res) => setLoggedIn(res.data)) // res.data가 true면 로그인, false면 미로그인
-            .catch(() => setLoggedIn(false));
+            .then(res => {
+                setLoggedIn(res.data);
+                if (res.data) {
+                    // 로그인 되어 있으면 관리자 여부 체크
+                    axios.get("http://localhost:8080/api/admin/check", { withCredentials: true })
+                        .then(res => setIsAdmin(true))  // 200 → 관리자
+                        .catch(err => setIsAdmin(false)); // 403 → 관리자 아님
+                } else {
+                    setIsAdmin(false);
+                }
+            })
+            .catch(() => {
+                setLoggedIn(false);
+                setIsAdmin(false);
+            });
     }, []);
 
     //로그아웃하는 컨트롤러만 연결 ㄱㄱ
@@ -34,9 +49,7 @@ export default function Header() {
                                 <button onClick={handleLogout} className="logout-btn">
                                     로그아웃
                                 </button>
-                                <a href="/adminpage" className="admin-btn">
-                                    관리자 페이지
-                                </a>
+                                {isAdmin && <a href="/adminpage" className="admin-btn">관리자 페이지</a>}
                             </>
                         ) : (
                             <>

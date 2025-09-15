@@ -8,6 +8,7 @@ import BookingPage from "./page/main/booking/Bookingpage";
 import ProtectedRoute from "./page/main/ProtectedRoute";
 import MoviesPage from "./page/main/movies/MoviesPage";
 import AdminPageLayout from "./page/main/auth/MyPage/AdminPageLayout";
+import AdminRoute  from "./page/main/AdminRoute";
 
 
 import './App.css';
@@ -21,7 +22,14 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/adminpage" element={<AdminPageLayout />} />
+          <Route
+              path="/adminpage"
+              element={
+              <AdminRoute>
+                  <AdminPageLayout />
+              </AdminRoute>
+          }
+          />
 
           <Route
             path="/mypage"
