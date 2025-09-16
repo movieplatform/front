@@ -73,18 +73,45 @@ function TheaterTable({ theaters, onManageSeats }) {
 }
 
 function SeatManager({ theater }) {
-    const [rows, setRows] = useState(0);
-    const [cols, setCols] = useState(0);
-    const [seats, setSeats] = useState([]);
+    const [rows, setRows] = useState("");
+    const [cols, setCols] = useState("");
+    const [seatCount, setSeatCount] = useState(0);
 
-    const handleGenerate = () => {
-        const newSeats = [];
-        for (let r = 1; r <= rows; r++) {
-            for (let c = 1; c <= cols; c++) {
-                newSeats.push({ row: r, col: c, available: true });
-            }
+    // 컴포넌트 스코프에서 정의
+    const fetchSeatCount = async () => {
+        try {
+            const res = await axios.get(
+                `http://localhost:8080/api/admin/seat/${theater.id}`,
+                { withCredentials: true }
+            );
+            setSeatCount(res.data);
+        } catch (err) {
+            console.error("좌석 수 조회 실패:", err);
         }
-        setSeats(newSeats);
+    };
+
+    useEffect(() => {
+        fetchSeatCount(); // 여기서 호출 가능
+    }, [theater.id]); // theater.id가 바뀔 때마다 호출
+
+    // 좌석 생성 (백엔드 연동)
+    const handleCreateSeats = async () => {
+        try {
+            const res = await axios.post(
+                `http://localhost:8080/api/admin/seat/${theater.id}`,
+                null,
+                { params: { rows, cols }, withCredentials: true }
+            );
+            alert(res.data); // "좌석 생성 완료" 같은 메시지
+            fetchSeatCount(); // 좌석 개수 갱신
+        } catch (err) {
+            if (err.response && err.response.status === 400) {
+                alert(err.response.data); // 예외 메시지 ("행은 1~8까지", "이미 좌석 있음" 등)
+            } else {
+                alert("좌석 생성 중 오류 발생");
+            }
+            console.error("좌석 생성 실패:", err);
+        }
     };
 
     return (
@@ -96,7 +123,7 @@ function SeatManager({ theater }) {
                     <input
                         type="number"
                         value={rows}
-                        onChange={(e) => setRows(Number(e.target.value))}
+                        onChange={(e) => setRows(e.target.value)}
                     />
                 </label>
                 <label>
@@ -104,26 +131,16 @@ function SeatManager({ theater }) {
                     <input
                         type="number"
                         value={cols}
-                        onChange={(e) => setCols(Number(e.target.value))}
+                        onChange={(e) => setCols(e.target.value)}
                     />
                 </label>
-                <button type="button" onClick={handleGenerate}>
+                <button type="button" onClick={handleCreateSeats}>
                     좌석 생성
                 </button>
             </div>
 
-            <p>총 좌석 수: {seats.length}</p>
+            <p>총 좌석 수: {seatCount}</p>
 
-            <div
-                className="seat-grid"
-                style={{ gridTemplateColumns: `repeat(${cols}, 40px)` }}
-            >
-                {seats.map((s, i) => (
-                    <div key={i} className="seat">
-                        {s.row}-{s.col}
-                    </div>
-                ))}
-            </div>
         </div>
     );
 }
@@ -148,7 +165,7 @@ export default function ScreensPage() {
 
     // 극장 추가 후 목록 갱신
     const handleAddTheater = async () => {
-        fetchTheaters();
+        await fetchTheaters();
     };
 
     return (
