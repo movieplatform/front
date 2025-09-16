@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./css/moviespage.css";
 
-function MovieFilterForm({ onFetch }) {
-  const [filters, setFilters] = useState({
-    genre: "",
-    country: "",
-    startDate: "",
-    endDate: "",
-    limit: 10,
-  });
+function MovieFilterForm({ onFetch, onLoad }) {
+    const [filters, setFilters] = useState({
+        genre: "",
+        nation: "",
+        releaseStart: "",
+        releaseEnd: "",
+        listCount: 10,
+    });
 
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -21,38 +21,36 @@ function MovieFilterForm({ onFetch }) {
     onFetch(filters);
   };
 
-  return (
-    <form className="movie-filter-form" onSubmit={handleSubmit}>
-      <label>
-        장르:
-        <input type="text" name="genre" value={filters.genre} onChange={handleChange} placeholder="예: 공포, 드라마" />
-      </label>
-      <label>
-        국가:
-        <input type="text" name="country" value={filters.country} onChange={handleChange} placeholder="예: 대한민국, 미국" />
-      </label>
-
-      <div className="date-range">
-        <label>
-          개봉 시작일:
-          <input type="date" name="startDate" value={filters.startDate} onChange={handleChange} />
-        </label>
-        <label>
-          개봉 종료일:
-          <input type="date" name="endDate" value={filters.endDate} onChange={handleChange} />
-        </label>
-      </div>
-
-      <label>
-        불러올 개수:
-        <input type="number" name="limit" value={filters.limit} onChange={handleChange} />
-      </label>
-      <button type="submit">영화 불러오기</button>
-    </form>
-
-  );
+    return (
+        <form className="movie-filter-form" onSubmit={handleSubmit}>
+            <label>
+                장르:
+                <input type="text" name="genre" value={filters.genre} onChange={handleChange} placeholder="예: 공포, 드라마" />
+            </label>
+            <label>
+                국가:
+                <input type="text" name="nation" value={filters.nation} onChange={handleChange} placeholder="예: 대한민국, 미국" />
+            </label>
+            <div className="date-range">
+                <label>
+                    개봉 시작일:
+                    <input type="date" name="releaseStart" value={filters.releaseStart} onChange={handleChange} />
+                </label>
+                <label>
+                    개봉 종료일:
+                    <input type="date" name="releaseEnd" value={filters.releaseEnd} onChange={handleChange} />
+                </label>
+            </div>
+            <label>
+                불러올 개수:
+                <input type="number" name="listCount" value={filters.listCount} onChange={handleChange} />
+            </label>
+            <button type="button" onClick={() => onLoad(filters)}>
+                영화 불러오기
+            </button>
+        </form>
+    );
 }
-
 
 function MovieTable({ movies }) {
   return (
@@ -67,10 +65,10 @@ function MovieTable({ movies }) {
       <tbody>
         {movies.length > 0 ? (
           movies.map((m) => (
-            <tr key={m.doc_id}>
+            <tr key={m.docId}>
               <td>{m.title}</td>
               <td>{m.genre}</td>
-              <td>{m.rep_rls_date}</td>
+                <td>{m.repRlsDate}</td>
             </tr>
           ))
         ) : (
@@ -111,7 +109,10 @@ export default function MoviesPage() {
 
   const fetchMovies = async (filters) => {
     try {
-      const res = await axios.get("/api/movies", { params: filters });
+      const res = await axios.get("http://localhost:8080/api/admin/movies", {
+          params: filters,
+          withCredentials: true
+      });
       setMovies(res.data);
       setCurrentPage(1); // 새로운 검색 시 첫 페이지로
     } catch (err) {
@@ -133,26 +134,46 @@ export default function MoviesPage() {
     }
   };
 
-  useEffect(() => {
-    fetchMovies({ limit: 50 }); // 처음엔 넉넉히 불러오기
-  }, []);
+    const loadMovies = async (filters) => {
+        try {
+            const res = await axios.post(
+                "http://localhost:8080/api/admin/movies",
+                filters,
+                { withCredentials: true }
+            );
+            alert(res.data); // 서버에서 반환한 메시지 그대로 보여주기
+            fetchMovies({ listCount: 50 }); // 최신 DB 목록 다시 불러오기
+        } catch (err) {
+            console.error("영화 불러오기 실패:", err);
+            // 서버가 반환한 메시지가 있으면 보여주기
+            if (err.response && err.response.data) {
+                alert(err.response.data);
+            } else {
+                alert("영화 불러오기 실패");
+            }
+        }
+    };
+
+    useEffect(() => {
+        fetchMovies({ listCount: 50 }); // 컴포넌트 로딩 시 DB에서 영화 목록 불러오기
+    }, []);
 
   // 현재 페이지에 맞는 영화만 보여주기
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentMovies = movies.slice(startIndex, startIndex + itemsPerPage);
 
-  return (
-    <div className="movies-page">
-      <h2>영화 관리</h2>
-      <MovieFilterForm onFetch={fetchMovies} />
-      <h3>영화 목록</h3>
-      <MovieTable movies={currentMovies} />
-      <Pagination
-        totalItems={movies.length}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        onPageChange={setCurrentPage}
-      />
-    </div>
+    return (
+        <div className="movies-page">
+            <h2>영화 관리</h2>
+            <MovieFilterForm onFetch={fetchMovies} onLoad={loadMovies} />
+            <h3>영화 목록</h3>
+            <MovieTable movies={currentMovies} />
+            <Pagination
+                totalItems={movies.length}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                onPageChange={setCurrentPage}
+            />
+        </div>
   );
 }

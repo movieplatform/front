@@ -37,6 +37,8 @@ export default function UsersPage() {
     },
   ];
 
+
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/api/admin/users", { withCredentials: true })
@@ -50,11 +52,18 @@ export default function UsersPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleDelete = (id) => {
-    if (window.confirm("정말로 탈퇴 처리하시겠습니까?")) {
-      setUsers((prev) => prev.filter((u) => u.id !== id));
-    }
-  };
+    const handleDelete = async (id) => {
+        if (!window.confirm("정말로 탈퇴 처리하시겠습니까?")) return;
+
+        try {
+            await axios.post(`http://localhost:8080/api/admin/users/${id}/status`, {}, { withCredentials: true });
+            setUsers((prev) => prev.filter((u) => u.id !== id));
+            alert("탈퇴 처리 완료");
+        } catch (error) {
+            console.error("탈퇴 처리 실패:", error);
+            alert("탈퇴 처리 실패");
+        }
+    };
 
   if (loading) return <div>로딩중...</div>;
 
@@ -82,8 +91,8 @@ export default function UsersPage() {
               <td>{u.name}</td>
               <td>{u.status}</td>
               <td>{u.role}</td>
-              <td>{u.joinedAt}</td>
-              <td>{u.lastLogin}</td>
+                <td>{u.createdAt?.replace("T", " ").slice(0, 16)}</td>
+                <td>{u.currentLoginAt?.replace("T", " ").slice(0, 16) || "-"}</td>
               <td>
                 <button
                   className="admindelete-btn"
