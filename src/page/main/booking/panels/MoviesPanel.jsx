@@ -3,117 +3,114 @@ import axios from "axios";
 import "../css/moviespanel.css";
 import { FiList, FiGrid } from "react-icons/fi";
 
-export default function MoviesPanel() {
-    const [movies, setMovies] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [selectedId, setSelectedId] = useState(null);
-    const [viewMode, setViewMode] = useState("list");
+export default function MoviesPanel({ onSelect }) {
+  const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedId, setSelectedId] = useState(null);
+  const [viewMode, setViewMode] = useState("list");
 
-    const mockMovies = [
-        { doc_id: "1", title: "부재", rating: "12", poster_url: "https://via.placeholder.com/150x220?text=부재" },
-        { doc_id: "2", title: "아임 스틸 히어", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=아임+스틸+히어" },
-        { doc_id: "3", title: "어쩔수가없다", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=어쩔수가없다" },
-        { doc_id: "4", title: "극장판 귀멸의 칼날", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=귀멸의+칼날" },
-        { doc_id: "5", title: "악마가 이사왔다", rating: "12", poster_url: "https://via.placeholder.com/150x220?text=악마가+이사왔다" },
-        { doc_id: "6", title: "얼굴", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=얼굴" },
-    ];
+  const mockMovies = [
+    { doc_id: "1", title: "부재", rating: "12", poster_url: "https://via.placeholder.com/150x220?text=부재" },
+    { doc_id: "2", title: "아임 스틸 히어", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=아임+스틸+히어" },
+    { doc_id: "3", title: "어쩔수가없다", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=어쩔수가없다" },
+    { doc_id: "4", title: "극장판 귀멸의 칼날", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=귀멸의+칼날" },
+    { doc_id: "5", title: "악마가 이사왔다", rating: "12", poster_url: "https://via.placeholder.com/150x220?text=악마가+이사왔다" },
+    { doc_id: "6", title: "얼굴", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=얼굴" },
+  ];
 
-    useEffect(() => {
-        axios
-            .get("http://localhost:8080/api/movies")
-            .then((res) => {
-                console.log("API 응답:", res.data);
-                if (Array.isArray(res.data.content)) {
-                    setMovies(res.data.content);
-                } else {
-                    console.warn("영화 데이터가 content에 없음", res.data);
-                    setMovies(mockMovies);
-                }
-            })
-            .catch(() => {
-                console.warn("API 실패 → 목업 사용");
-                setMovies(mockMovies);
-            })
-            .finally(() => setLoading(false));
-    }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/movies")
+      .then((res) => {
+        // console.log("API 응답:", res.data);
+        if (Array.isArray(res.data.content)) {
+          setMovies(res.data.content);
+        } else {
+          console.warn("영화 데이터가 content에 없음", res.data);
+          setMovies(mockMovies);
+        }
+      })
+      .catch(() => {
+        console.warn("API 실패 → 목업 사용");
+        setMovies(mockMovies);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
-    if (loading) return <p>불러오는 중...</p>;
+  if (loading) return <p>불러오는 중...</p>;
 
+  const handleSelect = (movie) => {
+    setSelectedId(movie.docId);
+    if (onSelect) {
+      onSelect(movie);  // 부모 BookingPage로 movie 객체 전달
+    }
+  };
 
-    return (
-        <div className="movies-panel">
-            <div className="movies-header">
-                <h3>영화 선택</h3>
-                <div className="view-toggle">
-                    <button onClick={() => setViewMode("list")}>
-                        <FiList size={20} />
-                    </button>
-                    <button onClick={() => setViewMode("grid")}>
-                        <FiGrid size={20} />
-                    </button>
+  return (
+    <div className="movies-panel">
+      <div className="movies-header">
+        <h3>영화 선택</h3>
+        <div className="view-toggle">
+          <button onClick={() => setViewMode("list")}>
+            <FiList size={20} />
+          </button>
+          <button onClick={() => setViewMode("grid")}>
+            <FiGrid size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* 리스트/그리드 모드 전환 */}
+      {viewMode === "list" ? (
+        <ul className="movie-list">
+          {movies.map((movie, index) => {
+            const isActive = selectedId === movie.docId;
+            return (
+              <li
+                key={movie.docId ?? index}
+                className={`movie-row ${isActive ? "active" : ""}`}
+                onClick={() => handleSelect(movie)}
+              >
+                <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "all"}`}>
+                  {movie.rating.replace(/[^0-9]/g, "") || "All"}
+                </span>
+                <span className="movie-title">{movie.title}</span>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <div className="movie-grid-wrapper">
+          <div className="movie-grid">
+            {movies.map((movie, index) => {
+              const isActive = selectedId === movie.docId;
+              return (
+                <div
+                  key={movie.docId ?? index}
+                  className={`movie-card grid ${isActive ? "active" : ""}`}
+                  onClick={() => setSelectedId(movie.docId)}
+                >
+                  {movie.poster_url ? (
+                    <img src={movie.poster_url} alt={movie.title} className="poster" />
+                  ) : (
+                    <div className="poster placeholder"></div>
+                  )}
+                  <div className="card-info">
+                    <div className="top-line">
+                      <span className={`badge rating-${movie.rating}`}>{movie.rating}</span>
+                      <h4 className="card-title">{movie.title}</h4>
+                    </div>
+                    <div className="bottom-line">
+                      <span className="runtime">⏱ {movie.runtime ?? "??"}분</span>
+                      <span className="release">개봉일 {movie.rep_rls_date ?? "-"}</span>
+                    </div>
+                  </div>
                 </div>
-            </div>
-
-            {/* 리스트/그리드 모드 전환 */}
-            {viewMode === "list" ? (
-                <ul className="movie-list">
-                    {movies.map((movie, index) => {
-                        const isActive = selectedId === movie.docId;
-                        console.log(
-                            "LIST | movie.docId:", movie.docId,
-                            "| selectedId:", selectedId,
-                            "| isActive:", isActive
-                        );
-
-                        return (
-                            <li
-                                key={movie.docId ?? index}
-                                className={`movie-row ${isActive ? "active" : ""}`}
-                                onClick={() => {
-                                    console.log("리스트에서 클릭됨:", movie.docId);
-                                    setSelectedId(movie.docId);
-                                }}
-                            >
-                                <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "all"}`}>
-                                    {movie.rating.replace(/[^0-9]/g, "") || "All"}
-                                </span>
-                                <span className="movie-title">{movie.title}</span>
-                            </li>
-                        );
-                    })}
-                </ul>
-            ) : (
-                <div className="movie-grid-wrapper">
-                <div className="movie-grid">
-                  {movies.map((movie, index) => {
-                    const isActive = selectedId === movie.docId;
-                    return (
-                      <div
-                        key={movie.docId ?? index}
-                        className={`movie-card grid ${isActive ? "active" : ""}`}
-                        onClick={() => setSelectedId(movie.docId)}
-                      >
-                        {movie.poster_url ? (
-                          <img src={movie.poster_url} alt={movie.title} className="poster" />
-                        ) : (
-                          <div className="poster placeholder"></div>
-                        )}
-                        <div className="card-info">
-                          <div className="top-line">
-                            <span className={`badge rating-${movie.rating}`}>{movie.rating}</span>
-                            <h4 className="card-title">{movie.title}</h4>
-                          </div>
-                          <div className="bottom-line">
-                            <span className="runtime">⏱ {movie.runtime ?? "??"}분</span>
-                            <span className="release">개봉일 {movie.rep_rls_date ?? "-"}</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-            </div>
-    );
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }

@@ -24,9 +24,13 @@ export default function MovieDetail() {
         axios
             .get(`http://localhost:8080/api/movies/${docId}`)
             .then((res) => {
+                const data =res.data;
                 console.log("응답:", res);
                 if (typeof res.data === "object" && Object.keys(res.data).length > 0) {
-                    setMovie(res.data);
+                    setMovie({
+                        ...data,
+                        posters: data.posterUrl, // 변환
+                      });
                 } else {
                     console.warn("응답이 문자열 → 목업 사용");
                     setMovie(mockMovie);

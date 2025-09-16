@@ -4,7 +4,7 @@
 }
 
 .times-header {
-  display: flex;
+  display:block;
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #2c2f38;
@@ -16,6 +16,11 @@
   color: #ddd;
 }
 
+.times-text {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center; /* 혹시 글자 여러 줄일 때도 중앙 */
+}
 .header {
   display: flex;
   justify-content: space-between;
