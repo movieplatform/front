@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/moviespanel.css";
 import axios from "axios";
 
 export default function MoviesPanel() {
   const [movies, setMovies] = useState([]);
   const [activeGenre, setActiveGenre] = useState("ALL");
-    const [page, setPage] = useState(0);
-    const [totalPages, setTotalPages] = useState(0);
-
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   // 모의 데이터
   const mock = useMemo(() => [
     { docId: "1", title: "귀멸의 칼날", rating: "15", posterUrl: "https://i.namu.wiki/i/gwqbq98J0nv5hKDlCnnlu7KJ_zFDzvN9Cj8y5ss64uohGgY_3A5HzFKnxlCNWbxRfIepjW1aAr5q7Zf-QA5lYg.webp", repRlsDate: "2025-08-22", genres: ["드라마"] },
@@ -18,53 +18,51 @@ export default function MoviesPanel() {
     { docId: "6", title: "그 여름의 기억", rating: "12", posterUrl: "...", repRlsDate: "2025-07-29", genres: ["드라마", "로맨스"] },
     { docId: "7", title: "인류의 종말", rating: "18", posterUrl: "...", repRlsDate: "2025-03-12", genres: ["액션", "스릴러"] },
     { docId: "8", title: "웃으면 복이 와요", rating: "ALL_AGES", posterUrl: "...", repRlsDate: "2025-06-01", genres: ["코미디"] }
-  ],[]);
+  ], []);
 
-    const genres = ["ALL", "드라마", "로맨스", "코미디", "액션", "스릴러", "공포", "SF"];
+  const genres = ["ALL", "드라마", "로맨스", "코미디", "액션", "스릴러", "공포", "SF"];
 
   //실패하면 목업데이터 들어감
   useEffect(() => {
-      axios
-          .get("http://localhost:8080/api/movies", {
-              params: {
-                  genre: activeGenre,
-                  page: page,
-                  size: 10, // 한 페이지에 10개씩
-              },
-          })
-          .then((res) => {
-              setMovies(res.data.content); // Page<Movie> → content
-              setTotalPages(res.data.totalPages); // 전체 페이지 수
-          })
-          .catch((err) => {
-              console.error("영화 목록 불러오기 실패:", err);
-              setMovies(mock);
-              setTotalPages(1);
-          });
+    axios
+      .get("http://localhost:8080/api/movies", {
+        params: {
+          genre: activeGenre,
+          page: page,
+          size: 10, // 한 페이지에 10개씩
+        },
+      })
+      .then((res) => {
+        setMovies(res.data.content); // Page<Movie> → content
+        setTotalPages(res.data.totalPages); // 전체 페이지 수
+      })
+      .catch((err) => {
+        console.error("영화 목록 불러오기 실패:", err);
+        setMovies(mock);
+        setTotalPages(1);
+      });
   }, [activeGenre, page, mock]);
 
 
-    // 장르 버튼 클릭 시
-    const handleGenreClick = (genre) => {
-        setActiveGenre(genre);
-        setPage(0); // 장르 바꾸면 첫 페이지로
-    };
+  // 장르 버튼 클릭 시
+  const handleGenreClick = (genre) => {
+    setActiveGenre(genre);
+    setPage(0); // 장르 바꾸면 첫 페이지로
+  };
 
+  return (
+    <div className="panel movies-panel">
+      <MoviesContainer
+        genres={genres}
+        activeGenre={activeGenre}
+        setActiveGenre={handleGenreClick}
+        movies={movies}
+      />
 
-
-    return (
-        <div className="panel movies-panel">
-            <MoviesContainer
-                genres={genres}
-                activeGenre={activeGenre}
-                setActiveGenre={handleGenreClick}
-                movies={movies}
-            />
-
-            {/* 페이지네이션 */}
-            <Pagination page={page} totalPages={totalPages} setPage={setPage} />
-        </div>
-    );
+      {/* 페이지네이션 */}
+      <Pagination page={page} totalPages={totalPages} setPage={setPage} />
+    </div>
+  );
 }
 
 
@@ -97,8 +95,17 @@ function MoviesContainer({ genres, activeGenre, setActiveGenre, movies }) {
 }
 
 function MovieCard({ movie }) {
+  const navigate = useNavigate();
+
+  //movie-card눌렀을때 doc_id로 보냄
   return (
-    <div className="movie-card">
+    <div
+      className="movie-card"
+      onClick={() => {
+        console.log("클릭됨:", movie.docId);
+        navigate(`/movies/${movie.docId}`);
+      }}
+    >
       <img src={movie.posterUrl} alt={movie.title} />
       <div className="meta">
         <div className="title">{movie.title}</div>
@@ -109,31 +116,31 @@ function MovieCard({ movie }) {
 }
 
 function Pagination({ page, totalPages, setPage }) {
-    // 페이지 번호 배열 생성
-    const pages = Array.from({ length: totalPages }, (_, i) => i);
+  // 페이지 번호 배열 생성
+  const pages = Array.from({ length: totalPages }, (_, i) => i);
 
-    return (
-        <div className="pagination">
-            <button disabled={page === 0} onClick={() => setPage(page - 1)}>
-                이전
-            </button>
+  return (
+    <div className="pagination">
+      <button disabled={page === 0} onClick={() => setPage(page - 1)}>
+        이전
+      </button>
 
-            {pages.map((p) => (
-                <button
-                    key={p}
-                    className={p === page ? "page-btn active" : "page-btn"}
-                    onClick={() => setPage(p)}
-                >
-                    {p + 1}
-                </button>
-            ))}
+      {pages.map((p) => (
+        <button
+          key={p}
+          className={p === page ? "page-btn active" : "page-btn"}
+          onClick={() => setPage(p)}
+        >
+          {p + 1}
+        </button>
+      ))}
 
-            <button
-                disabled={page === totalPages - 1}
-                onClick={() => setPage(page + 1)}
-            >
-                다음
-            </button>
-        </div>
-    );
+      <button
+        disabled={page === totalPages - 1}
+        onClick={() => setPage(page + 1)}
+      >
+        다음
+      </button>
+    </div>
+  );
 }

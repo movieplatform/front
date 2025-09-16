@@ -9,7 +9,7 @@ import ProtectedRoute from "./page/main/ProtectedRoute";
 import MoviesPage from "./page/main/movies/MoviesPage";
 import AdminPageLayout from "./page/main/auth/MyPage/AdminPageLayout";
 import AdminRoute  from "./page/main/AdminRoute";
-
+import MoviesDetail from "./page/main/movies/MoviesDetail.jsx";
 
 import './App.css';
 
@@ -43,6 +43,7 @@ function App() {
 
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies/:docId" element={<MoviesDetail />} />
         </Route>
       </Routes>
     </Router>

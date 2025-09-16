@@ -57,58 +57,63 @@ export default function MoviesPanel() {
             {/* 리스트/그리드 모드 전환 */}
             {viewMode === "list" ? (
                 <ul className="movie-list">
-                    {movies.map((movie) => (
-                        <li
-                            key={movie.docId}
-                            className={`movie-row ${selectedId === movie.docId ? "active" : ""}`}
-                            onClick={() => setSelectedId(movie.docId)}
-                        >
-                            <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "all"}`}>
-                                {movie.rating.replace(/[^0-9]/g, "") || "All"}
-                            </span>
-                            <span className="movie-title">{movie.title}</span>
-                            {selectedId === movie.docId && (
-                                <span className="checkmark">✔</span>
-                            )}
-                        </li>
-                    ))}
+                    {movies.map((movie, index) => {
+                        const isActive = selectedId === movie.docId;
+                        console.log(
+                            "LIST | movie.docId:", movie.docId,
+                            "| selectedId:", selectedId,
+                            "| isActive:", isActive
+                        );
+
+                        return (
+                            <li
+                                key={movie.docId ?? index}
+                                className={`movie-row ${isActive ? "active" : ""}`}
+                                onClick={() => {
+                                    console.log("리스트에서 클릭됨:", movie.docId);
+                                    setSelectedId(movie.docId);
+                                }}
+                            >
+                                <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "all"}`}>
+                                    {movie.rating.replace(/[^0-9]/g, "") || "All"}
+                                </span>
+                                <span className="movie-title">{movie.title}</span>
+                            </li>
+                        );
+                    })}
                 </ul>
             ) : (
                 <div className="movie-grid-wrapper">
-                    <div className="movie-grid">
-                        {movies.map((movie) => (
-                            <div
-                                key={movie.doc_id}
-                                className={`movie-card horizontal ${selectedId === movie.doc_id ? "active" : ""}`}
-                                onClick={() => setSelectedId(movie.doc_id)}
-                            >
-                                {/* 왼쪽 포스터 */}
-                                {movie.poster_url ? (
-                                    <img src={movie.poster_url} alt={movie.title} className="poster-thumb" />
-                                ) : (
-                                    <div className="poster-thumb placeholder"></div>
-                                )}
-
-                                {/* 오른쪽 정보 */}
-                                <div className="card-info">
-                                    <div className="top-line">
-                                        <span className={`badge rating-${movie.rating}`}>{movie.rating}</span>
-                                        <h4 className="card-title">{movie.title}</h4>
-                                        {selectedId === movie.doc_id && <span className="checkmark">✔</span>}
-                                    </div>
-                                    <div className="bottom-line">
-                                        <span className="runtime">⏱ {movie.runtime ?? "??"}분</span>
-                                        <span className="release">개봉일 {movie.rep_rls_date ?? "-"}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                <div className="movie-grid">
+                  {movies.map((movie, index) => {
+                    const isActive = selectedId === movie.docId;
+                    return (
+                      <div
+                        key={movie.docId ?? index}
+                        className={`movie-card grid ${isActive ? "active" : ""}`}
+                        onClick={() => setSelectedId(movie.docId)}
+                      >
+                        {movie.poster_url ? (
+                          <img src={movie.poster_url} alt={movie.title} className="poster" />
+                        ) : (
+                          <div className="poster placeholder"></div>
+                        )}
+                        <div className="card-info">
+                          <div className="top-line">
+                            <span className={`badge rating-${movie.rating}`}>{movie.rating}</span>
+                            <h4 className="card-title">{movie.title}</h4>
+                          </div>
+                          <div className="bottom-line">
+                            <span className="runtime">⏱ {movie.runtime ?? "??"}분</span>
+                            <span className="release">개봉일 {movie.rep_rls_date ?? "-"}</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-
-
+              </div>
             )}
-
-        </div>
+            </div>
     );
 }
