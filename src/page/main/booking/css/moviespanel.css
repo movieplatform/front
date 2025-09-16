@@ -13,7 +13,8 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #2c2f38;
-  padding-bottom: 6px;
+  padding-bottom: 10px;
+  margin-top: 6px;
 }
 
 .movies-header h3 {
@@ -39,9 +40,12 @@
 /* ===== 스크롤 공통 ===== */
 .movie-list,
 .movie-grid-wrapper {
-  max-height: 500px;       /* 리스트와 동일하게 높이 제한 */
-  overflow-y: auto;        /* 세로 스크롤 */
-  padding-right: 6px;      /* 스크롤바 간격 */
+  max-height: 500px;
+  /* 리스트와 동일하게 높이 제한 */
+  overflow-y: auto;
+  /* 세로 스크롤 */
+  padding-right: 6px;
+  /* 스크롤바 간격 */
   scrollbar-width: thin;
   scrollbar-color: #555 #1a1d26;
 }
@@ -106,7 +110,8 @@
   border-radius: 8px;
   overflow: hidden;
   background: #222;
-  height: 280px; /* 카드 높이 고정 */
+  height: 280px;
+  /* 카드 높이 고정 */
   transition: transform 0.2s ease, box-shadow 0.2s ease, border 0.2s ease;
   cursor: pointer;
 }
@@ -173,7 +178,7 @@
 }
 
 .movie-card.horizontal.active {
-  border: 2px solid #e63946;
+  border: 2px solid #c22b38;
 }
 
 /* list 전용 포스터 */
@@ -208,9 +213,3 @@
   color: #666;
 }
 
-/* 체크 표시 (list 모드 전용) */
-.checkmark {
-  margin-left: auto;
-  color: #e63946;
-  font-size: 16px;
-}

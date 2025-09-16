@@ -31,7 +31,7 @@ export default function TimesPanel() {
     return (
         <div className="times-panel">
             <div className="times-header">
-                <h3 className="weather-text">날짜 선택</h3>
+                <h3 className="times-text">날짜 선택</h3>
             </div>
             <div className="header">
                 <button onClick={() => moveWeek(-1)}>〈</button>

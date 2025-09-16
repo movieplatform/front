@@ -2,7 +2,7 @@ import "../css/theaterspanel.css"
 import { useState } from "react";
 
 
-export default function TheatersPanel() {
+export default function TheatersPanel({ onSelect }) {
 
     const [activeRegion, setActiveRegion] = useState("");
     const [activeTheater, setActiveTheater] = useState("");
@@ -10,8 +10,17 @@ export default function TheatersPanel() {
     const regions = ["광주"];
     const theaters = ["광주광산", "광주첨단", "충장로"];
 
+    const handleRegionClick = (region) => {
+        setActiveRegion(region);
+        // 지역만 선택했을 때는 극장은 아직 없으니까 null
+        onSelect({ region, theater: null });
+    };
 
-
+    const handleTheaterClick = (theater) => {
+        setActiveTheater(theater);
+        // ✅ region + theater 둘 다 부모에 전달
+        onSelect({ region: activeRegion, theater });
+    };
     return (
         <div className="panel theaters-panel">
             <div className="theaters-header">
@@ -28,7 +37,7 @@ export default function TheatersPanel() {
                             <li
                                 key={region}
                                 className={activeRegion === region ? "active" : ""}
-                                onClick={() => setActiveRegion(region)}
+                                onClick={() => handleRegionClick(region)}
                             >
                                 {region}
                             </li>
@@ -42,7 +51,7 @@ export default function TheatersPanel() {
                             <li
                                 key={theater}
                                 className={activeTheater === theater ? "active" : ""}
-                                onClick={() => setActiveTheater(theater)}
+                                onClick={() => handleTheaterClick(theater)}
                             >
                                 {theater}
                             </li>
