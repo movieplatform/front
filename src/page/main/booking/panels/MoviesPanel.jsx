@@ -22,7 +22,7 @@ export default function MoviesPanel({ onSelect }) {
     axios
       .get("http://localhost:8080/api/movies")
       .then((res) => {
-        // console.log("API 응답:", res.data);
+        console.log("API 응답:", res.data);
         if (Array.isArray(res.data.content)) {
           setMovies(res.data.content);
         } else {
@@ -88,24 +88,33 @@ export default function MoviesPanel({ onSelect }) {
                 <div
                   key={movie.docId ?? index}
                   className={`movie-card grid ${isActive ? "active" : ""}`}
-                  onClick={() => setSelectedId(movie.docId)}
+                  onClick={() => handleSelect(movie)}
                 >
-                  {movie.poster_url ? (
-                    <img src={movie.poster_url} alt={movie.title} className="poster" />
+                  {movie.posterUrl ? (
+                    <div className="poster-container">
+                      {movie.posterUrl ? (
+                        <img src={movie.posterUrl} alt={movie.title} className="poster" />
+                      ) : (
+                        <div className="poster placeholder"></div>
+                      )}
+                    </div>
                   ) : (
                     <div className="poster placeholder"></div>
                   )}
                   <div className="card-info">
                     <div className="top-line">
-                      <span className={`badge rating-${movie.rating}`}>{movie.rating}</span>
+                      <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "ALL"}`}>
+                        {movie.rating}
+                      </span>
                       <h4 className="card-title">{movie.title}</h4>
                     </div>
                     <div className="bottom-line">
                       <span className="runtime">⏱ {movie.runtime ?? "??"}분</span>
-                      <span className="release">개봉일 {movie.rep_rls_date ?? "-"}</span>
+                      <span className="release">개봉일 {movie.repRlsDate ?? "-"}</span>
                     </div>
                   </div>
                 </div>
+
               );
             })}
           </div>
