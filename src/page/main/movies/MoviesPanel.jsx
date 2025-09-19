@@ -13,11 +13,6 @@ export default function MoviesPanel() {
     { docId: "1", title: "귀멸의 칼날", rating: "15", posterUrl: "https://i.namu.wiki/i/gwqbq98J0nv5hKDlCnnlu7KJ_zFDzvN9Cj8y5ss64uohGgY_3A5HzFKnxlCNWbxRfIepjW1aAr5q7Zf-QA5lYg.webp", repRlsDate: "2025-08-22", genres: ["드라마"] },
     { docId: "2", title: "아임 스틸 히어", rating: "15", posterUrl: "...", repRlsDate: "2025-07-03", genres: ["다큐"] },
     { docId: "3", title: "어쩔 수가 없다", rating: "15", posterUrl: "...", repRlsDate: "2025-05-10", genres: ["코메디"] },
-    { docId: "4", title: "별 헤는 밤", rating: "ALL_AGES", posterUrl: "...", repRlsDate: "2025-09-01", genres: ["멜로/로맨스", "드라마"] },
-    { docId: "5", title: "라스트 러너", rating: "18", posterUrl: "...", repRlsDate: "2025-04-19", genres: ["스릴러", "액션"] },
-    { docId: "6", title: "그 여름의 기억", rating: "12", posterUrl: "...", repRlsDate: "2025-07-29", genres: ["드라마", "멜로/로맨스"] },
-    { docId: "7", title: "인류의 종말", rating: "18", posterUrl: "...", repRlsDate: "2025-03-12", genres: ["액션", "스릴러"] },
-    { docId: "8", title: "웃으면 복이 와요", rating: "ALL_AGES", posterUrl: "...", repRlsDate: "2025-06-01", genres: ["코메디"] }
   ], []);
 
   const genres = ["ALL", "드라마", "멜로/로맨스", "코메디", "액션", "스릴러", "공포", "SF"];
