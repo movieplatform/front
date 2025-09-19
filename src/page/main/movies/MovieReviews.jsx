@@ -9,7 +9,7 @@ export default function MovieReviews({ docId }) {
     const [showModal, setShowModal] = useState(false);
     const [newReview, setNewReview] = useState({ rating: 0, text: "" });
     const [currentPage, setCurrentPage] = useState(1);
-    const [sortType, setSortType] = useState("latest");  //리뷰 최신순
+    const [sortType, setSortType] = useState("rating");  //리뷰 최신순
     const reviewsPerPage = 5;
 
     const mockReviews = [
