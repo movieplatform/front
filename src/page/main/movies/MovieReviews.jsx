@@ -82,7 +82,7 @@ export default function MovieReviews({ docId }) {
             if (error.response && error.response.status === 401) {
                 // 로그인 안된 경우
                 setShowModal(false);
-                setLoginAlert(true);
+                setShowLoginModal(true);
             } else {
                 alert("리뷰 저장 중 오류가 발생했습니다.");
             }
