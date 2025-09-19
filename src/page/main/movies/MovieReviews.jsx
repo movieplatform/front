@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import "./css/moviesreview.css";
 import axios from "axios";
-
+import KnowLoginModal from "./KnowLoginModal";
 
 export default function MovieReviews({ docId }) {
     const [reviews, setReviews] = useState([]);
@@ -12,6 +12,8 @@ export default function MovieReviews({ docId }) {
     const [sortType, setSortType] = useState("rating");  //리뷰 최신순
     const reviewsPerPage = 5;
 
+    const [loginAlert, setLoginAlert] = useState(false); //로그인 완료했는지 안했는지 확인
+    const [showLoginModal, setShowLoginModal] = useState(false);
     const mockReviews = [
         { id: 1, author: "유광명", rating: 4, text: "스토리랑 연출 다 좋았어요. 다시 보고 싶네요.", postedAt: "2025-09-17T14:35:00" },
         { id: 2, author: "임동혁", rating: 3, text: "재밌긴 했는데 원작에 비하면 아쉬운 부분도 있었어요.", postedAt: "2025-09-18T10:20:00" },
@@ -51,26 +53,42 @@ export default function MovieReviews({ docId }) {
     }, [docId, sortType]);
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!newReview.text || newReview.rating === 0) {
             alert("별점과 리뷰 내용을 모두 입력해주세요!");
             return;
         }
 
-        const newEntry = {
-            id: reviews.length + 1,
-            rating: newReview.rating,
-            text: newReview.text,
-            author: "목업유저",
-            postedAt: new Date().toISOString(),
-        };
+        try {
+            const response = await axios.post(
+                `http://localhost:8080/api/reviews/${docId}`,
+                {
+                    rating: newReview.rating,
+                    content: newReview.text,
+                },
+                { withCredentials: true }
+            );
 
-        setReviews([newEntry, ...reviews]);
-        setNewReview({ rating: 0, text: "" });
-        setShowModal(false);
-        setCurrentPage(1);
+            console.log("리뷰 저장 성공:", response.data);
+
+            // 등록 직후 최신 리뷰 다시 불러오기
+            setSortType("latest"); // 최신순으로 다시 정렬
+            setShowModal(false);
+            setNewReview({ rating: 0, text: "" });
+            setCurrentPage(1);
+        } catch (error) {
+            console.error("리뷰 저장 실패:", error);
+            if (error.response && error.response.status === 401) {
+                // 로그인 안된 경우
+                setShowModal(false);
+                setLoginAlert(true);
+            } else {
+                alert("리뷰 저장 중 오류가 발생했습니다.");
+            }
+        }
     };
+
 
 
     // 페이지네이션
@@ -103,14 +121,14 @@ export default function MovieReviews({ docId }) {
                     {currentReviews.map((r) => (
                         <li key={r.id}>
                             <div className="review-header">
-                                <strong>{r.author}</strong>
+                                <strong>{r.username}</strong>
                                 <div className="stars">
                                     {[...Array(5)].map((_, i) => (
                                         <FaStar key={i} size={18} color={i < r.rating ? "#ffd700" : "#444"} />
                                     ))}
                                 </div>
                             </div>
-                            <p className="review-text">{r.text}</p>
+                            <p className="review-text">{r.content}</p>
                             <span className="review-date">{formatDate(r.postedAt)}</span>
                         </li>
                     ))}
@@ -168,6 +186,9 @@ export default function MovieReviews({ docId }) {
                         </form>
                     </div>
                 </div>
+            )}
+            {showLoginModal && (
+                <KnowLoginModal onClose={() => setShowLoginModal(false)} />
             )}
         </div>
     );
