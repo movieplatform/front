@@ -10,8 +10,7 @@ import MoviesPage from "./page/main/movies/MoviesPage";
 import AdminPageLayout from "./page/main/auth/MyPage/AdminPageLayout";
 import AdminRoute from "./page/main/AdminRoute";
 import MoviesDetail from "./page/main/movies/MoviesDetail.jsx";
-import QAPage from "./page/main/community/QAPage.jsx";
-import QADetailPage from "./page/main/community/QADetailPage.jsx";
+
 
 import './App.css';
 
@@ -46,8 +45,6 @@ function App() {
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/movies/:docId" element={<MoviesDetail />} />
-          <Route path="/qa" element={<QAPage/>} />
-          <Route path="/qa/:id" element={<QADetailPage/>} />
         </Route>
       </Routes>
     </Router>

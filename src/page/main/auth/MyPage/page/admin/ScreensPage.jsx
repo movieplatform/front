@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { FiGrid, FiPlusSquare } from "react-icons/fi";
 import "./css/screenspage.css";
 
 function TheaterForm({ onAdd }) {
@@ -13,7 +14,7 @@ function TheaterForm({ onAdd }) {
             await axios.post(
                 "http://localhost:8080/api/admin/theaters",
                 null,
-                { params: { theaterName: name }, withCredentials:true }
+                { params: { theaterName: name }, withCredentials: true }
             );
             onAdd(); // 목록 갱신
             setName("");
@@ -44,22 +45,22 @@ function TheaterTable({ theaters, onSelectTheater }) {
     return (
         <table className="table">
             <thead>
-            <tr>
-                <th>극장 이름</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>극장 이름</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            {theaters.map((t) => (
-                <tr key={t.id}>
-                    <td>{t.theaterName}</td>
-                    <td>
-                        <button onClick={() => onSelectTheater(t)}>
-                            상영관 보기
-                        </button>
-                    </td>
-                </tr>
-            ))}
+                {theaters.map((t) => (
+                    <tr key={t.id}>
+                        <td>{t.theaterName}</td>
+                        <td>
+                            <button onClick={() => onSelectTheater(t)} className="btn btn-outline">
+                                상영관 보기
+                            </button>
+                        </td>
+                    </tr>
+                ))}
             </tbody>
         </table>
     );
@@ -69,22 +70,24 @@ function ScreenTable({ screens, onManageSeats }) {
     return (
         <table className="table">
             <thead>
-            <tr>
-                <th>극장 + 상영관 이름</th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>극장 + 상영관 이름</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            {screens.map((s) => (
-                <tr key={s.id}>
-                    <td>{s.theater.theaterName} {s.screenName}</td>
-                    <td>
-                        <button onClick={() => onManageSeats(s)}>
-                            좌석 관리
-                        </button>
-                    </td>
-                </tr>
-            ))}
+                {screens.map((s) => (
+                    <tr key={s.id}>
+                        <td>{s.theater.theaterName} {s.screenName}</td>
+                        <td>
+                            <button onClick={() => onManageSeats(s)} className="btn-tool">
+                                <FiGrid size={14} />
+                                좌석 관리
+                            </button>
+
+                        </td>
+                    </tr>
+                ))}
             </tbody>
         </table>
     );
@@ -154,7 +157,8 @@ function SeatManager({ screen }) {
                         onChange={(e) => setCols(e.target.value)}
                     />
                 </label>
-                <button type="button" onClick={handleCreateSeats}>
+                <button type="button" onClick={handleCreateSeats} className="btn-create">
+                    <FiPlusSquare size={16} />
                     좌석 생성
                 </button>
             </div>
@@ -171,12 +175,12 @@ export default function ScreensPage() {
     const [activeScreen, setActiveScreen] = useState(null);
 
     const fetchTheaters = async () => {
-        const res = await axios.get("http://localhost:8080/api/admin/theaters", {withCredentials: true});
+        const res = await axios.get("http://localhost:8080/api/admin/theaters", { withCredentials: true });
         setTheaters(res.data);
     };
 
     const fetchScreens = async (theaterId) => {
-        const res = await axios.get(`http://localhost:8080/api/admin/screens/${theaterId}`, {withCredentials: true});
+        const res = await axios.get(`http://localhost:8080/api/admin/screens/${theaterId}`, { withCredentials: true });
         setScreens(res.data);
         setActiveScreen(null); // 극장 새로 고르면 좌석 관리 초기화
     };

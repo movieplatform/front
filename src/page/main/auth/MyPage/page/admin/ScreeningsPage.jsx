@@ -1,5 +1,5 @@
 // src/page/admin/ScreeningsPage.jsx
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import "./css/screeningspage.css";
 import Select from "react-select";
@@ -9,38 +9,21 @@ export default function ScreeningsPage() {
   const [form, setForm] = useState({
     movie: "",
     theater: "",
+    screen: "",
     startDate: "",
     endDate: "",
     time: "",
   });
 
+  const startDateRef = useRef(null);
+  const endDateRef = useRef(null);
 
-  // Screening_info에 끝나는시점 칼럼없어서 만들어야할듯
-  const [schedules, setSchedules] = useState([
-    {
-      id: 1,
-      movie: "귀시",
-      theater: "극장1",
-      startDate: "2025-09-20",
-      endDate: "2025-09-27",
-      time: "14:00",
-    },
-  ]);
+  const [schedules, setSchedules] = useState([]);
 
 
-  const timeRef = useRef(null);
+  const [theaterOptions, setTheaterOptions] = useState([]);
+  const [screenOptions, setScreenOptions] = useState([]);
 
-  const handleLabelClick = () => {
-    if (timeRef.current && timeRef.current.showPicker) {
-      timeRef.current.showPicker();
-    } else if (timeRef.current) {
-      timeRef.current.focus();
-    }
-  };
-
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,22 +41,46 @@ export default function ScreeningsPage() {
       });
       console.log("상영일정 등록 완료:", newSchedule);
       setSchedules([...schedules, newSchedule]);
-      setForm({ movie: "", theater: "", startDate: "", endDate: "", time: "" });
+      setForm({ movie: "", theater: "", screen: "", startDate: "", endDate: "", time: "" });
     } catch (err) {
       console.error("상영일정 등록 실패:", err);
     }
   };
 
-  // react-select 옵션
-  const movieOptions = [
-    { value: "귀시", label: "귀시" },
-    { value: "좀비딸", label: "좀비딸" },
-  ];
+  const fetchTheaters = async () => {
+    try {
+      const res = await axios.get("http://localhost:8080/api/admin/theaters", { withCredentials: true });
+      const options = res.data.map((t) => ({
+        value: t.id,
+        label: t.theaterName
+      }));
+      setTheaterOptions(options);
+    } catch (err) {
+      console.error("극장 목록 불러오기 실패:", err);
+    }
+  };
 
-  const theaterOptions = [
-    { value: "극장1", label: "극장1" },
-    { value: "극장2", label: "극장2" },
-  ];
+  // 특정 극장의 상영관 불러오기
+  const fetchScreens = async (theaterId) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:8080/api/admin/screens/${theaterId}`,
+        { withCredentials: true }
+      );
+      const options = res.data.map((s) => ({
+        value: s.id,
+        label: s.screenName
+      }));
+      setScreenOptions(options);
+    } catch (err) {
+      console.error("상영관 목록 불러오기 실패:", err);
+    }
+  };
+
+
+  useEffect(() => {
+    fetchTheaters(); // 페이지 로드 시 극장 목록 불러오기
+  }, []);
 
   // 스타일 커스텀
   const customStyles = {
@@ -106,57 +113,68 @@ export default function ScreeningsPage() {
       <form className="screening-form" onSubmit={handleSubmit}>
         {/* 1줄 */}
         <div className="form-row">
+          {/* 극장 선택 */}
           <Select
-            placeholder="영화 선택"
-            options={movieOptions}
-            value={movieOptions.find((opt) => opt.value === form.movie) || null}
-            onChange={(opt) => setForm({ ...form, movie: opt.value })}
-            styles={customStyles}
-          />
-
-          <Select
-            placeholder="상영관 선택"
+            placeholder="극장 선택"
             options={theaterOptions}
             value={theaterOptions.find((opt) => opt.value === form.theater) || null}
-            onChange={(opt) => setForm({ ...form, theater: opt.value })}
+            onChange={(opt) => {
+              setForm({ ...form, theater: opt.value, screen: "" }); // 극장 선택 시 상영관 초기화
+              fetchScreens(opt.value); // 해당 극장의 상영관 목록 가져오기
+            }}
             styles={customStyles}
           />
 
-          <label>
+          {/* 상영관 선택 */}
+          <Select
+            placeholder="상영관 선택"
+            options={screenOptions}
+            value={screenOptions.find((opt) => opt.value === form.screen) || null}
+            onChange={(opt) => setForm({ ...form, screen: opt.value })} // screen만 세팅
+            styles={customStyles}
+            isDisabled={screenOptions.length === 0} // 극장 선택 전에는 비활성화
+          />
+
+          <label
+            onClick={() => {
+              if (startDateRef.current?.showPicker) {
+                startDateRef.current.showPicker(); // 크롬/엣지 등 지원
+              } else {
+                startDateRef.current?.focus(); // fallback
+              }
+            }}
+          >
             상영 시작일:
             <input
               type="date"
               name="startDate"
+              ref={startDateRef}
               value={form.startDate}
               onChange={(e) => setForm({ ...form, startDate: e.target.value })}
             />
           </label>
 
-          <label>
+          <label
+            onClick={() => {
+              if (endDateRef.current?.showPicker) {
+                endDateRef.current.showPicker();
+              } else {
+                endDateRef.current?.focus();
+              }
+            }}
+          >
             상영 종료일:
             <input
               type="date"
               name="endDate"
+              ref={endDateRef}
               value={form.endDate}
-              onChange={(e) => setForm({ ...form, endDate: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, endDate: e.target.value })
+              }
             />
           </label>
-        </div>
-
-        {/* 2줄 */}
-        <div className="form-row">
-          <label className="time-label" onClick={handleLabelClick}>
-            상영 시간:
-            <input
-              ref={timeRef}
-              type="time"
-              name="time"
-              value={form.time}
-              onChange={(e) => setForm({ ...form, time: e.target.value })}
-            />
-          </label>
-
-          <button type="submit">상영일정 등록</button>
+          <button type="submit" className="btn">상영일정 등록</button>
         </div>
       </form>
 
@@ -168,7 +186,6 @@ export default function ScreeningsPage() {
             <th>상영관</th>
             <th>상영 시작일</th>
             <th>상영 종료일</th>
-            {/* <th>상영 시간</th> */}
           </tr>
         </thead>
         <tbody>

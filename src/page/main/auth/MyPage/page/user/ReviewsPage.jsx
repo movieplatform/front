@@ -1,61 +1,73 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./css/reviewspage.css";
+import crimecicty from "../../../../../asset/crimecity.jpg";
+import insideoutPoster from "../../../../../asset/insideout2.jpg";
+
 
 export default function ReviewsPage() {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 목업 (API 실패 시)
   const mock = [
     {
       id: 5001,
+      movieDocId: "K37869",
       movieTitle: "범죄도시4",
-      posterUrl: "/asset/crimecity.jpg",
-      rating: 4.5,
-      createdAt: "2025-09-10 15:12",
-      isPublic: true,
-      content:
-        "액션 시원! 서스펜스 좋고 러닝타임도 딱. 후반부 템포 더 끌어올렸으면 별 5개였음!",
+      posterUrl: crimecicty,
+      rating: 4,
+      postedAt: "2025-09-10T15:12:00",
+      content: "액션 시원! 서스펜스 좋고 러닝타임도 딱.",
     },
     {
       id: 5002,
+      movieDocId: "K45521",
       movieTitle: "인사이드 아웃 2",
-      posterUrl: "/asset/insideout2.jpg",
-      rating: 3.0,
-      createdAt: "2025-09-08 20:30",
-      isPublic: false,
+      posterUrl: insideoutPoster,
+      rating: 3,
+      postedAt: "2025-09-08T20:30:00",
       content: "1편만큼 신선하진 않지만 감정선 표현은 여전히 탁월. 가족 관람 추천!",
     },
   ];
 
   useEffect(() => {
     fetch("/api/my-reviews")
-      .then((r) => {
-        if (!r.ok) throw new Error();
-        return r.json();
+      .then((res) => {
+        if (!res.ok) throw new Error("API 실패");
+        return res.json();
       })
-      .then(setRows)
-      .catch(() => setRows(mock))
+      .then((data) => setRows(data))
+      .catch((err) => {
+        console.error("리뷰 API 실패, mock 사용:", err);
+        setRows(mock);
+      })
       .finally(() => setLoading(false));
   }, []);
 
   const Star = ({ value }) => {
-    const full = Math.floor(value);
-    const half = value - full >= 0.5;
     return (
-      <span className="stars" aria-label={`별점 ${value}`}>
-        {"★".repeat(full)}
-        {half ? "☆" : ""}
-        {"✩".repeat(5 - full - (half ? 1 : 0))}
-        <span className="score">{value.toFixed(1)}</span>
+      <span className="stars">
+        {"★".repeat(value)}
+        {"☆".repeat(5 - value)}
+        <span className="score">{value}</span>
       </span>
     );
   };
 
-  // 간단 정렬(최신순)
+  const formatDate = (dateStr) => {
+    const d = new Date(dateStr);
+    return d.toLocaleString("ko-KR", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  // 최신순 정렬
   const data = useMemo(
     () =>
-      [...rows].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+      [...rows].sort((a, b) => new Date(b.postedAt) - new Date(a.postedAt)),
     [rows]
   );
 
@@ -63,9 +75,35 @@ export default function ReviewsPage() {
 
   return (
     <div className="reviews-section">
-      <h2>리뷰 내역</h2>
+      <h2>내가 남긴 리뷰</h2>
 
-    
+      <div className="review-timeline">
+        {data.map((review) => (
+          <div key={review.id} className="timeline-item">
+            <div className="poster-wrap">
+              <img
+                src={review.posterUrl}
+                alt={review.movieTitle}
+                className="poster"
+              />
+            </div>
+
+            <div className="timeline-content">
+              <h3 className="movie-title">{review.movieTitle}</h3>
+              <Star value={review.rating} />
+              <p className="review-text">{review.content}</p>
+
+              <div className="timeline-footer">
+                <span className="date">{formatDate(review.postedAt || review.createdAt)}</span>
+                {/* <div className="actions">
+                  <button className="edit-btn">수정</button>
+                  <button className="delete-btn">삭제</button>
+                </div> */}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -82,7 +82,6 @@ export default function Header() {
                     {/* 우측 */}
                     <div className="right">
                         <a className="navlink" href="#">버튼 4</a>
-                        <a className="navlink" href="/qa">QA</a>
                         <a className="mypage" href="/mypage">마이페이지</a>
                     </div>
                 </div>
