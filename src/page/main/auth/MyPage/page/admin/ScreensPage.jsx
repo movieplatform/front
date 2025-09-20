@@ -11,9 +11,9 @@ function TheaterForm({ onAdd }) {
 
         try {
             await axios.post(
-                "http://localhost:8080/api/admin/screens",
+                "http://localhost:8080/api/admin/theaters",
                 null,
-                { params: { screenName: name }, withCredentials:true }
+                { params: { theaterName: name }, withCredentials:true }
             );
             onAdd(); // 목록 갱신
             setName("");
@@ -40,13 +40,9 @@ function TheaterForm({ onAdd }) {
     );
 }
 
-function TheaterTable({ theaters, onManageSeats }) {
-    if (theaters.length === 0) {
-        return <p>등록된 극장이 없습니다.</p>;
-    }
-
+function TheaterTable({ theaters, onSelectTheater }) {
     return (
-        <table className="theater-table">
+        <table className="table">
             <thead>
             <tr>
                 <th>극장 이름</th>
@@ -56,13 +52,10 @@ function TheaterTable({ theaters, onManageSeats }) {
             <tbody>
             {theaters.map((t) => (
                 <tr key={t.id}>
-                    <td>{t.screenName}</td>
+                    <td>{t.theaterName}</td>
                     <td>
-                        <button
-                            className="seat-manage-btn"
-                            onClick={() => onManageSeats(t)}
-                        >
-                            좌석 관리/추가
+                        <button onClick={() => onSelectTheater(t)}>
+                            상영관 보기
                         </button>
                     </td>
                 </tr>
@@ -72,7 +65,34 @@ function TheaterTable({ theaters, onManageSeats }) {
     );
 }
 
-function SeatManager({ theater }) {
+function ScreenTable({ screens, onManageSeats }) {
+    return (
+        <table className="table">
+            <thead>
+            <tr>
+                <th>극장 + 상영관 이름</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {screens.map((s) => (
+                <tr key={s.id}>
+                    <td>{s.theater.theaterName} {s.screenName}</td>
+                    <td>
+                        <button onClick={() => onManageSeats(s)}>
+                            좌석 관리
+                        </button>
+                    </td>
+                </tr>
+            ))}
+            </tbody>
+        </table>
+    );
+}
+
+
+
+function SeatManager({ screen }) {
     const [rows, setRows] = useState("");
     const [cols, setCols] = useState("");
     const [seatCount, setSeatCount] = useState(0);
@@ -81,7 +101,7 @@ function SeatManager({ theater }) {
     const fetchSeatCount = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/api/admin/seat/${theater.id}`,
+                `http://localhost:8080/api/admin/seat/${screen.id}`,
                 { withCredentials: true }
             );
             setSeatCount(res.data);
@@ -92,13 +112,13 @@ function SeatManager({ theater }) {
 
     useEffect(() => {
         fetchSeatCount(); // 여기서 호출 가능
-    }, [theater.id]); // theater.id가 바뀔 때마다 호출
+    }, [screen.id]); // theater.id가 바뀔 때마다 호출
 
     // 좌석 생성 (백엔드 연동)
     const handleCreateSeats = async () => {
         try {
             const res = await axios.post(
-                `http://localhost:8080/api/admin/seat/${theater.id}`,
+                `http://localhost:8080/api/admin/seat/${screen.id}`,
                 null,
                 { params: { rows, cols }, withCredentials: true }
             );
@@ -116,7 +136,7 @@ function SeatManager({ theater }) {
 
     return (
         <div className="seat-manager">
-            <h3>{theater.screenName} 좌석 관리</h3>
+            <h3>{screen.theater.theaterName} - {screen.screenName} 좌석 관리</h3>
             <div className="seat-inputs">
                 <label>
                     행(1~8):
@@ -147,34 +167,29 @@ function SeatManager({ theater }) {
 
 export default function ScreensPage() {
     const [theaters, setTheaters] = useState([]);
-    const [activeTheater, setActiveTheater] = useState(null);
+    const [screens, setScreens] = useState([]);
+    const [activeScreen, setActiveScreen] = useState(null);
 
-    // 백엔드에서 극장 목록 가져오기
     const fetchTheaters = async () => {
-        try {
-            const res = await axios.get("http://localhost:8080/api/admin/screens", {withCredentials: true});
-            setTheaters(res.data);
-        } catch (err) {
-            console.error("극장 목록 조회 실패:", err);
-        }
+        const res = await axios.get("http://localhost:8080/api/admin/theaters", {withCredentials: true});
+        setTheaters(res.data);
     };
 
-    useEffect(() => {
-        fetchTheaters();
-    }, []);
-
-    // 극장 추가 후 목록 갱신
-    const handleAddTheater = async () => {
-        await fetchTheaters();
+    const fetchScreens = async (theaterId) => {
+        const res = await axios.get(`http://localhost:8080/api/admin/screens/${theaterId}`, {withCredentials: true});
+        setScreens(res.data);
+        setActiveScreen(null); // 극장 새로 고르면 좌석 관리 초기화
     };
+
+    useEffect(() => { fetchTheaters(); }, []);
 
     return (
         <div className="screens-page">
             <h2>극장 관리</h2>
-            <TheaterForm onAdd={handleAddTheater} />
-            <TheaterTable theaters={theaters} onManageSeats={setActiveTheater} />
-
-            {activeTheater && <SeatManager theater={activeTheater} />}
+            <TheaterForm onAdd={fetchTheaters} />
+            <TheaterTable theaters={theaters} onSelectTheater={(t) => fetchScreens(t.id)} />
+            {screens.length > 0 && <ScreenTable screens={screens} onManageSeats={setActiveScreen} />}
+            {activeScreen && <SeatManager screen={activeScreen} />}
         </div>
     );
 }

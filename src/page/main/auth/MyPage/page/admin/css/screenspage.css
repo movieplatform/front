@@ -1,69 +1,12 @@
 .screens-page {
-    padding: 10px;
+    padding: 20px;
     color: #fff;
     background: #1a1d26;
     border-radius: 12px;
 }
 
-.theater-form {
-    display: flex;
-    gap: 8px;
-    /* input과 버튼 사이 간격 */
-    margin-bottom: 16px;
-}
-
-.theater-form input {
-    flex: 1;
-    /* 남는 공간 차지 (원하면 고정 폭으로 바꿔도 됨) */
-    max-width: 200px;
-    /* 너무 길지 않게 제한 */
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid #444;
-    background: #111;
-    color: #fff;
-}
-
-.theater-form button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    background: #f0b90b;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.theater-form button:hover {
-    background: #d9a600;
-}
-
-.theater-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #12141b;
-    margin-bottom: 20px;
-}
-
-.theater-table th,
-.theater-table td {
-    border: 1px solid #444;
-    padding: 8px;
-}
-
-.theater-table th {
-    background: #222;
-    color: #f0b90b;
-}
-
-.seat-manager {
-    background: #111;
-    padding: 16px;
-    border-radius: 8px;
-}
-
-.seat-manage-btn {
+/* 공통 버튼 스타일 */
+.btn {
     padding: 6px 12px;
     border: none;
     border-radius: 6px;
@@ -74,48 +17,64 @@
     transition: all 0.2s ease;
 }
 
-.seat-manage-btn:hover {
+.btn:hover {
     background: #d9a600;
     transform: scale(1.05);
 }
 
-.seat-manage-btn:active {
+.btn:active {
     transform: scale(0.95);
 }
 
-.seat-grid {
-    margin-top: 12px;
-    display: grid;
-    gap: 6px;
-    /* 좌석 간격 */
-    justify-content: center;
-    /* 가운데 정렬 */
-}
-
-.seat {
-    width: 40px;
-    height: 40px;
-    background: #555;
-    border-radius: 6px;
+/* 극장 추가 폼 */
+.theater-form {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: #fff;
-    font-weight: bold;
-    transition: background 0.2s;
+    gap: 8px;
+    margin-bottom: 16px;
 }
 
-.seat:hover {
-    background: #f0b90b;
-    color: #000;
-    cursor: pointer;
+.theater-form input {
+    flex: 1;
+    max-width: 200px;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #111;
+    color: #fff;
+}
+
+/* 공통 테이블 스타일 */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #12141b;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table th,
+.table td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center;
+}
+
+.table th {
+    background: #222;
+    color: #f0b90b;
+}
+
+/* 좌석 관리 */
+.seat-manager {
+    background: #111;
+    padding: 16px;
+    border-radius: 8px;
 }
 
 .seat-inputs {
     display: flex;
     gap: 12px;
-    /* 항목 사이 간격 */
     align-items: center;
     margin-bottom: 12px;
 }
@@ -129,28 +88,12 @@
 
 .seat-inputs input {
     width: 60px;
-    /* 크기 고정 */
     padding: 6px;
     border-radius: 6px;
     border: 1px solid #444;
     background: #111;
     color: #fff;
     text-align: center;
-}
-
-.seat-inputs button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    background: #f0b90b;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.seat-inputs button:hover {
-    background: #d9a600;
 }
 
 .seat-inputs input[type=number]::-webkit-inner-spin-button,
