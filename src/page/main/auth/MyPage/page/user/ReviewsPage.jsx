@@ -29,21 +29,35 @@ export default function ReviewsPage() {
     },
   ];
 
-  useEffect(() => {
-    fetch("/api/my-reviews")
-      .then((res) => {
-        if (!res.ok) throw new Error("API 실패");
-        return res.json();
-      })
-      .then((data) => setRows(data))
-      .catch((err) => {
-        console.error("리뷰 API 실패, mock 사용:", err);
-        setRows(mock);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    useEffect(() => {
+        fetch("http://localhost:8080/api/my-page/reviews", {
+            credentials: "include"
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error("API 실패");
+                return res.json();
+            })
+            .then((data) => {
+                // DTO 필드 변환
+                const mapped = data.map((r, idx) => ({
+                    id: r.id, // DTO에 id가 없으므로 임의 생성
+                    posterUrl: r.moviePosterUrl,
+                    movieTitle: r.movieTitle,
+                    rating: r.rating,
+                    content: r.reviewComment,
+                    postedAt: r.postedAt,
+                }));
+                setRows(mapped);
+            })
+            .catch((err) => {
+                console.error("리뷰 API 실패, mock 사용:", err);
+                setRows(mock);
+            })
+            .finally(() => setLoading(false));
+    }, []);
 
-  const Star = ({ value }) => {
+
+    const Star = ({ value }) => {
     return (
       <span className="stars">
         {"★".repeat(value)}
@@ -94,7 +108,7 @@ export default function ReviewsPage() {
               <p className="review-text">{review.content}</p>
 
               <div className="timeline-footer">
-                <span className="date">{formatDate(review.postedAt || review.createdAt)}</span>
+                <span className="date">{formatDate(review.postedAt)}</span>
                 {/* <div className="actions">
                   <button className="edit-btn">수정</button>
                   <button className="delete-btn">삭제</button>
