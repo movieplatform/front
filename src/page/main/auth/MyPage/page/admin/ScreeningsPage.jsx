@@ -1,5 +1,5 @@
 // src/page/admin/ScreeningsPage.jsx
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./css/screeningspage.css";
 import Select from "react-select";
@@ -7,47 +7,46 @@ import Select from "react-select";
 
 export default function ScreeningsPage() {
   const [form, setForm] = useState({
-    movie: "",
     theater: "",
     screen: "",
-    startDate: "",
-    endDate: "",
-    time: "",
   });
 
-  const startDateRef = useRef(null);
-  const endDateRef = useRef(null);
 
   const [schedules, setSchedules] = useState([]);
-
-
   const [theaterOptions, setTheaterOptions] = useState([]);
   const [screenOptions, setScreenOptions] = useState([]);
+    const [selectedTheaterName, setSelectedTheaterName] = useState("");
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.movie || !form.theater || !form.startDate || !form.endDate || !form.time) return;
+    // src/page/admin/ScreeningsPage.jsx
 
-    const newSchedule = {
-      id: Date.now(),
-      ...form,
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!form.theater || !form.screen) return;
+
+        try {
+            const res = await axios.post(
+                "http://localhost:8080/api/admin/screenings",
+                null,
+                { params: { screenId: form.screen }, withCredentials: true }
+            );
+
+            console.log("상영일정 등록 완료:", res.data);
+            await fetchSchedules(form.theater);
+            setForm({ theater: "", screen: "" });
+            alert(res.data); // 성공 메시지 알림
+        } catch (err) {
+            console.error("상영일정 등록 실패:", err);
+            if (err.response && err.response.data) {
+                alert(err.response.data); // 백엔드 RuntimeException 메시지 알림
+            } else {
+                alert("상영일정 등록 중 오류가 발생했습니다.");
+            }
+        }
     };
 
-    //api연결 
-    try {
-      await axios.post("/api/screenings", newSchedule, {
-        headers: { "Content-Type": "application/json" },
-      });
-      console.log("상영일정 등록 완료:", newSchedule);
-      setSchedules([...schedules, newSchedule]);
-      setForm({ movie: "", theater: "", screen: "", startDate: "", endDate: "", time: "" });
-    } catch (err) {
-      console.error("상영일정 등록 실패:", err);
-    }
-  };
 
-  const fetchTheaters = async () => {
+    const fetchTheaters = async () => {
     try {
       const res = await axios.get("http://localhost:8080/api/admin/theaters", { withCredentials: true });
       const options = res.data.map((t) => ({
@@ -61,51 +60,67 @@ export default function ScreeningsPage() {
   };
 
   // 특정 극장의 상영관 불러오기
-  const fetchScreens = async (theaterId) => {
-    try {
-      const res = await axios.get(
-        `http://localhost:8080/api/admin/screens/${theaterId}`,
-        { withCredentials: true }
-      );
-      const options = res.data.map((s) => ({
-        value: s.id,
-        label: s.screenName
-      }));
-      setScreenOptions(options);
-    } catch (err) {
-      console.error("상영관 목록 불러오기 실패:", err);
-    }
-  };
+    const fetchScreens = async (theaterId) => {
+        try {
+            const res = await axios.get(
+                // URL을 백틱으로 감싸야 ${theaterId} 변수가 제대로 적용됩니다.
+                `http://localhost:8080/api/admin/screens/${theaterId}`,
+                { withCredentials: true }
+            );
+            const options = res.data.map((s) => ({
+                value: s.id,
+                label: s.screenName,
+            }));
+            setScreenOptions(options);
+        } catch (err) {
+            console.error("상영관 목록 불러오기 실패:", err);
+        }
+    };
+
+    const fetchSchedules = async (theaterId) => {
+        try {
+            const res = await axios.get(
+                `http://localhost:8080/api/admin/screenings/${theaterId}`,
+                { withCredentials: true }
+            );
+            console.log("조회된 상영일정:", res.data);
+            setSchedules(res.data.dates); // dates 배열을 schedules에 저장
+        } catch (err) {
+            console.error("상영일정 불러오기 실패:", err);
+        }
+    };
 
 
-  useEffect(() => {
+
+    useEffect(() => {
     fetchTheaters(); // 페이지 로드 시 극장 목록 불러오기
   }, []);
+    useEffect(() => {
+        if (theaterOptions.length > 0) {
+            // 맨 앞 극장 기준으로 상영일정 가져오기
+            fetchSchedules(theaterOptions[0].value);
+            setSelectedTheaterName(theaterOptions[0].label);
+        }
+    }, [theaterOptions]);
 
   // 스타일 커스텀
-  const customStyles = {
-    control: (base) => ({
-      ...base,
-      backgroundColor: "#1a1d26",
-      border: "1px solid #ffcc00",
-      borderRadius: "8px",
-      minHeight: "38px",
-    }),
-    singleValue: (base) => ({
-      ...base,
-      color: "#fff",
-    }),
-    menu: (base) => ({
-      ...base,
-      backgroundColor: "#2c2f38",
-    }),
-    option: (base, state) => ({
-      ...base,
-      backgroundColor: state.isFocused ? "#444" : "#2c2f38",
-      color: "#fff",
-      cursor: "pointer",
-    }),
-  };
+    const customStyles = {
+        control: (base) => ({
+            ...base,
+            backgroundColor: "#1a1d26",
+            border: "1px solid #ffcc00",
+            borderRadius: "8px",
+            minHeight: "38px",
+        }),
+        singleValue: (base) => ({ ...base, color: "#fff" }),
+        menu: (base) => ({ ...base, backgroundColor: "#2c2f38" }),
+        option: (base, state) => ({
+            ...base,
+            backgroundColor: state.isFocused ? "#444" : "#2c2f38",
+            color: "#fff",
+            cursor: "pointer",
+        }),
+    };
 
   return (
     <div className="screenings-page">
@@ -125,89 +140,60 @@ export default function ScreeningsPage() {
             styles={customStyles}
           />
 
-          {/* 상영관 선택 */}
-          <Select
-            placeholder="상영관 선택"
-            options={screenOptions}
-            value={screenOptions.find((opt) => opt.value === form.screen) || null}
-            onChange={(opt) => setForm({ ...form, screen: opt.value })} // screen만 세팅
-            styles={customStyles}
-            isDisabled={screenOptions.length === 0} // 극장 선택 전에는 비활성화
-          />
-
-          <label
-            onClick={() => {
-              if (startDateRef.current?.showPicker) {
-                startDateRef.current.showPicker(); // 크롬/엣지 등 지원
-              } else {
-                startDateRef.current?.focus(); // fallback
-              }
-            }}
-          >
-            상영 시작일:
-            <input
-              type="date"
-              name="startDate"
-              ref={startDateRef}
-              value={form.startDate}
-              onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+            {/* 상영관 선택 */}
+            <Select
+                placeholder="상영관 선택"
+                options={screenOptions}
+                value={screenOptions.find((opt) => opt.value === form.screen) || null}
+                onChange={(opt) => setForm({ ...form, screen: opt.value })}
+                styles={customStyles}
+                isDisabled={screenOptions.length === 0}
             />
-          </label>
 
-          <label
-            onClick={() => {
-              if (endDateRef.current?.showPicker) {
-                endDateRef.current.showPicker();
-              } else {
-                endDateRef.current?.focus();
-              }
-            }}
-          >
-            상영 종료일:
-            <input
-              type="date"
-              name="endDate"
-              ref={endDateRef}
-              value={form.endDate}
-              onChange={(e) =>
-                setForm({ ...form, endDate: e.target.value })
-              }
-            />
-          </label>
-          <button type="submit" className="btn">상영일정 등록</button>
+            <button type="submit" className="btn">상영일정 등록</button>
         </div>
       </form>
 
-      <h3>등록된 상영일정</h3>
-      <table className="schedule-table">
-        <thead>
-          <tr>
-            <th>영화</th>
-            <th>상영관</th>
-            <th>상영 시작일</th>
-            <th>상영 종료일</th>
-          </tr>
-        </thead>
-        <tbody>
-          {schedules.length > 0 ? (
-            schedules.map((s) => (
-              <tr key={s.id}>
-                <td>{s.movie}</td>
-                <td>{s.theater}</td>
-                <td>{s.startDate}</td>
-                <td>{s.endDate}</td>
-                <td>{s.time}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
-                등록된 일정이 없습니다.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+        <h3>
+            등록된 상영일정
+            {selectedTheaterName && <p>극장: {selectedTheaterName}</p>}
+            {theaterOptions.map((theater) => (
+                <button
+                    key={theater.value}
+                    onClick={() => {
+                        fetchSchedules(theater.value);
+                        setSelectedTheaterName(theater.label);
+                }}
+                    style={{ marginLeft: "10px" }}
+                >
+                    {theater.label}
+                </button>
+            ))}
+        </h3>
+
+        <div className="schedule-list">
+            {schedules.length > 0 ? (
+                schedules.map((dateItem, idx) => (
+                    <div key={idx} className="schedule-date-block">
+                        <h4>[{dateItem.date}]</h4>
+                        <p>{/* theaterName은 response에 있음 */}</p>
+                        {dateItem.screens.map((screen, sIdx) => (
+                            <div key={sIdx} className="screen-block">
+                                <strong>- {screen.screenName}: </strong>
+                                {screen.movies.map((movie, mIdx) => (
+                                    <span key={mIdx}>
+                {movie.title} {movie.startTime}~{movie.endTime}
+                                        {mIdx < screen.movies.length - 1 && ", "}
+              </span>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                ))
+            ) : (
+                <p>등록된 일정이 없습니다.</p>
+            )}
+        </div>
     </div>
   );
 }
