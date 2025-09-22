@@ -23,7 +23,7 @@
   background: #1e1f2b;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .poster-wrap {
@@ -45,10 +45,12 @@
   padding: 2px 8px;
   border-radius: 6px;
 }
+
 .status.public {
   background: #4caf50;
   color: #fff;
 }
+
 .status.private {
   background: #666;
   color: #fff;
@@ -70,6 +72,7 @@
   font-size: 18px;
   color: gold;
 }
+
 .stars .score {
   margin-left: 8px;
   font-size: 14px;
@@ -101,6 +104,14 @@
 .edit-btn {
   color: #ffcc00;
 }
+
 .delete-btn {
   color: #ff6666;
+}
+
+.no-reviews {
+  text-align: center;
+  padding: 40px 0;
+  color: #aaa;
+  font-size: 16px;
 }

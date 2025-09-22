@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./css/reviewspage.css";
 import crimecicty from "../../../../../asset/crimecity.jpg";
-import insideoutPoster from "../../../../../asset/insideout2.jpg";
 
 
 export default function ReviewsPage() {
@@ -17,15 +16,6 @@ export default function ReviewsPage() {
       rating: 4,
       postedAt: "2025-09-10T15:12:00",
       content: "액션 시원! 서스펜스 좋고 러닝타임도 딱.",
-    },
-    {
-      id: 5002,
-      movieDocId: "K45521",
-      movieTitle: "인사이드 아웃 2",
-      posterUrl: insideoutPoster,
-      rating: 3,
-      postedAt: "2025-09-08T20:30:00",
-      content: "1편만큼 신선하진 않지만 감정선 표현은 여전히 탁월. 가족 관람 추천!",
     },
   ];
 
@@ -90,34 +80,38 @@ export default function ReviewsPage() {
   return (
     <div className="reviews-section">
       <h2>내가 남긴 리뷰</h2>
-
-      <div className="review-timeline">
-        {data.map((review) => (
-          <div key={review.id} className="timeline-item">
-            <div className="poster-wrap">
-              <img
-                src={review.posterUrl}
-                alt={review.movieTitle}
-                className="poster"
-              />
-            </div>
-
-            <div className="timeline-content">
-              <h3 className="movie-title">{review.movieTitle}</h3>
-              <Star value={review.rating} />
-              <p className="review-text">{review.content}</p>
-
-              <div className="timeline-footer">
-                <span className="date">{formatDate(review.postedAt)}</span>
-                {/* <div className="actions">
-                  <button className="edit-btn">수정</button>
-                  <button className="delete-btn">삭제</button>
-                </div> */}
+  
+      {data.length === 0 ? (
+        <div className="no-reviews">남긴 리뷰가 없습니다.</div>
+      ) : (
+        <div className="review-timeline">
+          {data.map((review) => (
+            <div key={review.id} className="timeline-item">
+              <div className="poster-wrap">
+                <img
+                  src={review.posterUrl}
+                  alt={review.movieTitle}
+                  className="poster"
+                />
+              </div>
+  
+              <div className="timeline-content">
+                <h3 className="movie-title">{review.movieTitle}</h3>
+                <Star value={review.rating} />
+                <p className="review-text">{review.content}</p>
+  
+                <div className="timeline-footer">
+                  <span className="date">{formatDate(review.postedAt)}</span>
+                  {/* <div className="actions">
+                    <button className="edit-btn">수정</button>
+                    <button className="delete-btn">삭제</button>
+                  </div> */}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
