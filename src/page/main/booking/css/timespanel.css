@@ -1,12 +1,12 @@
 .times-panel {
-  background: #1c202b;
+  background: #1a1d26;
+  padding: 16px;
+  border-radius: 12px;
   color: #fff;
 }
 
 .times-header {
-  display:block;
-  justify-content: space-between;
-  align-items: center;
+  display: block;
   border-bottom: 2px solid #2c2f38;
 }
 
@@ -19,8 +19,9 @@
 .times-text {
   font-size: 18px;
   font-weight: 600;
-  text-align: center; /* 혹시 글자 여러 줄일 때도 중앙 */
+  text-align: center;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -35,57 +36,105 @@
   cursor: pointer;
 }
 
+/* 날짜 선택 */
 .date-row {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
   gap: 6px;
 }
 
 .date-item {
+  flex: 1;
   text-align: center;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.date-item:hover {
+  background: #333;
 }
 
 .date-num {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: bold;
   margin-bottom: 4px;
-  color: #fff;
   width: 32px;
   height: 32px;
   line-height: 32px;
-  border-radius: 50%;
   display: inline-block;
+  border-radius: 50%;
   transition: all 0.2s ease;
 }
 
-/* 오늘 = 검은색 동그라미 */
 .date-num.today {
-  background: #000;
-  color: #fff;
+  color: #ffcc00;
 }
 
-/* 선택한 날짜 = 빨간색 동그라미 */
 .date-num.selected {
-  background: #e63946;
-  color: #fff;
+  background: #ffcc00;
+  color: #000;
 }
 
-/* 요일 색상 */
+/* 요일 */
 .day {
   font-size: 12px;
   color: #bbb;
   margin-top: 2px;
-  background: none;
-  border: none;
-  padding: 0;
   display: block;
 }
 
-.day.sunday {
-  color: #e63946;
+/* 상영 일정 리스트 */
+.schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
 }
 
-.day.saturday {
-  color: #3a7bff;
+/* 영화 카드 */
+.schedule-card {
+  background: #2a2d38;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.movie-info {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.screen-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 시간 버튼 */
+.time-chip {
+  background: #1a1d26;
+  color: #ffcc00;
+  border: 1px solid #ffcc00;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.time-chip:hover {
+  background: #ffcc00;
+  color: #000;
+}
+
+/* 빈 상태 메시지 */
+.empty {
+  text-align: center;
+  color: #bbb;
+  margin: 20px 0;
+  font-size: 14px;
 }

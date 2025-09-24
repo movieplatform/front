@@ -3,12 +3,55 @@ import "./css/bookingpage.css";
 import MoviesPanel from "./panels/MoviesPanel";
 import TheatersPanel from "./panels/TheatersPanel"
 import TimesPanel from "./panels/TimesPanel"
+
 export default function BookingPage() {
 
     const [selectedTheater, setSelectedTheater] = useState(null);
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedScreening, setSelectedScreening] = useState(null);
 
+
+    // 극장 선택 핸들러
+    const handleSelectTheater = (theater) => {
+        if (!theater) {
+            // 극장 취소 → 영화/날짜/상영정보 모두 초기화
+            setSelectedTheater(null);
+            setSelectedMovie(null);
+            setSelectedDate(null);
+            setSelectedScreening(null);
+        } else {
+            setSelectedTheater(theater);
+            // 극장 바뀌면 뒤 단계 초기화
+            setSelectedMovie(null);
+            setSelectedDate(null);
+            setSelectedScreening(null);
+        }
+    };
+
+    // 영화 선택 핸들러
+    const handleSelectMovie = (movie) => {
+        if (!movie) {
+            setSelectedMovie(null);
+            setSelectedDate(null);
+            setSelectedScreening(null);
+        } else {
+            setSelectedMovie(movie);
+            setSelectedDate(null);
+            setSelectedScreening(null);
+        }
+    };
+
+    // 날짜 선택 핸들러
+    const handleSelectDate = (date) => {
+        if (!date) {
+            setSelectedDate(null);
+            setSelectedScreening(null);
+        } else {
+            setSelectedDate(date);
+            setSelectedScreening(null);
+        }
+    };
 
     return (
         <div className="booking-page">
@@ -42,9 +85,18 @@ export default function BookingPage() {
 
                         {/* 아래 패널 */}
                         <div className="booking-content">
-                            <TheatersPanel onSelect={setSelectedTheater} />
-                            <MoviesPanel onSelect={setSelectedMovie} />
-                            <TimesPanel onSelect={setSelectedDate} />
+                            <TheatersPanel onSelect={handleSelectTheater} selectedTheater={selectedTheater} />
+                            <MoviesPanel
+                                selectedMovie={selectedMovie}
+                                onSelect={handleSelectMovie}
+                            />
+                            <TimesPanel
+                                selectedDate={selectedDate}
+                                onChangeDate={handleSelectDate}
+                                selectedTheater={selectedTheater}
+                                selectedMovie={selectedMovie}
+                                onSelectScreening={setSelectedScreening}
+                            />
                         </div>
                     </div>
                 </div>

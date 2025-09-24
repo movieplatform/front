@@ -3,30 +3,25 @@ import axios from "axios";
 import "../css/moviespanel.css";
 import { FiList, FiGrid } from "react-icons/fi";
 
-export default function MoviesPanel({ onSelect }) {
+export default function MoviesPanel({ onSelect , selectedMovie}) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedId, setSelectedId] = useState(null);
   const [viewMode, setViewMode] = useState("list");
 
   const mockMovies = [
     { doc_id: "1", title: "부재", rating: "12", poster_url: "https://via.placeholder.com/150x220?text=부재" },
     { doc_id: "2", title: "아임 스틸 히어", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=아임+스틸+히어" },
-    { doc_id: "3", title: "어쩔수가없다", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=어쩔수가없다" },
-    { doc_id: "4", title: "극장판 귀멸의 칼날", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=귀멸의+칼날" },
-    { doc_id: "5", title: "악마가 이사왔다", rating: "12", poster_url: "https://via.placeholder.com/150x220?text=악마가+이사왔다" },
-    { doc_id: "6", title: "얼굴", rating: "15", poster_url: "https://via.placeholder.com/150x220?text=얼굴" },
   ];
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/movies")
+      .get("http://localhost:8080/api/reservation/movies")
       .then((res) => {
         console.log("API 응답:", res.data);
-        if (Array.isArray(res.data.content)) {
-          setMovies(res.data.content);
+        if (Array.isArray(res.data)) {
+          setMovies(res.data);
         } else {
-          console.warn("영화 데이터가 content에 없음", res.data);
+          console.warn("영화 데이터가 배열이 아님", res.data);
           setMovies(mockMovies);
         }
       })
@@ -40,9 +35,12 @@ export default function MoviesPanel({ onSelect }) {
   if (loading) return <p>불러오는 중...</p>;
 
   const handleSelect = (movie) => {
-    setSelectedId(movie.docId);
-    if (onSelect) {
-      onSelect(movie);  // 부모 BookingPage로 movie 객체 전달
+    if (selectedMovie?.docId === movie.docId) {
+      // 이미 선택된 영화 다시 클릭 → 해제
+      onSelect(null);
+    } else {
+      // 새로운 영화 선택
+      onSelect(movie);
     }
   };
 
@@ -64,13 +62,13 @@ export default function MoviesPanel({ onSelect }) {
       {viewMode === "list" ? (
         <ul className="movie-list">
           {movies.map((movie, index) => {
-            const isActive = selectedId === movie.docId;
+             const isActive = selectedMovie?.docId === movie.docId; 
             return (
               <li
-                key={movie.docId ?? index}
-                className={`movie-row ${isActive ? "active" : ""}`}
-                onClick={() => handleSelect(movie)}
-              >
+              key={movie.docId}
+              className={`movie-row ${selectedMovie?.docId === movie.docId ? "active" : ""}`}
+              onClick={() => handleSelect(movie)}
+            >
                 <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "all"}`}>
                   {movie.rating.replace(/[^0-9]/g, "") || "All"}
                 </span>
@@ -83,7 +81,7 @@ export default function MoviesPanel({ onSelect }) {
         <div className="movie-grid-wrapper">
           <div className="movie-grid">
             {movies.map((movie, index) => {
-              const isActive = selectedId === movie.docId;
+              const isActive = selectedMovie?.docId === movie.docId;
               return (
                 <div
                   key={movie.docId ?? index}
