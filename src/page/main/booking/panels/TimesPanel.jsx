@@ -17,7 +17,7 @@ function DateItem({ date, isToday, isSelected, onClick }) {
 
 function ScheduleCard({ screening, onSelect }) {
     return (
-        <div className="schedule-card">
+        <div className="schedule-card" onClick={() => onSelect?.(screening)}>
             <div className="movie-info">
                 <FiFilm className="icon" /> {screening.movieTitle.trim()}
             </div>
@@ -25,13 +25,16 @@ function ScheduleCard({ screening, onSelect }) {
                 <span className="screen-name">
                     <FiMonitor className="icon" /> {screening.screenName}
                 </span>
-                <button className="time-chip" onClick={() => onSelect?.(screening)}>
-                    <FiClock className="icon" /> {screening.startTime.slice(0, 5)} ~ {screening.endTime.slice(0, 5)}
-                </button>
+                <div className="time-chip">
+                    <FiClock className="icon" />
+                    {screening.startTime.slice(0, 5)} ~ {screening.endTime.slice(0, 5)}
+                </div>
             </div>
         </div>
     );
 }
+
+
 
 export default function TimesPanel({
     selectedDate,

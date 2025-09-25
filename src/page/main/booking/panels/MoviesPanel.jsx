@@ -3,7 +3,7 @@ import axios from "axios";
 import "../css/moviespanel.css";
 import { FiList, FiGrid } from "react-icons/fi";
 
-export default function MoviesPanel({ onSelect , selectedMovie}) {
+export default function MoviesPanel({ onSelect, selectedMovie }) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState("list");
@@ -62,13 +62,13 @@ export default function MoviesPanel({ onSelect , selectedMovie}) {
       {viewMode === "list" ? (
         <ul className="movie-list">
           {movies.map((movie, index) => {
-             const isActive = selectedMovie?.docId === movie.docId; 
+            const isActive = selectedMovie?.docId === movie.docId;
             return (
               <li
-              key={movie.docId}
-              className={`movie-row ${selectedMovie?.docId === movie.docId ? "active" : ""}`}
-              onClick={() => handleSelect(movie)}
-            >
+                key={movie.docId}
+                className={`movie-row ${selectedMovie?.docId === movie.docId ? "active" : ""}`}
+                onClick={() => handleSelect(movie)}
+              >
                 <span className={`badge rating-${movie.rating.replace(/[^0-9]/g, "") || "all"}`}>
                   {movie.rating.replace(/[^0-9]/g, "") || "All"}
                 </span>
