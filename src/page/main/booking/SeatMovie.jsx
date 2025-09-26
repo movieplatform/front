@@ -21,16 +21,48 @@ export default function SeatMovie({ screening, onBack, onNext }) {
             .then((data) => {
                 console.log("좌석 데이터:", data);
                 console.log("선택된 상영정보:", screening);
-                if (Array.isArray(data)) {
-                    setSeats(data);             // 응답이 배열이면 그대로
-                } else if (data && Array.isArray(data.seats)) {
-                    setSeats(data.seats);       // seats라는 키 안에 배열이 있으면 꺼내기
+
+                if (Array.isArray(data) && data.length > 0) {
+                    setSeats(data);
+                } else if (data && Array.isArray(data.seats) && data.seats.length > 0) {
+                    setSeats(data.seats);
                 } else {
-                    setSeats([]);               // 아니면 빈 배열
+                    // ✅ fallback: 5x5 좌석 생성
+                    const fallbackSeats = [];
+                    for (let row = 1; row <= 5; row++) {
+                        for (let col = 1; col <= 5; col++) {
+                            fallbackSeats.push({
+                                id: `${row}-${col}`,   // 임시 id
+                                row: row,
+                                col: col,
+                                status: "AVAILABLE",
+                                occupied: false,
+                            });
+                        }
+                    }
+                    setSeats(fallbackSeats);
                 }
             })
-            .catch((err) => console.error("좌석 불러오기 실패", err));
+            .catch((err) => {
+                console.error("좌석 불러오기 실패", err);
+
+                // ❌ 에러 시에도 fallback 5x5 생성
+                const fallbackSeats = [];
+                for (let row = 1; row <= 5; row++) {
+                    for (let col = 1; col <= 5; col++) {
+                        fallbackSeats.push({
+                            id: `${row}-${col}`,
+                            row: row,
+                            col: col,
+                            status: "AVAILABLE",
+                            occupied: false,
+                        });
+                    }
+                }
+                setSeats(fallbackSeats);
+            });
     }, [screening]);
+
 
     const toggleSeat = (seat) => {
         if (seat.status !== "AVAILABLE") return;
@@ -71,7 +103,7 @@ export default function SeatMovie({ screening, onBack, onNext }) {
                         <span className="label">
                             {type === "adult" && "성인"}
                             {type === "teen" && "청소년"}
-                            {type === "senior" && "경로"}
+                            {type === "senior" && "노약자"}
                             {type === "disabled" && "장애인"}
                         </span>
                         <button
