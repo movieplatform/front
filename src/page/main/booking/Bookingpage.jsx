@@ -120,6 +120,7 @@ export default function BookingPage() {
                             />
                         )}
 
+
                         {step === 3 && (
                             <div>
                                 <h2>결제 페이지</h2>
