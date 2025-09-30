@@ -82,7 +82,7 @@ export default function TimesPanel({
         )
             .then((res) => {
                 if (!res.ok) throw new Error("API 실패: " + res.status);
-                return res.json(); // ✅ Response → JSON 변환
+                return res.json(); //  Response → JSON 변환
             })
             .then((data) => {
                 console.log("🎬 상영 일정 응답 JSON:", data);

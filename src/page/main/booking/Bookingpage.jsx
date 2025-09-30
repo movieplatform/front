@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./css/bookingpage.css";
 import MoviesPanel from "./panels/MoviesPanel";
 import TheatersPanel from "./panels/TheatersPanel"
@@ -17,7 +18,7 @@ export default function BookingPage() {
 
     // 단계 이동 핸들러
     const goToStep = (num) => setStep(num);
-
+    const navigate = useNavigate();
 
     // 극장 선택 핸들러
     const handleSelectTheater = (theater) => {
@@ -62,8 +63,8 @@ export default function BookingPage() {
 
     const handleSelectScreening = (screening) => {
         setSelectedScreening(screening);
-        setShowSeatModal(true); // 모달 열기
-        setStep(2);
+        setShowSeatModal(true); // BookingPage 안에서 SeatMovie 보여주기
+        setStep(2);             // 단계 전환
     };
 
 
@@ -94,7 +95,7 @@ export default function BookingPage() {
                     </aside>
 
                     <div className="booking-main">
-                        {/* ✅ 단계별 컴포넌트 */}
+                        {/* 단계별 컴포넌트 */}
                         {step === 1 && (
                             <>
                                 <div className="booking-header">
@@ -133,7 +134,7 @@ export default function BookingPage() {
 
                         {step === 2 && (
                             <SeatMovie
-                                screening={selectedScreening}
+                            screeningInfoId={selectedScreening.screeningInfoId}
                                 onBack={() => goToStep(1)} // 뒤로 가기 버튼
                                 onNext={() => goToStep(3)} // 다음 단계 (결제)
                             />
