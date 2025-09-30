@@ -134,11 +134,14 @@ export default function BookingPage() {
 
                         {step === 2 && (
                             <SeatMovie
-                            screeningInfoId={selectedScreening.screeningInfoId}
-                                onBack={() => goToStep(1)} // 뒤로 가기 버튼
-                                onNext={() => goToStep(3)} // 다음 단계 (결제)
+                                screeningInfoId={selectedScreening.screeningInfoId}
+                                movie={selectedMovie}
+                                screening={selectedScreening}
+                                onBack={() => goToStep(1)}
+                                onNext={() => goToStep(3)}
                             />
                         )}
+
 
                         {step === 3 && (
                             <div>

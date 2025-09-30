@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./css/seatmovie.css";
 
-export default function SeatMovie({ screeningInfoId, onBack, onNext }) {
+export default function SeatMovie({ screeningInfoId, movie, screening,onBack, onNext }) {
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [people, setPeople] = useState({
@@ -59,22 +59,22 @@ export default function SeatMovie({ screeningInfoId, onBack, onNext }) {
 
   return (
     <div className="seat-page">
-      {screenData && (
+      {movie && (
         <div className="seat-header">
-          {screenData.posterUrl && (
+          {movie.posterUrl && (
             <img
-              src={screenData.posterUrl}
-              alt={screenData.movieTitle}
+              src={movie.posterUrl}
+              alt={movie.title}
               className="poster"
             />
           )}
           <div className="movie-info">
-            <h3>{screenData.movieTitle}</h3>
+            <h3>{movie.title}</h3>
             <p>
-              {screenData.screeningDate} | {screenData.startTime} ~{" "}
-              {screenData.endTime}
+              {movie.repRlsDate} | {screening.startTime} ~{" "}
+              {screening.endTime}
             </p>
-            <p>{screenData.screenName}</p>
+            <p>{screening.screenName}</p>
           </div>
         </div>
       )}
