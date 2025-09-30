@@ -15,8 +15,7 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
 
     const [screenData, setScreenData] = useState(null);
 
-    console.log("👉 전달받은 screeningInfoId:", screeningInfoId);
-    console.log("👉 SeatMovie props:");
+
     console.log("screeningInfoId:", screeningInfoId);
     console.log("movieData:", movieData);
     console.log("theaterData:", theaterData);
@@ -31,7 +30,8 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
                 withCredentials: true,
             })
             .then((res) => {
-                console.log("🎬 좌석 응답:", res.data);
+                console.log("🎬 좌석 응답 원본:", res.data);
+                console.log("🎬 좌석 응답(JSON):", JSON.stringify(res.data, null, 2));
                 setScreenData(res.data);
                 setSeats(res.data.seats || []); // 좌석 상태 업데이트
             })
@@ -46,14 +46,13 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
     }, [screeningInfoId]);
 
     const toggleSeat = (seat) => {
-        if (seat.status !== "AVAILABLE") return;
-
+        if (seat.occupied) return; // reserved 좌석은 선택 안 되게
         setSelectedSeats((prev) =>
-            prev.find((s) => s.id === seat.id)
-                ? prev.filter((s) => s.id !== seat.id)
-                : [...prev, seat]
+          prev.find((s) => s.id === seat.id)
+            ? prev.filter((s) => s.id !== seat.id)
+            : [...prev, seat]
         );
-    };
+      };
 
     const totalPeople = Object.values(people).reduce((a, b) => a + b, 0);
 
@@ -112,26 +111,36 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
             <div className="screen-bar">SCREEN</div>
 
             <div className="seat-area">
-                {Object.keys(groupedSeats).map((row) => (
-                    <div key={row} className="seat-row">
-                        <span className="row-label">{row}</span>
+                {Array.from({ length: screenData?.rows || 0 }, (_, rowIdx) => (
+                    <div key={rowIdx} className="seat-row">
+                        <span className="row-label">{String.fromCharCode(65 + rowIdx)}</span>
                         <div className="row-seats">
-                            {groupedSeats[row]
-                                .sort((a, b) => a.col - b.col)
-                                .map((seat) => (
+                            {Array.from({ length: screenData?.cols || 0 }, (_, colIdx) => {
+                                const seat = seats.find(
+                                    (s) => s.rowNumber === rowIdx + 1 && s.colNumber === colIdx + 1
+                                );
+                                if (!seat) return <div key={colIdx} className="seat empty" />; // 좌석이 없을 경우 빈칸
+
+                                return (
                                     <div
                                         key={seat.id}
-                                        className={`seat ${seat.occupied ? "reserved" : "available"} ${selectedSeats.find((s) => s.id === seat.id) ? "selected" : ""
-                                            }`}
-                                        onClick={() => !seat.occupied && toggleSeat(seat)}
+                                        className={`seat 
+                ${seat.occupied ? "reserved" : "available"} 
+                ${selectedSeats.find((s) => s.id === seat.id) ? "selected" : ""}`}
+                                        onClick={() => {
+                                            if (!seat.occupied) toggleSeat(seat); // reserved 좌석은 클릭 불가
+                                        }}
                                     >
-                                        {seat.col}
+                                        {seat.seatNumber}
                                     </div>
-                                ))}
+                                );
+                            })}
                         </div>
                     </div>
                 ))}
             </div>
+
+
 
             {/* 하단 버튼 */}
             <div className="actions">
