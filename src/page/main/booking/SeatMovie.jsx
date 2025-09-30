@@ -63,27 +63,21 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
         return acc;
     }, {});
 
-  return (
-    <div className="seat-page">
-      {screenData && (
-        <div className="seat-header">
-          {screenData.posterUrl && (
-            <img
-              src={screenData.posterUrl}
-              alt={screenData.movieTitle}
-              className="poster"
-            />
-          )}
-          <div className="movie-info">
-            <h3>{screenData.movieTitle}</h3>
-            <p>
-              {screenData.screeningDate} | {screenData.startTime} ~{" "}
-              {screenData.endTime}
-            </p>
-            <p>{screenData.screenName}</p>
-          </div>
-        </div>
-      )}
+    return (
+        <div className="seat-page">
+            <div className="seat-header">
+                {movieData?.posterUrl && (
+                    <img src={movieData.posterUrl} alt={movieData.title} className="poster" />
+                )}
+                <div className="movie-info">
+                    <h3>{movieData?.title || screeningData?.movieTitle}</h3>
+                    <p>
+                        {screeningData?.screeningDate} | {screeningData?.startTime} ~ {screeningData?.endTime}
+                    </p>
+                    <p>{theaterData?.theaterName} - {screeningData?.screenName}</p>
+                </div>
+            </div>
+
 
             {/* 인원 선택 */}
             <div className="people-select">
