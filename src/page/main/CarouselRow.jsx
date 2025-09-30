@@ -53,11 +53,13 @@ export default function CarouselRow({ movies = [], title = "평점 높은 영화
         </div>
     ));
     const cards =
-        movies.length > 0
-            ? movies.map((m) => (
-                <a key={m.id} className="card" href={`/movie/${m.id}`}>
-                    <div className={`rank rank-${m.rank}`}>{m.rank}</div>
-
+    movies.length > 0
+        ? movies.map((m) => (
+            <a key={m.id} className="card" href={`/movie/${m.id}`}>
+                <div className={`rank rank-${m.rank}`}>{m.rank}</div>
+                
+                {/* 포스터 컨테이너 추가 */}
+                <div className="poster-container">
                     {m.poster ? (
                         <img className="poster" src={m.poster} alt={m.title} />
                     ) : (
@@ -66,14 +68,15 @@ export default function CarouselRow({ movies = [], title = "평점 높은 영화
                             <div className="ph-text">Coming Soon</div>
                         </div>
                     )}
+                </div>
 
-                    <div className="card-bottom">
-                        <div className="title">{m.title}</div>
-                        <button className="cta">자세히</button>
-                    </div>
-                </a>
-            ))
-            : fallbackCards;
+                <div className="card-bottom">
+                    <div className="title">{m.title}</div>
+                    <button className="cta">자세히</button>
+                </div>
+            </a>
+        ))
+        : fallbackCards;
 
     return (
         <section className="carousel">

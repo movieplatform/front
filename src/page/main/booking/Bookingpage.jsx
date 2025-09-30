@@ -37,29 +37,6 @@ export default function BookingPage() {
         }
     };
 
-    // 영화 선택 핸들러
-    const handleSelectMovie = (movie) => {
-        if (!movie) {
-            setSelectedMovie(null);
-            setSelectedDate(null);
-            setSelectedScreening(null);
-        } else {
-            setSelectedMovie(movie);
-            setSelectedDate(null);
-            setSelectedScreening(null);
-        }
-    };
-
-    // 날짜 선택 핸들러
-    const handleSelectDate = (date) => {
-        if (!date) {
-            setSelectedDate(null);
-            setSelectedScreening(null);
-        } else {
-            setSelectedDate(date);
-            setSelectedScreening(null);
-        }
-    };
 
     const handleSelectScreening = (screening) => {
         setSelectedScreening(screening);
@@ -134,7 +111,10 @@ export default function BookingPage() {
 
                         {step === 2 && (
                             <SeatMovie
-                            screeningInfoId={selectedScreening.screeningInfoId}
+                                screeningInfoId={selectedScreening.screeningInfoId}
+                                movieData={selectedMovie}                // 🎬 영화 데이터
+                                theaterData={selectedTheater}            // 🎦 극장 데이터
+                                screeningData={selectedScreening}
                                 onBack={() => goToStep(1)} // 뒤로 가기 버튼
                                 onNext={() => goToStep(3)} // 다음 단계 (결제)
                             />
