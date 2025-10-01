@@ -9,20 +9,32 @@ import PaymentPage from "./PaymentPage";
 
 export default function BookingPage() {
     const [step, setStep] = useState(1);
-    const [selectedTheater, setSelectedTheater] = useState(null);
-    const [selectedMovie, setSelectedMovie] = useState(null);
-    const [selectedDate, setSelectedDate] = useState(null);
-    const [selectedScreening, setSelectedScreening] = useState(null);
-    const [showSeatModal, setShowSeatModal] = useState(false);
-    const [bookingData, setBookingData] = useState(null);
+    // 모든 예약 관련 데이터를 하나의 객체로 관리
+    const [bookingState, setBookingState] = useState({
+        theater: null,
+        movie: null,
+        date: null,
+        screening: null,
+        people: null,
+        selectedSeats: null,
+    });
 
     // 단계 이동 핸들러
     const goToStep = (num) => setStep(num);
 
+    const handleSelectTheater = (theater) => {
+        setBookingState((prev) => ({
+            ...prev,
+            theater,
+            movie: null,
+            date: null,
+            screening: null,
+        }));
+    };
+
     const handleSelectScreening = (screening) => {
-        setSelectedScreening(screening);
-        setShowSeatModal(true); // BookingPage 안에서 SeatMovie 보여주기
-        setStep(2);             // 단계 전환
+        setBookingState((prev) => ({ ...prev, screening }));
+        setStep(2);
     };
 
 
@@ -53,37 +65,40 @@ export default function BookingPage() {
                     </aside>
 
                     <div className="booking-main">
-                        {/* 단계별 컴포넌트 */}
                         {step === 1 && (
                             <>
                                 <div className="booking-header">
                                     <span className="booking-text">
-                                        {selectedTheater?.theater || "영화관"}
+                                        {bookingState.theater?.theater || "영화관"}
                                     </span>
                                     <span className="booking-text">
-                                        {selectedMovie ? selectedMovie.title : "영화 선택"}
+                                        {bookingState.movie?.title || "영화 선택"}
                                     </span>
                                     <span className="booking-text">
-                                        {selectedDate
-                                            ? selectedDate.toLocaleDateString()
+                                        {bookingState.date
+                                            ? bookingState.date.toLocaleDateString()
                                             : "날짜 선택"}
                                     </span>
                                 </div>
                                 <div className="booking-content">
                                     <TheatersPanel
-                                        onSelect={setSelectedTheater}
-                                        selectedTheater={selectedTheater}
+                                        onSelect={handleSelectTheater}
+                                        selectedTheater={bookingState.theater}
                                     />
                                     <MoviesPanel
-                                        selectedMovie={selectedMovie}
-                                        onSelect={setSelectedMovie}
-                                        selectedTheater={selectedTheater}
+                                        selectedMovie={bookingState.movie}
+                                        onSelect={(movie) =>
+                                            setBookingState((prev) => ({ ...prev, movie }))
+                                        }
+                                        selectedTheater={bookingState.theater}
                                     />
                                     <TimesPanel
-                                        selectedDate={selectedDate}
-                                        onChangeDate={setSelectedDate}
-                                        selectedTheater={selectedTheater}
-                                        selectedMovie={selectedMovie}
+                                        selectedDate={bookingState.date}
+                                        onChangeDate={(date) =>
+                                            setBookingState((prev) => ({ ...prev, date }))
+                                        }
+                                        selectedTheater={bookingState.theater}
+                                        selectedMovie={bookingState.movie}
                                         onSelectScreening={handleSelectScreening}
                                     />
                                 </div>
@@ -92,27 +107,21 @@ export default function BookingPage() {
 
                         {step === 2 && (
                             <SeatMovie
-                                screeningInfoId={selectedScreening.screeningInfoId}
-                                movieData={selectedMovie}                // 🎬 영화 데이터
-                                theaterData={selectedTheater}            // 🎦 극장 데이터
-                                screeningData={selectedScreening}
+                                screeningInfoId={bookingState.screening?.screeningInfoId}
+                                movieData={bookingState.movie}
+                                theaterData={bookingState.theater}
+                                screeningData={bookingState.screening}
                                 onBack={() => goToStep(1)}
                                 onNext={(data) => {
-                                    setBookingData({
-                                        movieData: selectedMovie,
-                                        theaterData: selectedTheater,
-                                        screeningData: selectedScreening,
-                                        ...data, // people, selectedSeats
-                                    });
+                                    setBookingState((prev) => ({ ...prev, ...data }));
                                     goToStep(3);
                                 }}
                             />
                         )}
 
-
                         {step === 3 && (
                             <PaymentPage
-                                bookingInfo={bookingData} //
+                                bookingInfo={bookingState}
                                 onBack={() => goToStep(2)}
                                 onComplete={() => goToStep(4)}
                             />

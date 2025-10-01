@@ -117,7 +117,7 @@
 }
 
 .logout-btn {
-    margin-right:10px;
+    margin-right: 10px;
     background: none;
     border: none;
     padding: 0;
@@ -130,4 +130,91 @@
 
 .logout-btn:hover {
     text-decoration: underline;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    max-width: 40px;
+    /* 아이콘만 보이게 */
+}
+
+.search-box.open {
+    background: #2a2a2a;
+    padding: 4px 12px;
+    max-width: 220px;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+}
+
+.search-box .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+    /* 약간 딜레이 */
+}
+
+.search-box.open .search-input {
+    opacity: 1;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    /* input 아래 붙도록 유지 */
+    left: 0;
+    width: 100%;
+    /* 전체 가로폭 차지 */
+    height: 400px;
+    /* 원하는 만큼 크게 (예: 400px) */
+    background: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+    z-index: 9999;
+    overflow-y: auto;
+    /* 내용 많으면 스크롤 */
+    padding: 20px;
+    /* 내부 여백 */
+}
+
+
+.result-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.result-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hdr-main .container {
+    overflow: visible;
+    /*  드롭다운이 잘리지 않음 */
+    position: relative;
+    /*  search-results absolute 기준 */
 }

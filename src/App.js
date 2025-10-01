@@ -10,7 +10,7 @@ import MoviesPage from "./page/main/movies/MoviesPage";
 import AdminPageLayout from "./page/main/auth/MyPage/AdminPageLayout";
 import AdminRoute from "./page/main/AdminRoute";
 import MoviesDetail from "./page/main/movies/MoviesDetail.jsx";
-
+import ContactForm from "./page/main/ContactForm.jsx";
 
 import './App.css';
 
@@ -45,6 +45,7 @@ function App() {
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/movies/:docId" element={<MoviesDetail />} />
+           <Route path="/contactform" element={<ContactForm />} />
         </Route>
       </Routes>
     </Router>

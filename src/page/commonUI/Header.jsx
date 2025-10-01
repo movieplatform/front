@@ -3,10 +3,19 @@ import "./css/Header.css";
 import logo from "../asset/logo.png";
 import { FiSearch } from "react-icons/fi";
 import axios from "axios";
+import ContactForm from "../main/ContactForm";
 
 export default function Header() {
     const [loggedIn, setLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+
+    const [open, setOpen] = useState(false);
+
+
+    //임시 state
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState([]);
+
 
     useEffect(() => {
         // 로그인 여부 체크
@@ -39,6 +48,19 @@ export default function Header() {
         }
     };
 
+    const handleSearch = async () => {
+        console.log("검색 실행됨!", query);
+        if (query.length > 1) {
+            // TODO: axios로 API 호출 예정
+            setResults([
+                { id: 1, title: "범죄도시4" },
+                { id: 2, title: "인사이드 아웃 2" },
+            ]);
+        } else {
+            setResults([]);
+        }
+    };
+
     return (
         <div className="hdr">
             <div className="hdr-top">
@@ -66,9 +88,36 @@ export default function Header() {
                 <div className="container">
                     {/* 좌측 */}
                     <div className="left">
-                        <button className="icon-btn" aria-label="검색">
-                            <FiSearch size={20} />
-                        </button>
+                        <div className={`search-box ${open ? "open" : ""}`}>
+                            <button
+                                className="icon-btn"
+                                aria-label="검색"
+                                onClick={() => setOpen((prev) => !prev)}
+                            >
+                                <FiSearch size={20} />
+                            </button>
+                            <input
+                                type="text"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                                onFocus={() => setOpen(true)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter") {
+                                        e.preventDefault();   // 이거 중요, 안 넣으면 form submit 때문에 리렌더 안 됨
+                                        handleSearch();
+                                    }
+                                }}
+                                placeholder="영화 검색"
+                                className="search-input"
+                            />
+
+                            {/* 검색결과 */}
+                            {open && results.length > 0 && (
+                                <div className="search-results">
+                                    {results.map(r => <div key={r.id} className="result-item">{r.title}</div>)}
+                                </div>
+                            )}
+                        </div>
                         <a className="navlink active" href="/movies">영화</a>
                         <a className="navlink" href="/booking">영화 예매</a>
                     </div>
@@ -81,7 +130,7 @@ export default function Header() {
 
                     {/* 우측 */}
                     <div className="right">
-                        <a className="navlink" href="#">버튼 4</a>
+                        <a className="navlink" href="ContactForm">문의하기</a>
                         <a className="mypage" href="/mypage">마이페이지</a>
                     </div>
                 </div>
