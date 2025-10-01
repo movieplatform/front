@@ -48,19 +48,40 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
     const toggleSeat = (seat) => {
         if (seat.occupied) return; // reserved 좌석은 선택 안 되게
         setSelectedSeats((prev) =>
-          prev.find((s) => s.id === seat.id)
-            ? prev.filter((s) => s.id !== seat.id)
-            : [...prev, seat]
+            prev.find((s) => s.id === seat.id)
+                ? prev.filter((s) => s.id !== seat.id)
+                : [...prev, seat]
         );
-      };
+    };
 
     const totalPeople = Object.values(people).reduce((a, b) => a + b, 0);
 
-    const groupedSeats = seats.reduce((acc, seat) => {
-        if (!acc[seat.row]) acc[seat.row] = [];
-        acc[seat.row].push(seat);
-        return acc;
-    }, {});
+    const tickets = [
+        { customerType: "성인", count: people.adult },
+        { customerType: "청소년", count: people.teen },
+        { customerType: "노약자", count: people.senior },
+        { customerType: "장애인", count: people.disabled },
+    ];
+
+
+    const handlePayment = async () => {
+        try {
+            const res = await axios.post("http://localhost:8080/api/booking", {
+                screeningInfoId,
+                tickets,
+                selectedSeatIds: selectedSeats.map((s) => s.id),
+            }, { withCredentials: true });
+
+            alert(res.data); // "예약정보 저장 완료!!"
+            onNext({
+                people,
+                selectedSeats,
+            }); //  BookingPage에 데이터 전달
+        } catch (err) {
+            console.error("❌ 예약 저장 실패:", err);
+            alert("예약 중 오류 발생");
+        }
+    };
 
     return (
         <div className="seat-page">
@@ -147,9 +168,10 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
                 <button onClick={onBack}>이전</button>
                 <button
                     disabled={
-                        selectedSeats.length === 0 || selectedSeats.length !== totalPeople
+                        selectedSeats.length === 0 ||
+                        selectedSeats.length !== totalPeople
                     }
-                    onClick={onNext}
+                    onClick={handlePayment} //  handlePayment 호출
                 >
                     결제하기
                 </button>

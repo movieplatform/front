@@ -1,0 +1,66 @@
+.payment-page {
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .payment-page h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #ffcc00; /* 강조 색상 */
+  }
+  
+  .payment-page .summary {
+    background: #2a2a2a;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  
+  .payment-page .summary p {
+    margin: 6px 0;
+  }
+  
+  .payment-page .summary strong {
+    color: #ffcc00;
+    margin-right: 6px;
+  }
+  
+  .payment-page .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  
+  .payment-page .actions button {
+    background: #444;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .payment-page .actions button:hover {
+    background: #666;
+  }
+  
+  .payment-page .actions button:last-child {
+    background: #ffcc00;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .payment-page .actions button:last-child:hover {
+    background: #ffd633;
+  }
+  

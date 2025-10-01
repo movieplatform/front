@@ -5,7 +5,7 @@ import MoviesPanel from "./panels/MoviesPanel";
 import TheatersPanel from "./panels/TheatersPanel"
 import TimesPanel from "./panels/TimesPanel"
 import SeatMovie from "./SeatMovie";
-
+import PaymentPage from "./PaymentPage";
 
 export default function BookingPage() {
     const [step, setStep] = useState(1);
@@ -14,29 +14,10 @@ export default function BookingPage() {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedScreening, setSelectedScreening] = useState(null);
     const [showSeatModal, setShowSeatModal] = useState(false);
-
+    const [bookingData, setBookingData] = useState(null);
 
     // 단계 이동 핸들러
     const goToStep = (num) => setStep(num);
-    const navigate = useNavigate();
-
-    // 극장 선택 핸들러
-    const handleSelectTheater = (theater) => {
-        if (!theater) {
-            // 극장 취소 → 영화/날짜/상영정보 모두 초기화
-            setSelectedTheater(null);
-            setSelectedMovie(null);
-            setSelectedDate(null);
-            setSelectedScreening(null);
-        } else {
-            setSelectedTheater(theater);
-            // 극장 바뀌면 뒤 단계 초기화
-            setSelectedMovie(null);
-            setSelectedDate(null);
-            setSelectedScreening(null);
-        }
-    };
-
 
     const handleSelectScreening = (screening) => {
         setSelectedScreening(screening);
@@ -115,18 +96,26 @@ export default function BookingPage() {
                                 movieData={selectedMovie}                // 🎬 영화 데이터
                                 theaterData={selectedTheater}            // 🎦 극장 데이터
                                 screeningData={selectedScreening}
-                                onBack={() => goToStep(1)} // 뒤로 가기 버튼
-                                onNext={() => goToStep(3)} // 다음 단계 (결제)
+                                onBack={() => goToStep(1)}
+                                onNext={(data) => {
+                                    setBookingData({
+                                        movieData: selectedMovie,
+                                        theaterData: selectedTheater,
+                                        screeningData: selectedScreening,
+                                        ...data, // people, selectedSeats
+                                    });
+                                    goToStep(3);
+                                }}
                             />
                         )}
 
 
                         {step === 3 && (
-                            <div>
-                                <h2>결제 페이지</h2>
-                                <button onClick={() => goToStep(2)}>뒤로</button>
-                                <button onClick={() => goToStep(4)}>결제 완료</button>
-                            </div>
+                            <PaymentPage
+                                bookingInfo={bookingData} //
+                                onBack={() => goToStep(2)}
+                                onComplete={() => goToStep(4)}
+                            />
                         )}
 
                         {step === 4 && <h2>예매가 완료되었습니다 🎉</h2>}

@@ -57,7 +57,7 @@ export default function MovieDetail() {
                         <p><strong>상영시간:</strong> {movie.runtime}분</p>
                         <p><strong>관람등급:</strong> {movie.rating}</p>
                         <p><strong>개봉일:</strong> {movie.repRlsDate}</p>
-                        <button className="reserve-btn">예매하기</button>
+                        {/* <button className="reserve-btn">예매하기</button> */}
                     </div>
                 </div>
                 <div className="synopsis">

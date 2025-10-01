@@ -11,8 +11,6 @@ export default function MoviesPage() {
       <MoviesPanel defaultGenre={activeGenre}
       // onSelect={(id) => setSelectedDocId(id)}
       />
-
-      {/* {selectedDocId && <MovieReviews docId={selectedDocId} />} */}
     </div>
   );
 }
