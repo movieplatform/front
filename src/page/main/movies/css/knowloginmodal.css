@@ -16,13 +16,21 @@
     padding: 20px;
     border-radius: 10px;
     width: 320px;
-    text-align: center;
+    /* text-align: center;  제거 */
 }
 
 .modal-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
+    /* 첫 요소 왼쪽, 마지막 요소 오른쪽 */
+    width: 100%;
+}
+
+
+.modal-content h3,
+.modal-content p {
+    text-align: center;
+    /*  제목, 설명만 가운데 */
 }
 
 .confirm-btn {

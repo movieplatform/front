@@ -72,8 +72,10 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
                 selectedSeatIds: selectedSeats.map((s) => s.id),
             }, { withCredentials: true });
 
+            const bookingId = res.data;
             alert(res.data); // "예약정보 저장 완료!!"
             onNext({
+                bookingId,
                 people,
                 selectedSeats,
             }); //  BookingPage에 데이터 전달

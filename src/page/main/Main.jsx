@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CarouselRow from "./CarouselRow";
 import { getMovies } from "../api/movies";
-import axios from "axios";
 import Faq from "./Faq";
 import Footer from "../commonUI/Footer"
 import "./main.css";
@@ -11,7 +10,7 @@ import "./main.css";
 export default function Main() {
   const [movies, setMovies] = useState([]);
 
-  
+
   useEffect(() => {
     getMovies()
       .then(setMovies) // 바로 배열로 들어옴

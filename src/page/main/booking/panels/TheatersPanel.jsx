@@ -8,7 +8,7 @@ export default function TheatersPanel({ onSelect }) {
     const [activeRegion, setActiveRegion] = useState("");
     const [activeTheater, setActiveTheater] = useState(null);
 
-    
+
     useEffect(() => {
         axios
             .get("http://localhost:8080/api/reservation/theaters", {

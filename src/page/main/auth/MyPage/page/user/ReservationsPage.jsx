@@ -6,32 +6,55 @@ export default function ReservationsPage() {
   const [loading, setLoading] = useState(true);
 
   // ✅ 목업 데이터 예시
-const mockReservations = [
-  {
-    bookingCode: "0074-01",
-    movieTitle: "범죄도시4",
-    screeningTime: "2025-09-15 19:00",
-    theater: "CGV 광주첨단",
-    room: "2관",
-    people: 2,
-    seats: ["C4", "C5"],
-    reservedAt: "2025-09-10 14:32",
-    totalPrice: 22000,
-    posterUrl: crimeCityPoster // public 폴더 기준 경로인데 백엔드연결하면 url로 바뀜
-  }
-];
+  const mockReservations = [
+    {
+      bookingCode: "0074-01",
+      movieTitle: "범죄도시4",
+      screeningTime: "2025-09-15 19:00",
+      theater: "CGV 광주첨단",
+      room: "2관",
+      people: 2,
+      seats: ["C4", "C5"],
+      reservedAt: "2025-09-10 14:32",
+      totalPrice: 22000,
+      posterUrl: crimeCityPoster // public 폴더 기준 경로인데 백엔드연결하면 url로 바뀜
+    }
+  ];
 
 
   useEffect(() => {
-    fetch("/api/my-reservations")
-      .then((res) => res.json())
-      .then((data) => setReservations(data))
-      .catch(() => {
-        // 실패 시 목업 사용
+    fetch("http://localhost:8080/api/my-page/reservation", { credentials: "include" })
+      .then((res) => {
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        return res.json();
+      })
+      .then((data) => {
+        console.log("원본 예약 데이터:", data);
+
+        // 백엔드 -> 프론트 구조로 변환
+        const mapped = data.map((rsv) => ({
+          bookingCode: rsv.bookingId, // bookingId를 코드처럼 사용
+          movieTitle: rsv.movieTitle,
+          screeningTime: `${rsv.screeningDate} ${rsv.startTime}`, // 날짜+시간 합치기
+          theater: rsv.theaterName,
+          room: rsv.screenName,
+          people: rsv.ticketCount,
+          seats: rsv.seatSummary ? rsv.seatSummary.split(",") : [],
+          reservedAt: "-", // reservedAt 필드 없으니 임시값
+          totalPrice: rsv.totalPrice,
+          posterUrl: rsv.posterUrl,
+        }));
+
+        setReservations(mapped);
+      })
+      .catch((err) => {
+        console.error("❌ 예약 조회 실패:", err);
         setReservations(mockReservations);
       })
       .finally(() => setLoading(false));
   }, []);
+
+
 
   return (
     <div className="reservations-section">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { FiFilm, FiMonitor, FiClock } from "react-icons/fi";
+import KnowLoginModal from "../../movies/KnowLoginModal";
 import "../css/timespanel.css";
 
 function DateItem({ date, isToday, isSelected, onClick }) {
@@ -16,21 +17,56 @@ function DateItem({ date, isToday, isSelected, onClick }) {
 }
 
 function ScheduleCard({ screening, onSelect }) {
+    const [showLoginModal, setShowLoginModal] = useState(false);
+
+    const handleClick = async () => {
+        try {
+            const res = await fetch("http://localhost:8080/api/booking/isLogin", {
+                credentials: "include",
+            });
+
+            if (!res.ok) {
+                // 401 → 로그인 안 된 상태
+                setShowLoginModal(true);
+                return;
+            }
+
+            // 200 OK → 로그인됨
+            const msg = await res.text();
+            console.log(msg);
+            onSelect?.(screening);
+            if (msg.includes("로그인이 필요")) {
+                setShowLoginModal(true);
+            } else {
+                onSelect?.(screening); // 로그인 OK → 예약 진행
+            }
+        } catch (err) {
+            console.error("❌ 로그인 체크 실패:", err);
+            setShowLoginModal(true);
+        }
+    };
+
     return (
-        <div className="schedule-card" onClick={() => onSelect?.(screening)}>
-            <div className="movie-info">
-                <FiFilm className="icon" /> {screening.movieTitle.trim()}
-            </div>
-            <div className="screen-info">
-                <span className="screen-name">
-                    <FiMonitor className="icon" /> {screening.screenName}
-                </span>
-                <div className="time-chip">
-                    <FiClock className="icon" />
-                    {screening.startTime.slice(0, 5)} ~ {screening.endTime.slice(0, 5)}
+        <>
+            <div className="schedule-card" onClick={handleClick}>
+                <div className="movie-info">
+                    <FiFilm className="icon" /> {screening.movieTitle.trim()}
+                </div>
+                <div className="screen-info">
+                    <span className="screen-name">
+                        <FiMonitor className="icon" /> {screening.screenName}
+                    </span>
+                    <div className="time-chip">
+                        <FiClock className="icon" />
+                        {screening.startTime.slice(0, 5)} ~ {screening.endTime.slice(0, 5)}
+                    </div>
                 </div>
             </div>
-        </div>
+            {/* 🔹 로그인 필요 모달 */}
+            {showLoginModal && (
+                <KnowLoginModal onClose={() => setShowLoginModal(false)} />
+            )}
+        </>
     );
 }
 
