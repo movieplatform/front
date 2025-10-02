@@ -3,7 +3,7 @@ import "./contactform.css";
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
-    inquiryType: "MOVIE", // Enum key
+    inquiryType: "영화", // Enum key
     title: "",
     content: "",
   });
@@ -78,7 +78,7 @@ export default function ContactForm() {
               required
             >
               {Object.entries(inquiryTypes).map(([key, label]) => (
-                <option key={key} value={key}>
+                <option key={key} value={label}>
                   {label}
                 </option>
               ))}
