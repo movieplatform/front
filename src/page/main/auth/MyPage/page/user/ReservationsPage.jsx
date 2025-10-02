@@ -38,11 +38,12 @@ export default function ReservationsPage() {
           screeningTime: `${rsv.screeningDate} ${rsv.startTime}`, // 날짜+시간 합치기
           theater: rsv.theaterName,
           room: rsv.screenName,
-          people: rsv.ticketCount,
-          seats: rsv.seatSummary ? rsv.seatSummary.split(",") : [],
+          people: rsv.ticketSummary,
+          seats: rsv.seatSummary,
           reservedAt: "-", // reservedAt 필드 없으니 임시값
           totalPrice: rsv.totalPrice,
           posterUrl: rsv.posterUrl,
+            ticketCount: rsv.ticketCount
         }));
 
         setReservations(mapped);
@@ -95,15 +96,15 @@ export default function ReservationsPage() {
                 </div>
                 <div className="ticket-row">
                   <span className="label">관람인원</span>
-                  <span>일반 {rsv.people}명</span>
+                  <span>{rsv.people}</span>
                 </div>
                 <div className="ticket-row">
                   <span className="label">관람좌석</span>
-                  <span>{rsv.seats?.join(", ")}</span>
+                  <span>{rsv.seats}</span>
                 </div>
                 <div className="ticket-row">
                   <span className="label">매수</span>
-                  <span>{rsv.people}매</span>
+                  <span>{rsv.ticketCount}매</span>
                 </div>
               </div>
             </div>
