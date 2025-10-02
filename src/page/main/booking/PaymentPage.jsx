@@ -36,29 +36,54 @@ export default function PaymentPage({ bookingInfo }) {
     }, [bookingInfo]);
 
     // 🔹 결제 로직은 아직 구현 안 함
-   // 🔹 결제 로직
-const handlePayment = async () => {
-    if (!reservationInfo) return;
+    // 🔹 결제 로직
+    const handlePayment = async () => {
+        if (!reservationInfo) return;
 
-    try {
-        const res = await fetch(
-            `http://localhost:8080/api/payment?usedPoint=${usedPoint}&bookingId=${bookingInfo.bookingId}`,
-            {
-                method: "POST",
-                credentials: "include", // 세션 쿠키 같이 보냄
-            }
-        );
+        try {
+            const res = await fetch(
+                `http://localhost:8080/api/payment?usedPoint=${usedPoint}&bookingId=${bookingInfo.bookingId}`,
+                {
+                    method: "POST",
+                    credentials: "include", // 세션 쿠키 같이 보냄
+                }
+            );
 
-        if (!res.ok) throw new Error("결제 실패");
+            if (!res.ok) throw new Error("결제 실패");
 
-        const msg = await res.text();
-        alert(msg); // "결제 완료!!"
-        navigate("/"); // 결제 후 홈으로 이동 (필요시 다른 페이지로)
-    } catch (err) {
-        console.error("❌ 결제 에러:", err);
-        alert("결제 중 오류가 발생했습니다.");
-    }
-};
+            const msg = await res.text();
+            alert(msg); // "결제 완료!!"
+            navigate("/"); // 결제 후 홈으로 이동 (필요시 다른 페이지로)
+        } catch (err) {
+            console.error("❌ 결제 에러:", err);
+            alert("결제 중 오류가 발생했습니다.");
+        }
+    };
+
+
+    // 예약 취소 로직
+    const handleCancel = async () => {
+        if (!bookingInfo?.bookingId) return;
+
+        try {
+            const res = await fetch(
+                `http://localhost:8080/api/payment/cancel?bookingId=${bookingInfo.bookingId}`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                }
+            );
+
+            if (!res.ok) throw new Error("예약 취소 실패");
+
+            const msg = await res.text();
+            alert(msg); // "예약 취소!!"
+            navigate("/"); // 취소 후 홈으로 이동 (필요시 다른 페이지로 이동)
+        } catch (err) {
+            console.error("❌ 예약 취소 에러:", err);
+            alert("예약 취소 중 오류가 발생했습니다.");
+        }
+    };
 
     return (
         <div className="payment-page">
@@ -111,7 +136,7 @@ const handlePayment = async () => {
 
             {/* 버튼 */}
             <div className="actions">
-                <button onClick={() => navigate("/")}>취소</button>
+                <button onClick={handleCancel}>취소</button>
                 <button onClick={handlePayment}>결제 완료</button>
             </div>
         </div>
