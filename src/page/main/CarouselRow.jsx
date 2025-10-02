@@ -55,7 +55,7 @@ export default function CarouselRow({ movies = [], title = "평점 높은 영화
     const cards =
     movies.length > 0
         ? movies.map((m) => (
-            <a key={m.id} className="card" href={`/movie/${m.id}`}>
+            <a key={m.id} className="card" href={`/movies/${m.id}`}>
                 <div className={`rank rank-${m.rank}`}>{m.rank}</div>
                 
                 {/* 포스터 컨테이너 추가 */}

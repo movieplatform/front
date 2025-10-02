@@ -41,11 +41,17 @@ function App() {
             }
           />
           <Route path="/admin/*" element={<AdminPageLayout />} />
-
           <Route path="/booking" element={<BookingPage />} />
           <Route path="/movies" element={<MoviesPage />} />
           <Route path="/movies/:docId" element={<MoviesDetail />} />
-           <Route path="/contactform" element={<ContactForm />} />
+           <Route
+               path="/contactform"
+               element={
+                <ProtectedRoute>
+                    <ContactForm />
+                </ProtectedRoute>
+           }
+           />
         </Route>
       </Routes>
     </Router>
