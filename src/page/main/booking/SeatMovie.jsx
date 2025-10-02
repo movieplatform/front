@@ -73,7 +73,6 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
             }, { withCredentials: true });
 
             const bookingId = res.data;
-            alert(res.data); // "예약정보 저장 완료!!"
             onNext({
                 bookingId,
                 people,
