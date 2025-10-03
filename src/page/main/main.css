@@ -134,13 +134,12 @@ body {
 
 /* .card-bottom */
 .card-bottom {
+    margin-top: 8px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 12px 14px;
-    width: 100%;
-    flex-shrink: 0;
+    flex-direction: column;
+    /* 세로 배치 */
+    gap: 4px;
+    padding: 6px 0;
 }
 
 .card:hover {
@@ -386,4 +385,32 @@ body {
     /* 한 줄 4개 */
     display: flex;
     flex-direction: column;
+}
+
+.title-rating {
+    display: flex;
+    justify-content: space-between;
+    /* 제목 좌측 / 평점 우측 */
+    align-items: center;
+}
+
+.title-rating .title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex: 1;
+    /* 너무 길면 자동 줄임 */
+}
+
+.title-rating .rating {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffd43b;
+    min-width: 50px;
+    justify-content: flex-end;
 }

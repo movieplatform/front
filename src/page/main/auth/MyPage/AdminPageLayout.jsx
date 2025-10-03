@@ -6,8 +6,7 @@ import UsersPage from "./page/admin/UsersPage";
 import MoviesPage from "./page/admin/MoviesPage";
 import ScreensPage from "./page/admin/ScreensPage";
 import ScreeningsPage from "./page/admin/ScreeningsPage";
-import PaymentsPage from "./page/admin/PaymentsPage";
-import SettingsPage from "./page/admin/SettingsPage";
+import AdminInquiriesPage from "./page/admin/AdminInquiriesPage";
 
 export default function AdminPageLayout() {
     const [activeTab, setActiveTab] = useState("users");
@@ -22,10 +21,8 @@ export default function AdminPageLayout() {
                 return <ScreensPage />;
             case "screenings":
                 return <ScreeningsPage />;
-            case "payments":
-                return <PaymentsPage />;
             case "settings":
-                return <SettingsPage />;
+                return <AdminInquiriesPage />;
             default:
                 return <UsersPage />;
         }
@@ -70,18 +67,10 @@ export default function AdminPageLayout() {
                         </li>
                         <li>
                             <button
-                                onClick={() => setActiveTab("payments")}
-                                className={activeTab === "payments" ? "active" : ""}
-                            >
-                                결제 내역
-                            </button>
-                        </li>
-                        <li>
-                            <button
                                 onClick={() => setActiveTab("settings")}
                                 className={activeTab === "settings" ? "active" : ""}
                             >
-                                포인트/리뷰 정책
+                                답변 문의
                             </button>
                         </li>
                     </ul>

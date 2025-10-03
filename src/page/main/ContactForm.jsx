@@ -16,6 +16,13 @@ export default function ContactForm() {
     USER: "사용자",
     THEATER_SCREEN: "극장/상영관",
   };
+  
+  const payload = {
+    title: formData.title,
+    content: formData.content,
+    inquiryType: inquiryTypes[formData.inquiryType], // "영화" 같은 한글 라벨로 변환
+  };
+  
 
   const resetForm = () =>
     setFormData({ inquiryType: "MOVIE", title: "", content: "" });
@@ -27,35 +34,37 @@ export default function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("📤 프론트에서 전송 준비 데이터:", formData);
+
+    console.log("📤 전송 데이터:", payload);
 
     try {
       const res = await fetch("http://localhost:8080/api/inquiry", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // 세션/토큰 쿠키 함께 전송
-        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload),
       });
 
-      console.log("📡 요청 보낸 JSON:", JSON.stringify(formData));
-
+      // 2. 응답 체크
       if (!res.ok) {
-        console.error("❌ 서버 응답 상태:", res.status, res.statusText);
-        throw new Error("서버 응답 실패");
+        const errMsg = await res.text();
+        console.error("❌ 서버 에러:", res.status, res.statusText, errMsg);
+        alert(`서버 오류 (${res.status}): ${errMsg}`);
+        return;
       }
 
+      // 3. 정상 처리
       const result = await res.text();
-      console.log("✅ 서버 응답 본문:", result);
-
+      console.log("✅ 서버 응답:", result);
       alert(result);
+
       resetForm();
     } catch (err) {
-      console.error("❌ 문의 전송 에러:", err);
-      alert("문의 전송 중 오류가 발생했습니다.");
+      console.error("❌ 네트워크/클라이언트 에러:", err);
+      alert("문의 전송 중 오류가 발생했습니다. 다시 시도해주세요.");
     }
   };
+
 
 
   return (

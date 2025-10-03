@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./main.css";
-
+import { FaStar } from "react-icons/fa";
 export default function CarouselRow({ movies = [], title = "평점 높은 영화" }) {
     const viewportRef = useRef(null);
     const trackRef = useRef(null);
@@ -53,30 +53,36 @@ export default function CarouselRow({ movies = [], title = "평점 높은 영화
         </div>
     ));
     const cards =
-    movies.length > 0
-        ? movies.map((m) => (
-            <a key={m.id} className="card" href={`/movie/${m.id}`}>
-                <div className={`rank rank-${m.rank}`}>{m.rank}</div>
-                
-                {/* 포스터 컨테이너 추가 */}
-                <div className="poster-container">
-                    {m.poster ? (
-                        <img className="poster" src={m.poster} alt={m.title} />
-                    ) : (
-                        <div className="placeholder">
-                            <div className="shimmer" />
-                            <div className="ph-text">Coming Soon</div>
-                        </div>
-                    )}
-                </div>
+        movies.length > 0
+            ? movies.map((m) => (
+                <a key={m.id} className="card" href={`/movies/${m.id}`}>
+                    <div className={`rank rank-${m.rank}`}>{m.rank}</div>
 
-                <div className="card-bottom">
-                    <div className="title">{m.title}</div>
-                    <button className="cta">자세히</button>
-                </div>
-            </a>
-        ))
-        : fallbackCards;
+                    {/* 포스터 컨테이너 추가 */}
+                    <div className="poster-container">
+                        {m.poster ? (
+                            <img className="poster" src={m.poster} alt={m.title} />
+                        ) : (
+                            <div className="placeholder">
+                                <div className="shimmer" />
+                                <div className="ph-text">Coming Soon</div>
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="card-bottom">
+                        <div className="title-rating">
+                            <span className="title">{m.title}</span>
+                            <span className="rating">
+                                <FaStar color="#ffd43b" size={14} style={{ marginRight: 2 }} />
+                                {m.averageRating?.toFixed(2) ?? "0.00"}
+                            </span>
+                        </div>
+                    </div>
+
+                </a>
+            ))
+            : fallbackCards;
 
     return (
         <section className="carousel">
