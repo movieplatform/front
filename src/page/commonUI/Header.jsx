@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import "./css/Header.css";
 import logo from "../asset/logo.png";
 import { FiSearch } from "react-icons/fi";
 import axios from "axios";
+import { debounce } from "lodash";
 import ContactForm from "../main/ContactForm";
 
 export default function Header() {
@@ -48,18 +49,22 @@ export default function Header() {
         }
     };
 
-    const handleSearch = async () => {
-        console.log("검색 실행됨!", query);
-        if (query.length > 1) {
-            // TODO: axios로 API 호출 예정
-            setResults([
-                { id: 1, title: "범죄도시4" },
-                { id: 2, title: "인사이드 아웃 2" },
-            ]);
-        } else {
-            setResults([]);
-        }
-    };
+    const debouncedSearch = useMemo(
+        () => debounce(async (q) => {
+            if(q.length < 1) return setResults([]);
+            try {
+                const res = await axios.get("http://localhost:8080/api/movies/search", {
+                    params: { keyword: q },
+                    withCredentials: true
+                });
+                setResults(res.data.map(it => ({ docId: it.docId, title: it.title })));
+            } catch (err) {
+                console.error(err);
+                setResults([]);
+            }
+        }, 300),
+        []
+    );
 
     return (
         <div className="hdr">
@@ -99,22 +104,28 @@ export default function Header() {
                             <input
                                 type="text"
                                 value={query}
-                                onChange={(e) => setQuery(e.target.value)}
-                                onFocus={() => setOpen(true)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter") {
-                                        e.preventDefault();   // 이거 중요, 안 넣으면 form submit 때문에 리렌더 안 됨
-                                        handleSearch();
-                                    }
+                                onChange={(e) => {
+                                    setQuery(e.target.value);
+                                    debouncedSearch(e.target.value);
                                 }}
                                 placeholder="영화 검색"
-                                className="search-input"
                             />
 
                             {/* 검색결과 */}
                             {open && results.length > 0 && (
                                 <div className="search-results">
-                                    {results.map(r => <div key={r.id} className="result-item">{r.title}</div>)}
+                                    {results.map(r => (
+                                        <div
+                                            key={r.docId}
+                                            className="result-item"
+                                            onClick={() => {
+                                                // 클릭하면 상세페이지로 이동
+                                                window.location.href = `/movies/${r.docId}`;
+                                            }}
+                                        >
+                                            {r.title}
+                                        </div>
+                                    ))}
                                 </div>
                             )}
                         </div>
