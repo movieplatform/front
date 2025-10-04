@@ -16,13 +16,13 @@ export default function ContactForm() {
     USER: "사용자",
     THEATER_SCREEN: "극장/상영관",
   };
-  
+
   const payload = {
     title: formData.title,
     content: formData.content,
     inquiryType: inquiryTypes[formData.inquiryType], // "영화" 같은 한글 라벨로 변환
   };
-  
+
 
   const resetForm = () =>
     setFormData({ inquiryType: "MOVIE", title: "", content: "" });
@@ -35,7 +35,7 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("📤 전송 데이터:", payload);
+    console.log(" 전송 데이터:", payload);
 
     try {
       const res = await fetch("http://localhost:8080/api/inquiry", {
