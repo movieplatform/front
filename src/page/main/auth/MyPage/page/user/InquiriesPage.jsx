@@ -7,6 +7,11 @@ export default function InquiriesPage() {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
 
+    function formatDate(dateStr) {
+        if (!dateStr) return "";
+        return dateStr.slice(0, 16).replace("T", " ");
+    }
+
   const mockInquiries = [
     {
       id: 101,
@@ -32,20 +37,36 @@ export default function InquiriesPage() {
     },
   ];
 
-  useEffect(() => {
-    fetch("/api/my-inquiries")
-      .then((res) => {
-        if (!res.ok) throw new Error("네트워크 오류");
-        return res.json();
-      })
-      .then((data) => setItems(data))
-      .catch((e) => {
-        console.warn("API 실패, 목업 데이터 사용:", e?.message);
-        setItems(mockInquiries);
-        setErr("");
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    useEffect(() => {
+        fetch("http://localhost:8080/api/my-page/inquiries", {
+            credentials: "include"
+        })// 백엔드 컨트롤러랑 맞춤
+            .then((res) => {
+                if (!res.ok) throw new Error("네트워크 오류");
+                return res.json();
+            })
+            .then((data) => {
+                // 🔥 여기서 백엔드 데이터 → 프론트용 구조 변환
+                const mapped = data.map((it) => ({
+                    id: it.id,
+                    title: it.inquiryTitle,
+                    category: it.inquiryType,
+                    createdAt: formatDate(it.inquiryDateTime),
+                    status: it.inquiryStatus === "답변완료" ? "ANSWERED" : "PENDING",
+                    question: it.inquiryContent,
+                    answer: it.answerContent,
+                    answeredAt: formatDate(it.answerDateTime)
+                }));
+                setItems(mapped);
+            })
+            .catch((e) => {
+                console.warn("API 실패, 목업 데이터 사용:", e?.message);
+                setItems(mockInquiries);
+                setErr("");
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
 
   const toggleOpen = (id) => setOpenId((cur) => (cur === id ? null : id));
 
