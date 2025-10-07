@@ -61,7 +61,9 @@ export default function UsersPage() {
             alert("탈퇴 처리 완료");
         } catch (error) {
             console.error("탈퇴 처리 실패:", error);
-            alert("탈퇴 처리 실패");
+            const errorMessage =
+                error.response?.data;
+            alert("탈퇴 처리 실패: " + errorMessage);
         }
     };
 
