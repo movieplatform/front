@@ -37,7 +37,7 @@ body {
     font-weight: 600;
     font-size: 15px;
     color: #333;
-    gap:90px;
+    gap: 90px;
 }
 
 .booking-header span {
@@ -89,39 +89,67 @@ body {
 }
 
 .steps {
-    background: #1a1d26;
-    border-right: 1px solid var(--stroke);
-    padding: 24px 12px;
     display: flex;
     flex-direction: column;
-    gap: 16px
+    gap: 20px;
+    padding: 20px;
+    background: #1b1d24;
+    border-radius: 10px;
+    font-family: "Pretendard", sans-serif;
 }
 
 .step {
     display: flex;
     align-items: center;
-    gap: 12px;
-    opacity: .7
-}
-
-.step.active {
-    opacity: 1
+    gap: 14px;
+    color: #888;
+    position: relative;
+    transition: all 0.3s ease;
 }
 
 .step .no {
     width: 36px;
     height: 36px;
-    display: grid;
-    place-items: center;
     border-radius: 50%;
-    border: 1px solid var(--stroke);
-    font-weight: 700
+    border: 2px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    background: #222;
+    transition: all 0.3s ease;
+}
+
+.step .label {
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    font-weight: 500;
+}
+
+.step.active {
+    color: #fff;
+    font-weight: 600;
+}
+
+.step.active .no {
+    background: #ffd43b;
+    border-color: #ffd43b;
+    color: #000;
+    box-shadow: 0 0 10px rgba(255, 212, 59, 0.5);
+    transform: scale(1.1);
 }
 
 .divider {
     height: 1px;
-    background: var(--stroke);
-    margin: 8px 0
+    background: linear-gradient(90deg, #333 0%, #222 100%);
+    margin-left: 50px;
+    margin-right: 10px;
+    transition: all 0.3s;
+}
+
+.step.active+.divider {
+    background: linear-gradient(90deg, #ffd43b 0%, #fff3b0 100%);
 }
 
 
@@ -253,10 +281,13 @@ body {
 .movie-row:hover {
     background: #171a23
 }
+
 .movie-row.active {
-    border: 2px solid #ff4221;   /* 클릭 시 강조 */
+    border: 2px solid #ff4221;
+    /* 클릭 시 강조 */
     background: rgba(185, 172, 122, 0.1);
-  }
+}
+
 .movie-row.selected {
     background: #1b1f2a
 }

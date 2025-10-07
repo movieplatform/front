@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "./css/Header.css";
 import logo from "../asset/logo.png";
 import { FiSearch } from "react-icons/fi";
@@ -51,7 +51,7 @@ export default function Header() {
 
     const debouncedSearch = useMemo(
         () => debounce(async (q) => {
-            if(q.length < 1) return setResults([]);
+            if (q.length < 1) return setResults([]);
             try {
                 const res = await axios.get("http://localhost:8080/api/movies/search", {
                     params: { keyword: q },
@@ -103,6 +103,7 @@ export default function Header() {
                             </button>
                             <input
                                 type="text"
+                                className="search-input"
                                 value={query}
                                 onChange={(e) => {
                                     setQuery(e.target.value);
