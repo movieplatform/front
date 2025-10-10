@@ -81,7 +81,7 @@ export default function Header() {
                         ) : (
                             <>
                                 <a href="/login">로그인</a>
-                                <span className="divider">│</span>
+                                <span className="auth-divider"></span>
                                 <a href="/register">회원가입</a>
                             </>
                         )}

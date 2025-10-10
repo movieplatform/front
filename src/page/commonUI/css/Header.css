@@ -19,7 +19,12 @@
     padding: 6px 20px;
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    /*  세로 정렬 추가 */
+    height: 36px;
+    /*  높이 고정 (시각적으로 안정적) */
 }
+
 
 .top-auth {
     display: flex;
@@ -37,10 +42,14 @@
     color: #fff;
 }
 
-.divider {
-    color: #444;
-}
-
+.auth-divider {
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    background-color: #444;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
 
 .hdr-main {
     background-color: #1b1d24;
@@ -52,10 +61,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 20px;
+    position: relative;
 }
 
-
-.hdr-main .left {
+.hdr-main .left,
+.hdr-main .right {
     display: flex;
     align-items: center;
     gap: 20px;

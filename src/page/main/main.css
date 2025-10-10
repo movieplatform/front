@@ -389,28 +389,54 @@ body {
 
 .title-rating {
     display: flex;
-    justify-content: space-between;
-    /* 제목 좌측 / 평점 우측 */
     align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    /* 내부 요소 잘림 방지 */
+    position: relative;
+    cursor: default;
 }
 
-.title-rating .title {
+/* 안쪽 콘텐츠 전체를 감싸는 래퍼 */
+.title-scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+/* ✅ hover 시 제목+평점 같이 움직임 */
+.title-rating:hover .title-scroll {
+    animation: scroll-both 6s linear infinite;
+}
+
+@keyframes scroll-both {
+    0% {
+        transform: translateX(0);
+    }
+
+    40% {
+        transform: translateX(-50%);
+        /* 이동 거리 — 제목 길이에 따라 조정 가능 */
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.title-scroll .title {
     font-size: 15px;
     font-weight: 600;
     color: #fff;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    flex: 1;
-    /* 너무 길면 자동 줄임 */
 }
 
-.title-rating .rating {
+.title-scroll .rating {
     display: flex;
     align-items: center;
     font-size: 14px;
     font-weight: 500;
     color: #ffd43b;
-    min-width: 50px;
-    justify-content: flex-end;
 }

@@ -70,7 +70,7 @@ export default function ProfilePage() {
           <span className="value">{profile.role}</span>
         </div>
 
-        <button className="delete-btn" onClick={handleWithdraw}>회원 탈퇴</button>
+        <button className="right-btn" onClick={handleWithdraw}>회원 탈퇴</button>
       </div>
     </div>
   );
