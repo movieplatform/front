@@ -82,7 +82,7 @@ body {
     border-radius: 16px;
     display: grid;
     grid-template-columns: 220px 1fr;
-    min-height: 680px;
+    min-height: 630px;
     flex-direction: center;
     overflow: hidden;
 

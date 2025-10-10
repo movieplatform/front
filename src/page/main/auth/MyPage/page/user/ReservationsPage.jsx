@@ -5,7 +5,7 @@ export default function ReservationsPage() {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ 목업 데이터 예시
+  //   목업 데이터 예시
   const mockReservations = [
     {
       bookingCode: "0074-01",
@@ -43,7 +43,7 @@ export default function ReservationsPage() {
           reservedAt: "-", // reservedAt 필드 없으니 임시값
           totalPrice: rsv.totalPrice,
           posterUrl: rsv.posterUrl,
-            ticketCount: rsv.ticketCount
+          ticketCount: rsv.ticketCount
         }));
 
         setReservations(mapped);
@@ -63,16 +63,23 @@ export default function ReservationsPage() {
 
       {loading ? (
         <p>불러오는 중...</p>
+      ) : reservations.length === 0 ? (
+        <p className="no-reservation">예매 내역이 없습니다.</p>
       ) : (
         <div className="reservation-list">
           {reservations.map((rsv, idx) => (
             <div className="reservation-ticket" key={idx}>
               <div className="ticket-left">
-                <img
-                  src={rsv.posterUrl}
-                  alt={`${rsv.movieTitle} 포스터`}
-                  className="poster"
-                />
+                <div className="ticket-left">
+                  <div className="poster-wrapper">
+                    <img
+                      src={rsv.posterUrl}
+                      alt={`${rsv.movieTitle} 포스터`}
+                      className="poster"
+                    />
+                  </div>
+                </div>
+
               </div>
               <div className="ticket-right">
                 <div className="ticket-header">

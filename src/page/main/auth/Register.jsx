@@ -32,7 +32,7 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log("회원가입 정보:", form);
-    
+
         // TODO: 백엔드 전송
 
         try {
@@ -96,7 +96,7 @@ export default function Register() {
                     {fieldErrors.password && <div className="error-text">{fieldErrors.password}</div>}
                 </label>
 
-                <div className="row">
+                <div className="name-row">
                     <label>
                         <span className="logintext">이름</span>
                         <input

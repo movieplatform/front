@@ -98,7 +98,7 @@ export default function LoginCard() {
             <ErrorModal message={error} onClose={() => setError("")} />
         </form>
 
-        
+
     );
-    
+
 }
