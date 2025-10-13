@@ -1,0 +1,140 @@
+/* ===== 패널 공통 ===== */
+.panel.movies-panel {
+    padding: 20px;
+    background: linear-gradient(160deg, #0b0d12, #171a23);
+}
+
+.movies-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #1a1d26;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+}
+
+
+/* ===== 장르 탭 ===== */
+.genre-tabs {
+    display: flex;
+    justify-content: center;
+    /* 가로 가운데 */
+    align-items: center;
+    /* 세로 가운데 */
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.genre-tabs .tab {
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: #1a1d26;
+    color: #ccc;
+    border: 1px solid #2a2f3c;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.genre-tabs .tab.active {
+    background: #ffd84d;
+    color: #111;
+    font-weight: 700;
+}
+
+/* ===== 뷰 토글 버튼 ===== */
+.view-toggle {
+    margin-left: 64px;
+    display: flex;
+    gap: 8px;
+}
+
+.view-toggle button {
+    background: #191c24;
+    border: 1px solid #2a2f3c;
+    color: #aaa;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+.view-toggle button.active {
+    background: #ffd84d;
+    color: #111;
+}
+
+/* ===== 카드형(Grid) ===== */
+.movies-body.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.movie-card {
+    background: #1a1d26;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+}
+
+.meta {
+    padding: 10px;
+    color: #fff;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.sub {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.empty {
+    padding: 40px;
+    text-align: center;
+    color: #aaa;
+}
+
+.pagination {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-btn {
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: #eee;
+    border-radius: 4px;
+}
+
+.page-btn.active {
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+}

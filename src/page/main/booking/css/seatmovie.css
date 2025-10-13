@@ -1,0 +1,174 @@
+/* 전체 페이지 */
+.seat-page {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #fff;
+  background: #1a1a1a;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+/* 영화 정보 */
+.seat-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.seat-header .poster {
+  width: 100px;
+  height: 140px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.movie-info h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.movie-info p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #bbb;
+}
+
+/* 인원 선택 */
+.people-select {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.counter .label {
+  min-width: 50px;
+  font-size: 14px;
+}
+
+.counter button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background: #444;
+  transition: background 0.2s;
+}
+
+.counter button:hover {
+  background: #666;
+}
+
+/* 스크린 */
+.screen-bar {
+  background: linear-gradient(to right, #ccc, #eee, #ccc);
+  text-align: center;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-weight: bold;
+  color: #000;
+}
+
+/* 좌석 영역 */
+.seat-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.seat-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.row-label {
+  width: 20px;
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.row-seats {
+  display: flex;
+  gap: 6px;
+}
+
+.seat {
+  width: 32px;
+  height: 32px;
+  margin: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+}
+
+.seat.available {
+  background-color: #2d2d2d;
+  /* 기본 좌석 */
+}
+
+.seat.reserved {
+  background-color: #f40000;
+  /* 예약된 좌석은 회색 */
+  cursor: not-allowed;
+  /* 마우스 올리면 클릭 불가 표시 */
+  color: #ccc;
+  /* 글자 흐리게 */
+}
+
+.seat.selected {
+  background-color: #00ff51;
+  /* 선택한 좌석은 노란색 */
+}
+
+/* 하단 버튼 */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.actions button {
+  flex: 1;
+  padding: 12px;
+  margin: 0 6px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #ffcc00;
+  color: #000;
+  transition: background 0.2s;
+}
+
+.actions button:disabled {
+  background: #666;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.actions button:hover:not(:disabled) {
+  background: #ffdd33;
+}

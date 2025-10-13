@@ -1,0 +1,228 @@
+.screenings-page {
+    padding: 20px;
+    background: #1a1d26;
+    color: #fff;
+    border-radius: 12px;
+}
+
+.screenings-page h2 {
+    color: #f0b90b;
+    margin-bottom: 12px;
+}
+
+.screening-form {
+    display: flex;
+    flex-direction: column;
+    /* 두 줄 */
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.screening-form select,
+.screening-form input {
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #111;
+    color: #fff;
+}
+
+.screening-form button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #f0b90b;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.screening-form button:hover {
+    background: #d9a600;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #12141b;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border-bottom: 1px solid #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.schedule-table th {
+    background: #222;
+    color: #f0b90b;
+}
+
+.schedule-table tr:hover {
+    background: #2a2f3a;
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.form-row>* {
+    flex: 2;
+    min-width: 150px;
+}
+
+.form-row select {
+    border-radius: 8px;
+    border: 1px solid #444;
+    background: #1a1d26;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+/* hover / focus */
+.form-row select:hover,
+.form-row select:focus {
+    border-color: #f0b90b;
+    box-shadow: 0 0 6px rgba(240, 185, 11, 0.6);
+}
+
+
+.form-row select option {
+    background-color: #1a1d26;
+    /* 옵션 배경 */
+    color: #fff;
+    /* 옵션 글자 */
+}
+
+/* hover되는 옵션 */
+.form-row select option:hover {
+    background: #f0b90b;
+    color: #000;
+}
+
+.form-row label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    /* 줄바꿈 방지 */
+    color: #fff;
+    font-size: 10px;
+}
+
+.form-row button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #f0b90b;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.form-row button:hover {
+    background: #d9a600;
+}
+
+.time-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    /* 손가락 커서 */
+}
+
+.schedule-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.schedule-card {
+    background: #2d2d2d;
+    color: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+}
+
+.schedule-card:hover {
+    transform: translateY(-4px);
+}
+
+.schedule-card h4 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: #ffcc00;
+}
+
+.screen-block h5 {
+    margin: 8px 0;
+    font-size: 16px;
+    color: #ccc;
+}
+
+.screen-block ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.screen-block li {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.screen-block li:last-child {
+    border-bottom: none;
+}
+
+.time {
+    font-weight: bold;
+    color: #aaa;
+}
+
+.title {
+    text-align: right;
+    flex: 1;
+    margin-left: 12px;
+}
+
+.theater-btn {
+    background: #2a2e38;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 6px 12px;
+    margin: 0 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theater-btn:hover {
+    background: #3a3f4a;
+    border-color: #ffcc00;
+}
+
+.theater-btn.active {
+    background: #ffcc00;
+    color: #1a1d26;
+    font-weight: bold;
+    border-color: #ffcc00;
+}

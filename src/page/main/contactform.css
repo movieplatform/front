@@ -1,0 +1,207 @@
+/* 스코프 변수 */
+.contact-form {
+  --bg: #1a1a1a;
+  --panel: #13141a;
+  --border: #2a2d36;
+  --text: #ffffff;
+  --muted: #9aa0a6;
+  --accent: #ffcc00;
+}
+
+/* 컨테이너 카드 */
+.contact-form {
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+/* 헤더 */
+.cf-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: var(--accent);
+}
+
+.cf-sub {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* 폼 */
+.cf-form {
+  margin-top: 18px;
+}
+
+.cf-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+
+@media (min-width: 720px) {
+  .cf-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.cf-full {
+  grid-column: 1 / -1;
+}
+
+/* 필드 그룹 */
+.cf-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #d7d7d7;
+}
+
+.cf-group input,
+.cf-group select,
+.cf-group textarea {
+  width: 100%;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+.cf-group input::placeholder,
+.cf-group textarea::placeholder {
+  color: #7f8792;
+}
+
+.cf-group input:focus,
+.cf-group select:focus,
+.cf-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, .15);
+}
+
+/* 버튼 영역 */
+.cf-actions {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+
+
+/* 에러 상태(원할 때 클래스만 추가) */
+.cf-group .error {
+  border-color: #e74c3c !important;
+  background: #2a1313 !important;
+}
+
+/* 텍스트영역 높이 조정(선호시) */
+.cf-group textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+
+.contact-form {
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #2a2d36;
+  border-radius: 14px;
+  padding: 28px 32px;
+  max-width: 640px;
+  margin: 40px auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+.cf-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: #ffcc00;
+}
+
+.cf-sub {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #aaa;
+  border-bottom: 1px solid #2a2d36;
+  padding-bottom: 12px;
+}
+
+.cf-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.cf-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #ccc;
+}
+
+.cf-group input,
+.cf-group select,
+.cf-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #2a2d36;
+  background: #13141a;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.cf-group input:focus,
+.cf-group select:focus,
+.cf-group textarea:focus {
+  border-color: #ffcc00;
+  box-shadow: 0 0 0 3px rgba(255, 204, 0, 0.2);
+}
+
+.cf-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  padding: 11px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.btn.ghost {
+  background: #2a2d36;
+  color: #fff;
+}
+.btn.ghost:hover {
+  background: #3a3d46;
+}
+
+.btn.primary {
+  background: #cdb867;
+  color: #000;
+}
+.btn.primary:hover {
+  background: #cec8b2;
+}

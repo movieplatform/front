@@ -1,0 +1,49 @@
+.users-page {
+    color: #fff;
+  }
+  
+  .users-page h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+  
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #1a1d26;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .users-table th,
+  .users-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    font-size: 14px;
+  }
+  
+  .users-table th {
+    background: #2a2f3a;
+    font-weight: 600;
+  }
+  
+  .users-table tr:hover {
+    background: #2f3542;
+  }
+  
+  .admindelete-btn {
+    padding:10px;
+    background: #ff4d4f;
+    color: #fff;
+    border: none;
+    border-radius:4px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  
+  .delete-btn:hover {
+    background: #d9363e;
+  }
+  

@@ -1,0 +1,231 @@
+/* ===== Header 전체 ===== */
+.hdr {
+    width: 100%;
+    font-family: 'Pretendard', sans-serif;
+    color: #fff;
+}
+
+
+.hdr-top {
+    background-color: #111;
+    /* 진한 배경 */
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hdr-top .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 6px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /*  세로 정렬 추가 */
+    height: 36px;
+    /*  높이 고정 (시각적으로 안정적) */
+}
+
+
+.top-auth {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-auth a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.top-auth a:hover {
+    color: #fff;
+}
+
+.auth-divider {
+    display: inline-block;
+    width: 1px;
+    height: 14px;
+    background-color: #444;
+    margin: 0 8px;
+    vertical-align: middle;
+  }
+
+.hdr-main {
+    background-color: #1b1d24;
+}
+
+.hdr-main .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.hdr-main .left,
+.hdr-main .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+.logo img {
+    height: 60px;
+    display: block;
+}
+
+
+
+.hdr-main .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.navlink {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.25s, transform 0.25s;
+    font-weight: 700;
+    margin-left: 30px;
+}
+
+.navlink:hover {
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.navlink.active {
+    font-weight: 600;
+}
+
+
+.mypage {
+    padding: 6px 14px;
+    border-radius: 20px;
+    color: #fff !important;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.mypage:hover {
+    background: #FFCC00;
+}
+
+.logout-btn {
+    margin-right: 10px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    max-width: 40px;
+    /* 아이콘만 보이게 */
+}
+
+.search-box.open {
+    background: #2a2a2a;
+    padding: 4px 12px;
+    max-width: 220px;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
+}
+
+.search-box .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #fff;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+}
+
+.search-box.open .search-input {
+    opacity: 1;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    /* input 아래 붙도록 유지 */
+    left: 0;
+    width: 100%;
+    /* 전체 가로폭 차지 */
+    height: 400px;
+    /* 원하는 만큼 크게 (예: 400px) */
+    background: #1a1a1a;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+    z-index: 9999;
+    overflow-y: auto;
+    /* 내용 많으면 스크롤 */
+    padding: 20px;
+    /* 내부 여백 */
+}
+
+
+.result-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.2s;
+}
+
+.result-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.hdr-main .container {
+    overflow: visible;
+    /*  드롭다운이 잘리지 않음 */
+    position: relative;
+    /*  search-results absolute 기준 */
+}

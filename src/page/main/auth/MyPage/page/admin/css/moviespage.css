@@ -1,0 +1,105 @@
+.movies-page {
+    padding: 20px;
+    color: #fff;
+    background: #1a1d26;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.movies-page h2 {
+    margin-bottom: 16px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #f0b90b;
+}
+
+.movie-filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.movie-filter-form input {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #111;
+    color: #fff;
+    font-size: 14px;
+}
+
+.movie-filter-form button {
+    padding: 4px;
+    border: none;
+    border-radius: 6px;
+    background: #f0b90b;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.movie-filter-form label.full-width {
+    flex-basis: 100%;
+    /* 줄바꿈 */
+}
+.movie-filter-form .date-range {
+    display: flex;
+    gap: 12px;   /* 시작일-종료일 간격 */
+    flex-basis: 100%; /* 한 줄 전체 차지 */
+  }
+.movie-filter-form button:hover {
+    background: #d9a600;
+}
+
+.movie-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #12141b;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.movie-table th,
+.movie-table td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    text-align: left;
+}
+
+.movie-table th {
+    background: #222;
+    color: #f0b90b;
+}
+
+.movie-table tr:hover {
+    background: #2a2f3a;
+}
+
+.pagination {
+    margin-top: 16px;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.pagination button {
+    padding: 6px 12px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.pagination button.active {
+    background: #f0b90b;
+    color: #000;
+    font-weight: bold;
+}
+
+.pagination button:hover {
+    background: #444;
+}

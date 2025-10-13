@@ -1,0 +1,104 @@
+.faq-wrap {
+    margin-top: 20px;
+    max-width: 1080px;
+
+}
+
+.faq-header h2 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--color-text, #f7f7fb);
+}
+
+.faq-sub {
+    margin: 0 0 16px;
+    color: rgba(247, 247, 251, 0.65);
+    font-size: 14px;
+}
+
+.faq-list {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+    margin-bottom: 40px;
+    margin-left: 20px;
+}
+
+.faq-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.faq-item.open {
+    background: rgba(152, 104, 104, 0.05);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.faq-q {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+    color: var(--color-text, #f7f7fb);
+    font-size: 16px;
+}
+
+.faq-q:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.q-prefix {
+    font-weight: 800;
+    opacity: 0.9;
+}
+
+.q-text {
+    line-height: 1.4;
+}
+
+.chev {
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.faq-a {
+    padding: 20px 20px 20px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+}
+
+.a-prefix {
+    margin-top: 10px;
+    font-weight: 800;
+    color: #ffd54a;
+    /* 노란 포인트 */
+}
+
+.a-text {
+    margin: 0;
+    color: rgba(247, 247, 251, 0.85);
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* 모바일 */
+@media (max-width: 600px) {
+    .faq-q {
+        padding: 16px;
+    }
+
+    .faq-a {
+        padding: 0 16px 16px 16px;
+    }
+}

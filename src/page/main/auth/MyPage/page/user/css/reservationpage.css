@@ -1,0 +1,124 @@
+.reservations-section {
+  padding-top: 40px;
+}
+
+.reservations-section h2 {
+  font-size: 24px;
+  color: #ffcc00;
+  margin-bottom: 30px;
+}
+
+.reservation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.reservation-ticket {
+  display: flex;
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  color: #fff;
+}
+
+.no-reservation {
+  text-align: center;
+  color: #ccc;
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+.reservation-ticket {
+  display: flex;
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #fff;
+}
+
+.reservation-ticket {
+  display: flex;
+  background-color: #2d2d2d;
+  border-radius: 12px;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* 왼쪽 포스터 영역 */
+.ticket-left {
+  width: 200px;
+  display: flex;
+  align-items: stretch;
+  /* 세로로 꽉 채우기 */
+  background-color: #000;
+  border-right: 2px dashed #444;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* poster-wrapper가 영역을 전부 차지 */
+.poster-wrapper {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* img가 wrapper 안을 완전히 덮게 */
+.poster-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+.ticket-right {
+  flex: 1;
+  padding: 16px 22px;
+  margin-left: 30px;
+}
+
+.ticket-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #ccc;
+  margin-bottom: 8px;
+}
+
+.ticket-id {
+  font-weight: bold;
+  color: #ff5555;
+}
+
+.price {
+  color: #00ccff;
+  font-weight: bold;
+}
+
+.movie-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffcc00;
+  margin-bottom: 12px;
+}
+
+.ticket-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid #333;
+  font-size: 15px;
+}
+
+.ticket-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #bbb;
+  width: 100px;
+}

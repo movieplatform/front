@@ -1,0 +1,117 @@
+.reviews-section {
+  padding: 24px;
+  max-width: 900px;
+  margin: auto;
+  font-family: "Noto Sans KR", sans-serif;
+  color: #fff;
+}
+
+.reviews-section h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.review-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.timeline-item {
+  display: flex;
+  background: #1e1f2b;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.poster-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.poster-wrap .poster {
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+}
+
+.status {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.status.public {
+  background: #4caf50;
+  color: #fff;
+}
+
+.status.private {
+  background: #666;
+  color: #fff;
+}
+
+.timeline-content {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-title {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+}
+
+.stars {
+  font-size: 18px;
+  color: gold;
+}
+
+.stars .score {
+  margin-left: 8px;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.review-text {
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
+.timeline-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  font-size: 14px;
+  color: #aaa;
+}
+
+.actions button {
+  margin-left: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-btn {
+  color: #ffcc00;
+}
+
+.delete-btn {
+  color: #ff6666;
+}
+
+.no-reviews {
+  text-align: center;
+  padding: 40px 0;
+  color: #aaa;
+  font-size: 16px;
+}

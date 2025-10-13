@@ -1,0 +1,110 @@
+.admin-inquiries {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    font-family: "Pretendard", sans-serif;
+    color: #eee;
+}
+
+.inquiry-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inquiry-item {
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #1a1a1a;
+}
+
+.inquiry-header {
+    padding: 12px;
+    background: #2a2a2a;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    /* 제목은 왼쪽, meta는 오른쪽 */
+    align-items: center;
+}
+
+.inquiry-header:hover {
+    background: #3a3a3a;
+}
+
+.inquiry-header .title {
+    font-weight: bold;
+    color: #ffd43b;
+    text-align: left;   /*  왼쪽 정렬 */
+  }
+
+.inquiry-header .meta {
+    font-size: 12px;
+    color: #bbb;
+}
+
+.inquiry-body {
+    padding: 12px;
+    background: #111;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.inquiry-body .content {
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+textarea {
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #444;
+    padding: 8px;
+    background: #1a1a1a;
+    color: #eee;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+.answer-box {
+    display: flex;
+    flex-direction: column;
+    /*  세로 배치 */
+    gap: 6px;
+    /* textarea와 버튼 사이 간격 */
+}
+
+.submit-btn {
+    background: #ffd43b;
+    border: none;
+    padding: 4px 10px;
+    /* 버튼 크기 조절 */
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    /* 글씨 크기 작게 */
+    font-weight: 600;
+    display: inline-block;
+    /*  가로 전체 차지 방지 */
+    width: auto;
+    /*  자동 너비 */
+    margin-left: auto;
+    /*  flex 컨테이너에서 오른쪽 끝으로 */
+}
+
+
+.submit-btn:hover {
+    background: #e0b800;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

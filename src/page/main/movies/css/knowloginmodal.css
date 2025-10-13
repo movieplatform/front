@@ -1,0 +1,43 @@
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #1a1d26;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 320px;
+    /* text-align: center;  제거 */
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    /* 첫 요소 왼쪽, 마지막 요소 오른쪽 */
+    width: 100%;
+}
+
+
+.modal-content h3,
+.modal-content p {
+    text-align: center;
+    /*  제목, 설명만 가운데 */
+}
+
+.confirm-btn {
+    background: #ffd700;
+    color: #000;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
