@@ -7,7 +7,7 @@ export default function ProtectedRoute({ children }) {
     const [authorized, setAuthorized] = useState(false);
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/session", { credentials: "include" })
+        fetch(`${process.env.REACT_APP_API_URL}/api/session`, { credentials: "include" })
             .then(res => res.json())
             .then(data => setAuthorized(data)) // 로그인 여부 true/false
             .catch(() => setAuthorized(false))

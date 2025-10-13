@@ -25,7 +25,7 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
         if (!screeningInfoId) return;
 
         axios
-            .get("http://localhost:8080/api/booking/screen", {
+            .get(`${process.env.REACT_APP_API_URL}/api/booking/screen`, {
                 params: { screeningInfoId },
                 withCredentials: true,
             })
@@ -66,7 +66,7 @@ export default function SeatMovie({ screeningInfoId, movieData, screeningData,
 
     const handlePayment = async () => {
         try {
-            const res = await axios.post("http://localhost:8080/api/booking", {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/booking`, {
                 screeningInfoId,
                 tickets,
                 selectedSeatIds: selectedSeats.map((s) => s.id),

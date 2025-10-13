@@ -109,7 +109,7 @@ export default function MoviesPage() {
 
   const fetchMovies = async (filters) => {
     try {
-      const res = await axios.get("http://localhost:8080/api/admin/movies", {
+      const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/movies`, {
           params: filters,
           withCredentials: true
       });
@@ -137,7 +137,7 @@ export default function MoviesPage() {
     const loadMovies = async (filters) => {
         try {
             const res = await axios.post(
-                "http://localhost:8080/api/admin/movies",
+                `${process.env.REACT_APP_API_URL}/api/admin/movies`,
                 filters,
                 { withCredentials: true }
             );

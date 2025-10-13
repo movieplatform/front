@@ -38,7 +38,7 @@ export default function ContactForm() {
     console.log(" 전송 데이터:", payload);
 
     try {
-      const res = await fetch("http://localhost:8080/api/inquiry", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/inquiry`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

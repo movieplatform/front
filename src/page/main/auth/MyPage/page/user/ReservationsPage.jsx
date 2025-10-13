@@ -23,7 +23,7 @@ export default function ReservationsPage() {
 
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/my-page/reservation", { credentials: "include" })
+    fetch(`${process.env.REACT_APP_API_URL}/api/my-page/reservation`, { credentials: "include" })
       .then((res) => {
         if (!res.ok) throw new Error("HTTP error " + res.status);
         return res.json();

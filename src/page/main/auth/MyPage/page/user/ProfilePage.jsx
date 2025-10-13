@@ -9,7 +9,7 @@ export default function ProfilePage() {
     const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-      fetch("http://localhost:8080/api/my-page/profile", {
+      fetch(`${process.env.REACT_APP_API_URL}/api/my-page/profile`, {
           credentials: "include" // 세션 쿠키 포함
       })
       .then((res) => {
@@ -30,7 +30,7 @@ export default function ProfilePage() {
         if (!window.confirm("정말 탈퇴하시겠습니까?")) return;
 
         try {
-            const res = await fetch("http://localhost:8080/api/my-page/withdraw", {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/my-page/withdraw`, {
                 method: "POST",
                 credentials: "include",
             });

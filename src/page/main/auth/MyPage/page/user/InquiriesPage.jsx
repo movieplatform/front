@@ -38,7 +38,7 @@ export default function InquiriesPage() {
   ];
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/my-page/inquiries", {
+        fetch(`${process.env.REACT_APP_API_URL}/api/my-page/inquiries`, {
             credentials: "include"
         })// 백엔드 컨트롤러랑 맞춤
             .then((res) => {

@@ -20,7 +20,7 @@ export default function MoviesPanel() {
   //실패하면 목업데이터 들어감
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/movies", {
+      .get(`${process.env.REACT_APP_API_URL}/api/movies`, {
         params: {
           genre: activeGenre,
           page: page,

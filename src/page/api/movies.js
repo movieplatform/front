@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export const getMovies = async () => {
-  const res = await axios.get("http://localhost:8080/api/home", {
+  const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/home`, {
     withCredentials: true,
   });
   // MovieResponse → CarouselRow에서 요구하는 형태로 변환

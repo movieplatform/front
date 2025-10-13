@@ -20,12 +20,12 @@ export default function Header() {
 
     useEffect(() => {
         // 로그인 여부 체크
-        axios.get("http://localhost:8080/api/session", { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_URL}/api/session`, { withCredentials: true })
             .then(res => {
                 setLoggedIn(res.data);
                 if (res.data) {
                     // 로그인 되어 있으면 관리자 여부 체크
-                    axios.get("http://localhost:8080/api/admin/check", { withCredentials: true })
+                    axios.get(`${process.env.REACT_APP_API_URL}/api/admin/check`, { withCredentials: true })
                         .then(res => setIsAdmin(true))  // 200 → 관리자
                         .catch(err => setIsAdmin(false)); // 403 → 관리자 아님
                 } else {
@@ -41,7 +41,7 @@ export default function Header() {
     //로그아웃하는 컨트롤러만 연결 ㄱㄱ
     const handleLogout = async () => {
         try {
-            await axios.post("http://localhost:8080/api/logout", {}, { withCredentials: true });
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/logout`, {}, { withCredentials: true });
             setLoggedIn(false);
             window.location.href = "/"; // 홈으로 이동
         } catch (error) {
@@ -53,7 +53,7 @@ export default function Header() {
         () => debounce(async (q) => {
             if (q.length < 1) return setResults([]);
             try {
-                const res = await axios.get("http://localhost:8080/api/movies/search", {
+                const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/movies/search`, {
                     params: { keyword: q },
                     withCredentials: true
                 });

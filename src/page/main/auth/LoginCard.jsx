@@ -19,7 +19,7 @@ export default function LoginCard() {
         console.log("로그인 시도:", account, password, saveId);
         try {
             const response = await axios.post(
-                "http://localhost:8080/api/login",
+                `${process.env.REACT_APP_API_URL}/api/login`,
                 { username: account, password: password },
                 {
                     withCredentials: true, //쿠키 주고 받는거 true
@@ -37,7 +37,7 @@ export default function LoginCard() {
 
     const handleGoogleLogin = () => {
         // 백엔드 서버의 OAuth2 시작 URL로 리다이렉션
-        window.location.href = "http://localhost:8080/oauth2/authorization/google";
+        window.location.href = `${process.env.REACT_APP_API_URL}/oauth2/authorization/google`;
     };
 
     return (

@@ -21,7 +21,7 @@ function ScheduleCard({ screening, onSelect }) {
 
     const handleClick = async () => {
         try {
-            const res = await fetch("http://localhost:8080/api/booking/isLogin", {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/booking/isLogin`, {
                 credentials: "include",
             });
 
@@ -113,7 +113,7 @@ export default function TimesPanel({
         const dateStr = selectedDate.toISOString().slice(0, 10);
 
         fetch(
-            `http://localhost:8080/api/reservation/screenInfo?theaterId=${selectedTheater.id}&docId=${selectedMovie.docId}&screeningDate=${dateStr}`,
+            `${process.env.REACT_APP_API_URL}/api/reservation/screenInfo?theaterId=${selectedTheater.id}&docId=${selectedMovie.docId}&screeningDate=${dateStr}`,
             { credentials: "include" }
         )
             .then((res) => {

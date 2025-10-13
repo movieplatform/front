@@ -37,8 +37,8 @@ export default function MovieReviews({ docId }) {
     useEffect(() => {
         const endpoint =
             sortType === "latest"
-                ? `http://localhost:8080/api/reviews/${docId}/latest`
-                : `http://localhost:8080/api/reviews/${docId}/rating`;
+                ? `${process.env.REACT_APP_API_URL}/api/reviews/${docId}/latest`
+                : `${process.env.REACT_APP_API_URL}/api/reviews/${docId}/rating`;
 
         axios
             .get(endpoint)
@@ -62,7 +62,7 @@ export default function MovieReviews({ docId }) {
 
         try {
             const response = await axios.post(
-                `http://localhost:8080/api/reviews/${docId}`,
+                `${process.env.REACT_APP_API_URL}/api/reviews/${docId}`,
                 {
                     rating: newReview.rating,
                     content: newReview.text,
