@@ -26,6 +26,7 @@ jobs:
           npm run build
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_DEV_URL }}
+          CI: false
 
 
       - name: Configure AWS Credentials
