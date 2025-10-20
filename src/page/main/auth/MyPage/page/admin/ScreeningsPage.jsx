@@ -26,7 +26,7 @@ export default function ScreeningsPage() {
 
         try {
             const res = await axios.post(
-                "http://localhost:8080/api/admin/screenings",
+                `${process.env.REACT_APP_API_URL}/api/admin/screenings`,
                 null,
                 { params: { screenId: form.screen }, withCredentials: true }
             );
@@ -48,7 +48,7 @@ export default function ScreeningsPage() {
 
     const fetchTheaters = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/api/admin/theaters", { withCredentials: true });
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/theaters`, { withCredentials: true });
             const options = res.data.map((t) => ({
                 value: t.id,
                 label: t.theaterName
@@ -64,7 +64,7 @@ export default function ScreeningsPage() {
         try {
             const res = await axios.get(
                 // URL을 백틱으로 감싸야 ${theaterId} 변수가 제대로 적용됩니다.
-                `http://localhost:8080/api/admin/screens/${theaterId}`,
+                `${process.env.REACT_APP_API_URL}/api/admin/screens/${theaterId}`,
                 { withCredentials: true }
             );
             const options = res.data.map((s) => ({
@@ -80,7 +80,7 @@ export default function ScreeningsPage() {
     const fetchSchedules = async (theaterId) => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/api/admin/screenings/${theaterId}`,
+                `${process.env.REACT_APP_API_URL}/api/admin/screenings/${theaterId}`,
                 { withCredentials: true }
             );
             console.log("조회된 상영일정:", res.data);

@@ -6,7 +6,7 @@ function AdminRoute({ children }) {
     const [authorized, setAuthorized] = useState(null);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/api/admin/check", { withCredentials: true })
+        axios.get(`${process.env.REACT_APP_API_URL}/api/admin/check`, { withCredentials: true })
             .then(() => setAuthorized(true))   // 성공 → 관리자 접근 가능
             .catch((err) => {
                 if (err.response && err.response.status === 403) {

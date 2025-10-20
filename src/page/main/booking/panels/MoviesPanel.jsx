@@ -15,7 +15,7 @@ export default function MoviesPanel({ onSelect, selectedMovie }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/reservation/movies")
+      .get(`${process.env.REACT_APP_API_URL}/api/reservation/movies`)
       .then((res) => {
         console.log("API 응답:", res.data);
         if (Array.isArray(res.data)) {

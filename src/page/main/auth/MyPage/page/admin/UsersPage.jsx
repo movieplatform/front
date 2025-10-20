@@ -41,7 +41,7 @@ export default function UsersPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/admin/users", { withCredentials: true })
+      .get(`${process.env.REACT_APP_API_URL}/api/admin/users`, { withCredentials: true })
       .then((res) => {
         setUsers(res.data); // API 결과
       })
@@ -56,7 +56,7 @@ export default function UsersPage() {
         if (!window.confirm("정말로 탈퇴 처리하시겠습니까?")) return;
 
         try {
-            await axios.post(`http://localhost:8080/api/admin/users/${id}/status`, {}, { withCredentials: true });
+            await axios.post(`${process.env.REACT_APP_API_URL}/api/admin/users/${id}/status`, {}, { withCredentials: true });
             setUsers((prev) => prev.filter((u) => u.id !== id));
             alert("탈퇴 처리 완료");
         } catch (error) {

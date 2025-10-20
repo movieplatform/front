@@ -14,7 +14,7 @@ export default function PaymentPage({ bookingInfo }) {
         const fetchReservation = async () => {
             try {
                 const res = await fetch(
-                    `http://localhost:8080/api/payment/reservation?bookingId=${bookingInfo.bookingId}`,
+                    `${process.env.REACT_APP_API_URL}/api/payment/reservation?bookingId=${bookingInfo.bookingId}`,
                     {
                         method: "GET",
                         credentials: "include",   // 세션 쿠키 같이 보냄
@@ -42,7 +42,7 @@ export default function PaymentPage({ bookingInfo }) {
 
         try {
             const res = await fetch(
-                `http://localhost:8080/api/payment?usedPoint=${usedPoint}&bookingId=${bookingInfo.bookingId}`,
+                `${process.env.REACT_APP_API_URL}/api/payment?usedPoint=${usedPoint}&bookingId=${bookingInfo.bookingId}`,
                 {
                     method: "POST",
                     credentials: "include", // 세션 쿠키 같이 보냄
@@ -67,7 +67,7 @@ export default function PaymentPage({ bookingInfo }) {
 
         try {
             const res = await fetch(
-                `http://localhost:8080/api/payment/cancel?bookingId=${bookingInfo.bookingId}`,
+                `${process.env.REACT_APP_API_URL}/api/payment/cancel?bookingId=${bookingInfo.bookingId}`,
                 {
                     method: "GET",
                     credentials: "include",

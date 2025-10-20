@@ -11,7 +11,7 @@ export default function TheatersPanel({ onSelect }) {
 
     useEffect(() => {
         axios
-            .get("http://localhost:8080/api/reservation/theaters", {
+            .get(`${process.env.REACT_APP_API_URL}/api/reservation/theaters`, {
                 withCredentials: true,
             })
             .then((res) => {

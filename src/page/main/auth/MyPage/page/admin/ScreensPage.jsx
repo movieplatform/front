@@ -12,7 +12,7 @@ function TheaterForm({ onAdd }) {
 
         try {
             await axios.post(
-                "http://localhost:8080/api/admin/theaters",
+                `${process.env.REACT_APP_API_URL}/api/admin/theaters`,
                 null,
                 { params: { theaterName: name }, withCredentials: true }
             );
@@ -104,7 +104,7 @@ function SeatManager({ screen }) {
     const fetchSeatCount = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8080/api/admin/seat/${screen.id}`,
+                `${process.env.REACT_APP_API_URL}/api/admin/seat/${screen.id}`,
                 { withCredentials: true }
             );
             setSeatCount(res.data);
@@ -121,7 +121,7 @@ function SeatManager({ screen }) {
     const handleCreateSeats = async () => {
         try {
             const res = await axios.post(
-                `http://localhost:8080/api/admin/seat/${screen.id}`,
+                `${process.env.REACT_APP_API_URL}/api/admin/seat/${screen.id}`,
                 null,
                 { params: { rows, cols }, withCredentials: true }
             );
@@ -175,12 +175,12 @@ export default function ScreensPage() {
     const [activeScreen, setActiveScreen] = useState(null);
 
     const fetchTheaters = async () => {
-        const res = await axios.get("http://localhost:8080/api/admin/theaters", { withCredentials: true });
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/theaters`, { withCredentials: true });
         setTheaters(res.data);
     };
 
     const fetchScreens = async (theaterId) => {
-        const res = await axios.get(`http://localhost:8080/api/admin/screens/${theaterId}`, { withCredentials: true });
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/admin/screens/${theaterId}`, { withCredentials: true });
         setScreens(res.data);
         setActiveScreen(null); // 극장 새로 고르면 좌석 관리 초기화
     };

@@ -7,7 +7,7 @@ export default function AdminInquiriesPage() {
   const [openId, setOpenId] = useState(null); // ✅ 어떤 문의가 열려있는지
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/admin/inquiries", { credentials: "include" })
+    fetch(`${process.env.REACT_APP_API_URL}/api/admin/inquiries`, { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setInquiries(data))
       .catch((err) => console.error("❌ 문의 목록 불러오기 실패:", err));
@@ -25,7 +25,7 @@ export default function AdminInquiriesPage() {
     }
 
     fetch(
-      `http://localhost:8080/api/admin/inquiries?inquiryId=${id}&content=${encodeURIComponent(content)}`,
+        `${process.env.REACT_APP_API_URL}/api/admin/inquiries?inquiryId=${id}&content=${encodeURIComponent(content)}`,
       {
         method: "POST",
         credentials: "include",

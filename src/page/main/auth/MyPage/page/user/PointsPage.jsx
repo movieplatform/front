@@ -8,7 +8,7 @@ export default function PointsPage() {
 
   //endpoint만 수정필요
   useEffect(() => {
-    fetch("http://localhost:8080/api/my-page/points",{
+    fetch(`${process.env.REACT_APP_API_URL}/api/my-page/points`,{
         credentials: "include"
     })
       .then((res) => {

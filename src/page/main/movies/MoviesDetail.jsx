@@ -22,7 +22,7 @@ export default function MovieDetail() {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/api/movies/${docId}`)
+            .get(`${process.env.REACT_APP_API_URL}/api/movies/${docId}`)
             .then((res) => {
                 const data = res.data;
                 console.log("응답:", res);
