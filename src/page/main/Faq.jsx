@@ -39,7 +39,7 @@ export default function FAQ({ items }) {
     return (
         <section className="faq-wrap" aria-labelledby="faq-title">
             <div className="faq-header">
-                <h2 id="faq-title">자주 찾는 질문</h2>
+                <h2 id="faq-title">자주 찾는 질문111</h2>
                 <p className="faq-sub">궁금한 점을 바로 확인해보세요</p>
             </div>
 
