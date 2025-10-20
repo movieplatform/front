@@ -130,7 +130,7 @@ export default function Header() {
                                 </div>
                             )}
                         </div>
-                        <a className="navlink active" href="/movies">영화</a>
+                        <a className="navlink active" href="/movies">영화1</a>
                         <a className="navlink" href="/booking">영화 예매</a>
                     </div>
 
